@@ -13,6 +13,7 @@ import { reducer as formReducer } from 'redux-form/immutable'
 
 import registerServiceWorker from './registerServiceWorker'
 
+import 'typeface-roboto'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
