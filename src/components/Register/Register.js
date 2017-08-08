@@ -1,5 +1,4 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import { TextForm } from '../../components/FormComponents'

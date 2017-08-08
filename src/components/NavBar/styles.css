@@ -1,0 +1,3 @@
+.title {
+  composes: clickable from 'sharedStyles/styles.css'
+}

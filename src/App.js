@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { PrivateRoute } from './config/PrivateRoute'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { validateLocalCredentials } from './redux/modules/user'
 
 import {
   HomeContainer,
@@ -14,6 +15,11 @@ import {
 import './App.css'
 
 class App extends Component {
+
+  async componentDidMount () {
+    await this.props.dispatch(validateLocalCredentials())
+  }
+
   render() {
     return (
       <MuiThemeProvider>
@@ -33,4 +39,11 @@ class App extends Component {
   }
 }
 
-export default connect()(App)
+function mapStateToProps ({user}) {
+  return {
+    isAuthenticated: user.get('isAuthenticated'),
+    isAuthenticating: user.get('isAuthenticating'),
+  }
+}
+
+export default connect(mapStateToProps)(App)

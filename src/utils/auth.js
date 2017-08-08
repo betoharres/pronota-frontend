@@ -35,7 +35,7 @@ export async function login (email, password) {
     const credentials = getCredentials(response.headers)
     if (!credentials) {throw new Error('Missing credentials at login response.')}
     writeCredentials(credentials)
-    const user = parseResponse.data
+    const user = parsedResponse.data
     return user
   } else {
     return Promise.reject(parsedResponse.errors)
