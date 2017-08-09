@@ -8,3 +8,4 @@ export { default as CompanyFormContainer } from './CompanyForm/CompanyFormContai
 export { default as CompanyContainer } from './Company/CompanyContainer'
 export { default as ClientFormContainer } from './ClientForm/ClientFormContainer'
 export { default as AffiliateFormContainer } from './AffiliateForm/AffiliateFormContainer'
+export { default as RolesContainer } from './Roles/RolesContainer'

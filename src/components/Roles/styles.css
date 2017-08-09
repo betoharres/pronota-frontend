@@ -1,0 +1,3 @@
+.rolesContainer {
+  composes: centeredContainer from 'sharedStyles/styles.css'
+}
