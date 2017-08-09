@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { PrivateRoute } from './config/PrivateRoute'
+import NotFound from './config/NotFound'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { validateLocalCredentials } from './redux/modules/user'
 
@@ -10,6 +10,7 @@ import {
   ModalContainer,
   LoginContainer,
   RegisterContainer,
+  CompanyFormContainer,
 } from './containers'
 
 import './App.css'
@@ -30,7 +31,16 @@ class App extends Component {
               <Route exact path='/' component={HomeContainer} />
               <Route exact path='/login' component={LoginContainer} />
               <Route exact path='/register' component={RegisterContainer} />
-              <Route component={() => <div>Pagina nao encontrada</div>}/>
+              {this.props.isAuthenticated
+                  ? <Switch>
+                      <Route exact path='/companies/new' component={CompanyFormContainer} />
+                      <Route exact path='/companies/:id' component={CompanyFormContainer} />
+                      <NotFound isAuthenticating={this.props.isAuthenticating}
+                        component={() => <div>Pagina nao encontrada(autenticado)</div>} />
+                    </Switch>
+                  : <NotFound isAuthenticating={this.props.isAuthenticating}
+                      component={() => <div>Pagina nao encontrada(nao autenticado)</div>} />
+              }
             </Switch>
           </Router>
         </div>

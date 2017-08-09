@@ -1,11 +1,12 @@
 import React from 'react'
-import CircularProgress from 'material-ui/CircularProgress'
+import LinearProgress from 'material-ui/LinearProgress'
+import './styles.css'
 
 export default function Loading (props) {
 
   return (
     <div className='loadingContainer'>
-      <CircularProgress size={100} thickness={7} />
+      <LinearProgress mode='indeterminate' />
     </div>
   )
 
