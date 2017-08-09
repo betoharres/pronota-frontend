@@ -6,3 +6,5 @@ export { default as CompaniesDrawerContainer } from './CompaniesDrawer/Companies
 export { default as NavBarContainer } from './NavBar/NavBarContainer'
 export { default as CompanyFormContainer } from './CompanyForm/CompanyFormContainer'
 export { default as CompanyContainer } from './Company/CompanyContainer'
+export { default as ClientFormContainer } from './ClientForm/ClientFormContainer'
+export { default as AffiliateFormContainer } from './AffiliateForm/AffiliateFormContainer'

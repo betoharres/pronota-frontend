@@ -12,6 +12,8 @@ import {
   RegisterContainer,
   CompanyFormContainer,
   CompanyContainer,
+  ClientFormContainer,
+  AffiliateFormContainer,
 } from './containers'
 
 import './App.css'
@@ -37,6 +39,10 @@ class App extends Component {
                       <Route exact path='/companies/new' component={CompanyFormContainer} />
                       <Route exact path='/companies/:id' component={CompanyContainer} />
                       <Route exact path='/companies/:id/edit' component={CompanyFormContainer} />
+                      <Route exact path='/clients/new' component={ClientFormContainer} />
+                      <Route exact path='/clients/:id' component={ClientFormContainer} />
+                      <Route exact path='/affiliates/new' component={AffiliateFormContainer} />
+                      <Route exact path='/affiliates/:id/edit' component={AffiliateFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
                         component={() => <div>Pagina nao encontrada(autenticado)</div>} />
                     </Switch>
