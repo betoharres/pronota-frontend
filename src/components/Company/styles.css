@@ -1,0 +1,86 @@
+.welcomeContainer {
+  display: flex;
+  align-items: center;
+  height: 40vh;
+  width: 100%;
+  flex-direction: column;
+  border-bottom: thin solid #607D8B;
+}
+
+.welcomeText {
+  margin-top: 5%;
+  opacity: 0.54;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.subHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* background-color: rgba(255,0,0,0.1); */
+}
+
+.subHeaderItemContainer {
+  display: flex;
+  width: 120px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.subHeaderActionButton {
+  height: 55px;
+  width: 55px;
+}
+
+.subHeaderText {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex: 1;
+  background-color: #cfd8dc;
+}
+
+.cardItemHomeContainer {
+  margin: 15px;
+}
+
+.cardItemHomeContainer img {
+  width: 300px;
+}
+
+.cardItemPaper {
+  margin-top: 20px;
+  width: 300px;
+}
+
+.cardDescription {
+  padding: 15px;
+  color: #000;
+  opacity: 0.54;
+  margin-bottom: 10px;
+}
+
+.cardDescription h3 {
+  margin-top: 0;
+}
+
+.showMoreCardBtn {
+  display: flex;
+  flex-direction: row-reverse;
+}
+@media screen and (max-width: 414px) {
+  .welcomeContainer {
+    display: none;
+  }
+}

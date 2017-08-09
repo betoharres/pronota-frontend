@@ -11,6 +11,7 @@ import {
   LoginContainer,
   RegisterContainer,
   CompanyFormContainer,
+  CompanyContainer,
 } from './containers'
 
 import './App.css'
@@ -34,6 +35,7 @@ class App extends Component {
               {this.props.isAuthenticated
                   ? <Switch>
                       <Route exact path='/companies/new' component={CompanyFormContainer} />
+                      <Route exact path='/companies/:id' component={CompanyContainer} />
                       <Route exact path='/companies/:id/edit' component={CompanyFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
                         component={() => <div>Pagina nao encontrada(autenticado)</div>} />
