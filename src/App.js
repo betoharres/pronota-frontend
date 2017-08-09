@@ -34,7 +34,7 @@ class App extends Component {
               {this.props.isAuthenticated
                   ? <Switch>
                       <Route exact path='/companies/new' component={CompanyFormContainer} />
-                      <Route exact path='/companies/:id' component={CompanyFormContainer} />
+                      <Route exact path='/companies/:id/edit' component={CompanyFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
                         component={() => <div>Pagina nao encontrada(autenticado)</div>} />
                     </Switch>
