@@ -12,7 +12,7 @@ import * as rpsActionCreators from '../../redux/modules/rps'
 class CompanyContainer extends Component {
 
   redirectToRoles () {
-    // this.context.router.push('/roles')
+    this.props.history.push('/roles')
   }
 
   async componentWillMount () {
@@ -33,8 +33,9 @@ class CompanyContainer extends Component {
   }
 
   async destroyCompany () {
-    await this.props.handleDestroyCompany(this.props.id, this.props.name)
-    // ? this.context.router.push('/account') : null
+    if (await this.props.handleDestroyCompany(this.props.id, this.props.name)) {
+      this.props.history.push('/account')
+    }
   }
 
   render () {

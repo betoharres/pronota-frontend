@@ -20,8 +20,8 @@ class CompaniesDrawerContainer extends Component {
 
   redirectToNewCompany (e) {
     e.stopPropagation()
-    // this.context.router.push('/companies/new')
     this.props.closeDrawer()
+    this.props.history.push('/companies/new')
   }
 
   selectCompany (id) {
@@ -30,7 +30,7 @@ class CompaniesDrawerContainer extends Component {
       this.props.companies.getIn([`${id}`, 'subdomain']),
       this.props.companies.getIn([`${id}`, 'name'])
     )
-    // this.context.router.push(`/companies/${id}`)
+    this.props.history.push(`/companies/${id}`)
   }
 
   render () {

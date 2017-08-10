@@ -16,7 +16,7 @@ class NavBarContainer extends Component {
   }
 
   handleHomeTap () {
-    this.context.router.push('/')
+    this.props.history.push('/')
   }
 
   render () {

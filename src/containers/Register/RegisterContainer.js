@@ -12,8 +12,9 @@ class RegisterContainer extends Component {
   }
 
   async handleUserRegistration (credentials) {
-    await this.props.dispatch(handleRegisterUser(credentials))
-      // ? this.context.router.push('/') : null
+    if (await this.props.dispatch(handleRegisterUser(credentials))){
+      this.props.history.push('/')
+    }
   }
 
   render () {

@@ -22,7 +22,7 @@ class RolesContainer extends Component {
   }
 
   goToEdit (id) {
-    // this.context.router.push(`/roles/${id}/edit`)
+    this.props.history.push(`/roles/${id}/edit`)
   }
 
   handleDestroyRole (id) {
@@ -30,7 +30,7 @@ class RolesContainer extends Component {
   }
 
   redirectToNewRoles () {
-    // this.context.router.push('/roles/new')
+    this.props.history.push('/roles/new')
   }
 
   render () {

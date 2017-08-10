@@ -17,9 +17,9 @@ class LoginContainer extends Component {
     await this.props.dispatch(authenticate(credentials))
     await this.props.dispatch(fetchAndHandleMultipleCompanies())
     if (this.props.numberOfCompanies > 0) {
-      // this.context.router.push('/account')
+      this.props.history.push('/account')
     } else {
-      // this.context.router.push('/companies/new')
+      this.props.history.push('/companies/new')
     }
   }
 

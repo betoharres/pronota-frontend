@@ -13,8 +13,9 @@ class AccountContainer extends Component {
   }
 
   async handleLogout () {
-    await this.props.dispatch(requestLogoutUser())
-    // ? this.context.router.push('/') : null
+    if(await this.props.dispatch(requestLogoutUser())) {
+      this.props.history.push('/')
+    }
   }
 
   render () {
