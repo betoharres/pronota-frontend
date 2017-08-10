@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { validateLocalCredentials } from './redux/modules/user'
 
 import {
+  AccountContainer,
   HomeContainer,
   ModalContainer,
   LoginContainer,
@@ -40,6 +41,7 @@ class App extends Component {
               <Route exact path='/register' component={RegisterContainer} />
               {this.props.isAuthenticated
                   ? <Switch>
+                      <Route exact path='/account' component={AccountContainer} />
                       <Route exact path='/companies/new' component={CompanyFormContainer} />
                       <Route exact path='/companies/:id' component={CompanyContainer} />
                       <Route exact path='/companies/:id/edit' component={CompanyFormContainer} />
