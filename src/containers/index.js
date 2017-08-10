@@ -11,3 +11,4 @@ export { default as AffiliateFormContainer } from './AffiliateForm/AffiliateForm
 export { default as RolesContainer } from './Roles/RolesContainer'
 export { default as RoleFormContainer } from './RoleForm/RoleFormContainer'
 export { default as RPSFormContainer } from './RPSForm/RPSFormContainer'
+export { default as ActivityFormContainer } from './ActivityForm/ActivityFormContainer'

@@ -1,0 +1,21 @@
+.activityContainer {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  margin: 15px;
+}
+
+.activityTitle {
+  display: flex;
+  justify-content: center;
+}
+
+.activityField {
+}
+
+.submitBtn {
+}
