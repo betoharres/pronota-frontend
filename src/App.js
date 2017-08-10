@@ -16,6 +16,7 @@ import {
   AffiliateFormContainer,
   RolesContainer,
   RPSFormContainer,
+  RoleFormContainer,
 } from './containers'
 
 import './App.css'
@@ -48,6 +49,8 @@ class App extends Component {
                       <Route exact path='/roles' component={RolesContainer} />
                       <Route exact path='/rps/new' component={RPSFormContainer} />
                       <Route exact path='/rps/:id/edit' component={RPSFormContainer} />
+                      <Route exact path='/roles/new' component={RoleFormContainer} />
+                      <Route exact path='/roles/:id/edit' component={RoleFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
                         component={() => <div>Pagina nao encontrada(autenticado)</div>} />
                     </Switch>
