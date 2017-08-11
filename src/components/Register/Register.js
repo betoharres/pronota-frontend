@@ -8,7 +8,7 @@ import './styles.css'
 function Register (props) {
 
   return (
-    <div className='centeredContainer'>
+    <div>
       <h1 className='center'>Registre-se</h1>
       <form onSubmit={props.handleSubmit}>
           <Field name='email' label='E-mail' component={TextForm} />
