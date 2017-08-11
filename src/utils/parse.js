@@ -32,9 +32,7 @@ export async function callAPI (endpoint = '/', subdomain = '',
     const request = {...{method}, headers: {...headers, ...credentials}}
     const response = await fetch(url, request)
     const newCredentials = getCredentials(response.headers)
-    if (newCredentials) {
-      writeCredentials(newCredentials)
-    }
+    if (newCredentials) { writeCredentials(newCredentials) }
     return response.status === 204 ? null : await parseResponse(response)
   } else {
     return Promise.reject('Cannot make API call. Missing credentials.')

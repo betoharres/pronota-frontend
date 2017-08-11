@@ -68,7 +68,9 @@ export async function validateCredentials () {
 
   if (response.ok) {
     const newCredentials = getCredentials(response.headers)
-    writeCredentials(newCredentials)
+    // too many reloads makes the API return empty headers,
+    // but current credentials are still valid.
+    if (newCredentials) {writeCredentials(newCredentials)}
     // get user data from response
     const { data } = await parseResponse(response)
     return data
