@@ -32,9 +32,9 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <ModalContainer />
-          <Router>
+        <Router>
+          <div>
+            <ModalContainer />
             <Switch>
               <Route exact path='/' component={HomeContainer} />
               <Route exact path='/login' component={LoginContainer} />
@@ -63,8 +63,8 @@ class App extends Component {
                       component={() => <div>Pagina nao encontrada(nao autenticado)</div>} />
               }
             </Switch>
-          </Router>
-        </div>
+          </div>
+        </Router>
       </MuiThemeProvider>
     )
   }
