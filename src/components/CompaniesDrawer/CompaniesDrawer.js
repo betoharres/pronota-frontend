@@ -13,6 +13,7 @@ export default function CompaniesDrawer ({isOpen, toggleDrawer,
     <Drawer
       docked={false}
       autoWidth={true}
+      openSecondary={true}
       open={isOpen}
       onRequestChange={(isOpen) => toggleDrawer(!isOpen)}>
       <Menu>

@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { NavBar } from '../../components'
 
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as drawerActionCreators from '../../redux/modules/drawer'
-
-import { CompaniesDrawerContainer } from '../../containers'
 
 class NavBarContainer extends Component {
 
@@ -16,17 +15,18 @@ class NavBarContainer extends Component {
   }
 
   handleHomeTap () {
-    this.props.history.push('/')
+    this.props.history.push('/account')
   }
 
   render () {
     return (
       <div>
-        <CompaniesDrawerContainer />
         <NavBar title={this.props.title}
           handleHomeTap={() => this.handleHomeTap()}
           handleDrawerTap={() => this.handleDrawerTap()}
-          handleAccountTap={() => this.handleAccountTap()}/>
+          handleAccountTap={() => this.handleAccountTap()}>
+          {this.props.children}
+        </NavBar>
       </div>
     )
   }
@@ -43,4 +43,4 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(drawerActionCreators, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBarContainer)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBarContainer))

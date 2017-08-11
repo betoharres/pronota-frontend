@@ -4,23 +4,27 @@ import IconButton from 'material-ui/IconButton'
 import HomeIcon from 'material-ui/svg-icons/action/home'
 import ReorderIcon from 'material-ui/svg-icons/action/reorder'
 
-export default function NavBar ({handleHomeTap, handleDrawerTap, title}) {
+import { CompaniesDrawerContainer } from '../../containers'
+
+export default function NavBar ({handleHomeTap, handleDrawerTap, title, children}) {
 
   return (
-    <AppBar
-      title={title}
-      iconElementLeft={
-        <div>
-          <IconButton onClick={handleDrawerTap}>
-            <ReorderIcon color={'white'} />
-          </IconButton>
+    <div>
+      <AppBar
+        title={title}
+        iconElementLeft={
           <IconButton onClick={handleHomeTap}>
             <HomeIcon color={'white'} />
           </IconButton>
-        </div>
-      }
-      style={{marginRight: 24}}
-    />
+        }
+        iconElementRight={
+          <IconButton onClick={handleDrawerTap}>
+            <ReorderIcon color={'white'} />
+          </IconButton>
+        } />
+      {children}
+      <CompaniesDrawerContainer />
+    </div>
   )
 
 }

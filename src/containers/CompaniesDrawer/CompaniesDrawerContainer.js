@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -19,7 +21,6 @@ class CompaniesDrawerContainer extends Component {
   }
 
   redirectToNewCompany (e) {
-    e.stopPropagation()
     this.props.closeDrawer()
     this.props.history.push('/companies/new')
   }
@@ -58,4 +59,4 @@ function mapDispatchToProps (dispatch) {
     dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompaniesDrawerContainer)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompaniesDrawerContainer))
