@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Login } from '../../components'
 
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchAndHandleMultipleCompanies } from '../../redux/modules/companies'
 import { setNavBarTitle } from '../../redux/modules/navBar'
-
 import { authenticate } from '../../redux/modules/user'
+import { closeModal } from '../../redux/modules/modal'
 
 class LoginContainer extends Component {
 
@@ -21,6 +22,7 @@ class LoginContainer extends Component {
     } else {
       this.props.history.push('/companies/new')
     }
+    this.props.dispatch(closeModal())
   }
 
   render () {
@@ -36,4 +38,4 @@ function mapStateToProps ({companies}) {
   }
 }
 
-export default connect(mapStateToProps)(LoginContainer)
+export default withRouter(connect(mapStateToProps)(LoginContainer))

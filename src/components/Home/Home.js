@@ -1,18 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 
 import './styles.css'
 
 export default function Home (props) {
   return (
     <div className='container'>
-      <Link to="/register">
-        <strong>{'Registrar'}</strong>
-      </Link>
+      <RaisedButton label='Registrar' onTouchTap={props.onOpenRegisterModal} />
       <br/>
-      <Link to="/login">
-        {'Entrar'}
-      </Link>
+      <FlatButton label='Login'
+        style={{color: 'white'}} onTouchTap={props.onOpenLoginModal} />
     </div>
   )
 }
