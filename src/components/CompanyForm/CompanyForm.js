@@ -2,6 +2,7 @@ import React from 'react'
 import { reduxForm, Field, FormSection } from 'redux-form/immutable'
 import { TextForm, AutoCompleteForm, SelectForm, CheckBoxForm } from '../../components/FormComponents'
 import MenuItem from 'material-ui/MenuItem'
+import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import { UF, cidades } from '../../datasources'
@@ -9,7 +10,8 @@ import './styles.css'
 
 function CompanyForm (props) {
   return (
-    <div className='companyFormField'>
+    <div className='divContainer'>
+      <Paper className='companyFormContainer'>
         <form onSubmit={props.handleSubmit}>
           <FormSection name={props.resourceName}>
             <div className='companyFormField'>
@@ -85,7 +87,8 @@ function CompanyForm (props) {
             </div>
           </FormSection>
         </form>
-      </div>
+      </Paper>
+    </div>
     )
 }
 

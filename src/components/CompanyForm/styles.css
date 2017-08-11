@@ -1,3 +1,15 @@
-.companyFormContainer {}
+.divContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.companyFormContainer {
+  width: 90%;
+  margin: 20px;
+  padding: 20px;
+}
 
-.companyFormField {}
+.companyFormField {
+  margin: 10px;
+}
