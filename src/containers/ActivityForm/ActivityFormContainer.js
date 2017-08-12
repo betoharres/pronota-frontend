@@ -12,13 +12,10 @@ class ActivityFormContainer extends Component {
 
   async componentDidMount () {
     this.props.setNavBarTitle('Editar Atividade')
-    await this.props.setUserCurrentSubdomain(this.props.currentSubdomain)
     if (!(this.props.activity) && this.props.id){
-      const activity = await this.props.fetchAndHandleActivity(
-                                      this.props.currentSubdomain, this.props.id)
-      if (activity) {
-        this.props.initialize('ActivityForm', {activity: activity})
-      }
+      const activity = await this.props
+        .fetchAndHandleActivity(this.props.currentSubdomain, this.props.id)
+      if (activity) {this.props.initialize('ActivityForm', {activity: activity})}
     } else if (this.props.activity && this.props.id) {
       this.props.initialize('ActivityForm', {activity: this.props.activity})
     } else {

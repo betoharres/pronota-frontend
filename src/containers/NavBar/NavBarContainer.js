@@ -15,7 +15,9 @@ class NavBarContainer extends Component {
   }
 
   handleHomeTap () {
-    this.props.history.push('/account')
+    this.props.currentCompanyId
+      ? this.props.history.push(`/companies/${this.props.currentCompanyId}`)
+      : this.props.history.push('/account')
   }
 
   render () {
@@ -32,10 +34,11 @@ class NavBarContainer extends Component {
   }
 }
 
-function mapStateToProps ({navBar, drawer}) {
+function mapStateToProps ({navBar, drawer, user}) {
   return {
     title: navBar.get('title'),
-    isDrawerOpen: drawer.get('isOpen')
+    isDrawerOpen: drawer.get('isOpen'),
+    currentCompanyId: user.get('currentCompanyId'),
   }
 }
 

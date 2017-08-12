@@ -15,19 +15,15 @@ class CompanyContainer extends Component {
     this.props.history.push('/roles')
   }
 
-  async componentWillMount () {
-    await this.props.setUserCurrentSubdomain(this.props.subdomain, this.props.name)
-  }
-
   async componentDidMount () {
     const { id } = this.props.match.params
     if (this.props.noCompany || staleCompany(this.props.lastUpdated)) {
       await this.props.fetchAndHandleCompany(id)
       const { subdomain, name } = this.props
-      await this.props.setUserCurrentSubdomain(subdomain, name)
+      await this.props.setUserCurrentSubdomain(subdomain, name, id)
       await this.props.fetchAndHandleMultipleRps(subdomain)
     } else if (!this.props.noCompany) {
-      this.props.fetchAndHandleUserRole(this.props.subdomain)
+      this.props.fetchAndHandleUserRole(this.props.currentSubdomain)
     }
       this.props.setNavBarTitle(this.props.name)
   }
@@ -65,6 +61,7 @@ function mapStateToProps ({companies, user}, {match}) {
       isLoadingRole: true,
       isLoadingCompany: true,
       lastUpdated: 0,
+      currentSubdomain: user.get('currentSubdomain'),
     }
   } else {
       return {

@@ -29,7 +29,8 @@ class CompaniesDrawerContainer extends Component {
     this.props.closeDrawer()
     this.props.setUserCurrentSubdomain(
       this.props.companies.getIn([`${id}`, 'subdomain']),
-      this.props.companies.getIn([`${id}`, 'name'])
+      this.props.companies.getIn([`${id}`, 'name']),
+      id
     )
     this.props.history.push(`/companies/${id}`)
   }

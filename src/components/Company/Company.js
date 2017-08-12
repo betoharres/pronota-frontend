@@ -50,7 +50,6 @@ export default function Company ({name, destroyCompany, roleName,
         : <div>
             <div className='welcomeContainer'>
               <span className='welcomeText'>{`Bem-vindo à ${name}`}</span>
-              <br />
               <div className='subHeaderContainer'>
                 <div className='subHeaderItemContainer'>
                   <FloatingActionButton backgroundColor={blue500}

@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { Account } from '../../components'
 
 import { connect } from 'react-redux'
-import { setUserCurrentSubdomain, requestLogoutUser } from '../../redux/modules/user'
+import { requestLogoutUser } from '../../redux/modules/user'
 import { setNavBarTitle } from '../../redux/modules/navBar'
 
 class AccountContainer extends Component {
 
   componentDidMount () {
-    this.props.dispatch(setUserCurrentSubdomain('', ''))
     this.props.dispatch(setNavBarTitle('Minha Conta'))
   }
 

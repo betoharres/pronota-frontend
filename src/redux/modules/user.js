@@ -69,11 +69,12 @@ export function logoutUserFailure (error) {
   }
 }
 
-export function setUserCurrentSubdomain (subdomain, companyName) {
+export function setUserCurrentSubdomain (subdomain, companyName, companyId) {
   return {
     type: SET_USER_CURRENT_SUBDOMAIN,
     subdomain: 'f7',
     companyName,
+    companyId,
   }
 }
 
@@ -106,6 +107,7 @@ export function loadingUserRoleFailure (error) {
 const initialState = fromJS({
   currentSubdomain: 'f7',
   currentCompanyName: '',
+  currentCompanyId: null,
   isAuthenticating: false,
   isAuthenticated: false,
   error: null,
@@ -241,6 +243,7 @@ export default function user (state = initialState, action) {
       return state.merge({
         currentSubdomain: action.subdomain,
         currentCompanyName: action.companyName,
+        currentCompanyId: action.companyId,
       })
 
     case LOADING_USER_ROLE :
