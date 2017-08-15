@@ -17,12 +17,12 @@ class LoginContainer extends Component {
   async handleLogin (credentials) {
     await this.props.dispatch(authenticate(credentials))
     await this.props.dispatch(fetchAndHandleMultipleCompanies())
+    this.props.dispatch(closeModal())
     if (this.props.numberOfCompanies > 0) {
       this.props.history.push('/account')
     } else {
       this.props.history.push('/companies/new')
     }
-    this.props.dispatch(closeModal())
   }
 
   render () {

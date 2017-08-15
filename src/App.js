@@ -10,8 +10,6 @@ import {
   AccountContainer,
   HomeContainer,
   ModalContainer,
-  LoginContainer,
-  RegisterContainer,
   CompanyFormContainer,
   CompanyContainer,
   ClientFormContainer,
@@ -38,8 +36,6 @@ class App extends Component {
             <ModalContainer />
             <Switch>
               <Route exact path='/' component={HomeContainer} />
-              <Route exact path='/login' component={LoginContainer} />
-              <Route exact path='/register' component={RegisterContainer} />
               {this.props.isAuthenticated
                 ? <NavBarContainer>
                     <Switch>

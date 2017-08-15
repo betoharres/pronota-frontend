@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Home } from '../../components'
+import { Redirect } from 'react-router-dom'
+import { Home, Loading } from '../../components'
 import { LoginContainer, RegisterContainer } from '../../containers'
 import { connect } from 'react-redux'
 import { openModal } from '../../redux/modules/modal'
@@ -15,15 +16,24 @@ class HomeContainer extends Component {
   }
 
   render () {
-    return (
-      <Home onOpenLoginModal={() => this.handleOpenLoginModal()}
-        onOpenRegisterModal={() => this.handleOpenRegisterModal()} />
-    )
+    if (this.props.isAuthenticated) {
+      return <Redirect to='/account' />
+    } else if (this.props.isAuthenticating) {
+      return <Loading />
+    } else {
+      return (
+        <Home onOpenLoginModal={() => this.handleOpenLoginModal()}
+          onOpenRegisterModal={() => this.handleOpenRegisterModal()} />
+      )
+    }
   }
 }
 
 function mapStateToProps ({navBar, user}) {
-  return {isAuthenticated: user.get('isAuthenticated')}
+  return {
+    isAuthenticated: user.get('isAuthenticated'),
+    isAuthenticating: user.get('isAuthenticating'),
+  }
 }
 
 export default connect(mapStateToProps)(HomeContainer)
