@@ -21,15 +21,15 @@ class CompanyContainer extends Component {
   }
 
   async componentDidMount () {
-    // if (this.props.noCompany || staleCompany(this.props.lastUpdated)) {
-    if (true) {
+    const { id } = this.props
+    if (this.props.noCompany || staleCompany(this.props.lastUpdated)) {
       await this.props.fetchAndHandleCompany(id)
-      const { subdomain, name, id } = this.props
+      const { subdomain, name } = this.props
       await this.props.setUserCurrentSubdomain(subdomain, name, id)
       await this.props.fetchAndHandleMultipleRps(subdomain)
       await this.props.fetchAndHandleUserRole(subdomain)
     } else if (!this.props.noCompany) {
-      const { subdomain, name, id } = this.props
+      const { subdomain, name } = this.props
       await this.props.setUserCurrentSubdomain(subdomain, name, id)
       if (staleUserRole(this.props.lastUpdatedUserRole))
         await this.props.fetchAndHandleUserRole(this.props.currentSubdomain)

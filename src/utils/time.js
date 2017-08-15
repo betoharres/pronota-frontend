@@ -1,6 +1,6 @@
-const companyExpiration = 36000
-const rolesExpiration = 18000
-const userRoleExpiration = 10000
+const companyExpiration = 0 // 36000
+const rolesExpiration = 0 // 18000
+const userRoleExpiration = 0 // 10000
 
 function getMilliseconds (timestamp) {
   return new Date().getTime() - new Date(timestamp).getTime()
