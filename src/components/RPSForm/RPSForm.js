@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Map } from 'immutable'
 import { Field, reduxForm, FormSection } from 'redux-form/immutable'
+import { AutoCompleteForm } from '../../components/FormComponents'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -63,7 +64,7 @@ class RPSForm extends Component {
     return (
       <DatePicker hintText={label} mode={'portrait'} fullWidth={true}
         onChange={(e, value) => input.onChange(value)}
-        value={input.value !== '' ? input.value : {}}
+        value={input.value !== '' ? {controlledDate: input.value} : {controlledDate: null}}
         {...custom} />
     )
   }
@@ -109,11 +110,10 @@ class RPSForm extends Component {
 
     return (
       <div className='rpsContainer'>
-        <h1>Novo RPS</h1>
         <form onSubmit={this.props.handleSubmit}>
           <FormSection name='rps'>
             <div className='rpsField'>
-              <Field name='prestadorAttributes' label='Prestador' component={this.renderAutoCompleteField}
+              <Field name='prestadorAttributes' label='Prestador' component={AutoCompleteForm}
                 dataSource={this.props.parsedAllCompanies} dataSourceConfig={{text: 'name', value: 'id'}}
                 normalize={(value) => {
                   if (Number.isInteger(value)) {
@@ -125,7 +125,7 @@ class RPSForm extends Component {
                 } />
             </div>
             <div className='rpsField'>
-              <Field name='tomadorAttributes' label='Tomador' component={this.renderAutoCompleteField}
+              <Field name='tomadorAttributes' label='Tomador' component={AutoCompleteForm}
                   dataSource={this.props.parsedAllCompanies} dataSourceConfig={{text: 'name', value: 'id'}}
                   normalize={(value) => {
                     if (Number.isInteger(value)) {
@@ -155,12 +155,12 @@ class RPSForm extends Component {
               </Field>
             </div>
             <div className='rpsField'>
-              <Field name='natOperId' component={this.renderAutoCompleteField}
+              <Field name='natOperId' component={AutoCompleteForm}
                 dataSourceConfig={{text: 'descricao', value: 'id'}}
                 dataSource={naturezaOperacao} label='Natureza da Operacao' />
             </div>
             <div className='rpsField'>
-              <Field name='regimeId' component={this.renderAutoCompleteField}
+              <Field name='regimeId' component={AutoCompleteForm}
                 dataSource={regimeTributacao} label='Regime Tributacao'
                 dataSourceConfig={{text: 'descricao', value: 'id'}} />
             </div>
