@@ -32,7 +32,7 @@ class CompanyFormContainer extends Component {
   }
 }
 
-function mapStateToProps ({user, companies}, {match}) {
+function mapStateToProps ({companies}, {match}) {
   const { id } = match.params
   if (id) {
     return {

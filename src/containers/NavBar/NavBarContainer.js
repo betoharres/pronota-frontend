@@ -4,6 +4,7 @@ import { NavBar } from '../../components'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { requestLogoutUser } from '../../redux/modules/user'
 import * as drawerActionCreators from '../../redux/modules/drawer'
 
 class NavBarContainer extends Component {
@@ -20,13 +21,22 @@ class NavBarContainer extends Component {
       : this.props.history.push('/account')
   }
 
+  async handleLogout () {
+    if(await this.props.requestLogoutUser()) {
+      this.props.closeDrawer()
+      this.props.history.push('/')
+    }
+  }
+
   render () {
     return (
       <div>
         <NavBar title={this.props.title}
           handleHomeTap={() => this.handleHomeTap()}
           handleDrawerTap={() => this.handleDrawerTap()}
-          handleAccountTap={() => this.handleAccountTap()}>
+          handleAccountTap={() => this.handleAccountTap()}
+          isDrawerOpen={this.props.isDrawerOpen}
+          onLogout={() => this.handleLogout()}>
           {this.props.children}
         </NavBar>
       </div>
@@ -43,7 +53,7 @@ function mapStateToProps ({navBar, drawer, user}) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators(drawerActionCreators, dispatch)
+  return bindActionCreators({...drawerActionCreators, ...{requestLogoutUser}}, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBarContainer))
