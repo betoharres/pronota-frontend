@@ -10,12 +10,12 @@ class ClientFormContainer extends Component {
 
   async componentDidMount () {
     if (this.props.id) {
+      this.props.setNavBarTitle('Editar Cliente')
       if (await this.props.fetchAndHandleClient(this.props.currentSubdomain, this.props.id)) {
         this.props.initialize('CompanyForm', {cliente: this.props.client})
-        this.props.setNavBarTitle('Editar Cliente')
-      } else {
-        this.props.setNavBarTitle('Novo Cliente')
       }
+    } else {
+      this.props.setNavBarTitle('Novo Cliente')
     }
   }
 

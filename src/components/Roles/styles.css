@@ -1,3 +1,7 @@
+.paperRoleContainer {
+  padding: 20px;
+  margin: 20px;
+}
+
 .rolesContainer {
-  composes: centeredContainer from 'sharedStyles/styles.css'
 }

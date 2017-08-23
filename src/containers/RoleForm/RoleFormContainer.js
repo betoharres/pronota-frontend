@@ -9,11 +9,13 @@ import * as navBarActionCreators from '../../redux/modules/navBar'
 class RoleFormContainer extends Component {
 
   async componentDidMount () {
-    this.props.setNavBarTitle('Nova Permissao')
     if (this.props.id) {
+      this.props.setNavBarTitle('Editar Permissão')
       if (await this.props.fetchAndHandleRole(this.props.currentSubdomain, this.props.id)) {
         this.props.initialize('RoleForm', {role: this.props.role})
       }
+    } else {
+      this.props.setNavBarTitle('Nova Permissão')
     }
   }
 

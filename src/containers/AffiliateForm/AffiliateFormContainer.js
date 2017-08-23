@@ -10,12 +10,12 @@ class AffiliateFormContainer extends Component {
 
   async componentDidMount () {
     if (this.props.id) {
+      this.props.setNavBarTitle('Editar Filial')
       if (await this.props.fetchAndHandleAffiliate(this.props.currentSubdomain, this.props.id)) {
         this.props.initialize('CompanyForm', {affiliate: this.props.affiliate})
-        this.props.setNavBarTitle('Editar Filial')
-      } else {
-        this.props.setNavBarTitle('Nova Filial')
       }
+    } else {
+      this.props.setNavBarTitle('Nova Filial')
     }
   }
 

@@ -13,3 +13,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.rpsPaperContainer {
+  padding: 20px;
+}

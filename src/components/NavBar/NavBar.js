@@ -5,16 +5,21 @@ import HomeIcon from 'material-ui/svg-icons/action/home'
 import ReorderIcon from 'material-ui/svg-icons/action/reorder'
 import ExitIcon from 'material-ui/svg-icons/action/exit-to-app'
 
-import { CompaniesDrawerContainer } from '../../containers'
+import { AppDrawerContainer } from '../../containers'
 
 export default function NavBar ({
-  handleHomeTap, handleDrawerTap,
-  isDrawerOpen, onLogout, title, children}) {
+  handleHomeTap,
+  handleDrawerTap,
+  isDrawerOpen,
+  onLogout,
+  title,
+  children}) {
 
   return (
     <div>
       <AppBar
         title={isDrawerOpen ? '' : title}
+        titleStyle={{fontWeight: 100}}
         iconElementLeft={
           isDrawerOpen
            ? null
@@ -35,7 +40,7 @@ export default function NavBar ({
       <div style={isDrawerOpen ? {marginLeft: 250} : {}}>
         {children}
       </div>
-      <CompaniesDrawerContainer />
+      <AppDrawerContainer />
     </div>
   )
 

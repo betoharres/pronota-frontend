@@ -1,4 +1,12 @@
+.paperRoleContainer {
+  padding: 20px;
+  margin: 20px;
+}
+
 .roleFormContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .roleFormField {

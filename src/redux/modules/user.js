@@ -147,8 +147,10 @@ export function validateLocalCredentials () {
       dispatch(loginUser())
       const user = await validateCredentials()
       dispatch(loginUserSuccess(user))
+      return true
     } catch (e) {
       dispatch(loginUserFailure(e))
+      return false
     }
   }
 }

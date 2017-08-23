@@ -75,7 +75,7 @@ export async function validateCredentials () {
     const { data } = await parseResponse(response)
     return data
   } else {
-    deleteCredentials()
+    // deleteCredentials()
     return Promise.reject('Invalid token')
   }
 }

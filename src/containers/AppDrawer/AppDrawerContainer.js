@@ -8,9 +8,9 @@ import * as drawerActionCreators from '../../redux/modules/drawer'
 import * as userActionCreators from '../../redux/modules/user'
 import * as companiesActionCreators from '../../redux/modules/companies'
 
-import { CompaniesDrawer } from '../../components'
+import { AppDrawer } from '../../components'
 
-class CompaniesDrawerContainer extends Component {
+class AppDrawerContainer extends Component {
 
   state = {
     hasSmallScreen: false,
@@ -46,8 +46,10 @@ class CompaniesDrawerContainer extends Component {
     isOpen ? this.props.closeDrawer() : this.props.openDrawer()
   }
 
-  redirectToNewCompany (e) {
-    this.props.history.push('/companies/new')
+  handleRedirectTo (path) {
+    this.props.history.push(path)
+    if (this.state.hasSmallScreen && this.props.isOpen)
+      this.props.closeDrawer()
   }
 
   handleDrawerTap () {
@@ -63,21 +65,27 @@ class CompaniesDrawerContainer extends Component {
       id
     )
     this.props.history.push(`/companies/${id}`)
+    if (this.state.hasSmallScreen && this.props.isOpen)
+      this.props.closeDrawer()
   }
 
   render () {
     return (
-      <CompaniesDrawer toggleDrawer={(isOpen) => this.toggleDrawer(isOpen)}
-        isOpen={this.props.isOpen} companies={this.props.companies.delete('status')}
+      <AppDrawer toggleDrawer={(isOpen) => this.toggleDrawer(isOpen)}
+        redirectToAccount={(e) => this.redirectToAccount(e)}
+        isOpen={this.props.isOpen}
+        navBarTitle={this.props.navBarTitle}
+        companies={this.props.companies.delete('status')}
         hasSmallScreen={this.state.hasSmallScreen}
-        redirectToNewCompany={(e) => this.redirectToNewCompany(e)}
+        onRedirectTo={(e) => this.handleRedirectTo(e)}
         selectCompany={(id) => this.selectCompany(id)} />
     )
   }
 }
 
-function mapStateToProps ({drawer, companies}) {
+function mapStateToProps ({drawer, companies, navBar}) {
   return {
+    navBarTitle: navBar.get('title'),
     isOpen: drawer.get('isOpen'),
     companies,
   }
@@ -91,4 +99,4 @@ function mapDispatchToProps (dispatch) {
     dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompaniesDrawerContainer))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppDrawerContainer))
