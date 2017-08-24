@@ -24,7 +24,7 @@ import './App.css'
 
 class App extends Component {
 
-  async componentDidMount () {
+  async componentWillMount () {
     await this.props.dispatch(validateLocalCredentials())
   }
 
@@ -55,11 +55,11 @@ class App extends Component {
                       <Route exact path='/activities/new' component={ActivityFormContainer} />
                       <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
-                        component={() => <div>Pagina nao encontrada(autenticado)</div>} />
+                        component={() => <div>Pagina não encontrada(autenticado)</div>} />
                       </Switch>
                     </NavBarContainer>
                   : <NotFound isAuthenticating={this.props.isAuthenticating}
-                      component={() => <div>Pagina nao encontrada(nao autenticado)</div>} />
+                      component={() => <HomeContainer />} />
               }
             </Switch>
           </div>
