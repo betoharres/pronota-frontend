@@ -8,7 +8,7 @@ export default function Home (props) {
   return (
     <div className='container'>
       <RaisedButton label='Registrar' onTouchTap={props.onOpenRegisterModal} />
-      <br/>
+      <span style={{margin: 10}}/>
       <FlatButton label='Login'
         style={{color: 'white'}} onTouchTap={props.onOpenLoginModal} />
     </div>
