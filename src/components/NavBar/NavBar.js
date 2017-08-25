@@ -13,7 +13,9 @@ export default function NavBar ({
   isDrawerOpen,
   onLogout,
   title,
-  children}) {
+  children,
+  hasSmallScreen,
+}) {
 
   return (
     <div>
@@ -37,7 +39,7 @@ export default function NavBar ({
             <ExitIcon color='white' />
           </IconButton>
         } />
-      <div style={isDrawerOpen ? {marginLeft: 250} : {}}>
+      <div style={(isDrawerOpen && !hasSmallScreen) ? {marginLeft: 250} : {}}>
         {children}
       </div>
       <AppDrawerContainer />

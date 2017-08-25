@@ -20,9 +20,13 @@ class RolesContainer extends Component {
     this.props.setNavBarTitle('Permissões')
   }
 
-  redirectTo (selectedRow) {
+  handleRowClick (selectedRow) {
     const id = this.props.roles.valueSeq().toArray()[selectedRow].get('id')
     this.props.history.push(`/roles/${id}/edit`)
+  }
+
+  redirectTo (path) {
+    this.props.history.push(path)
   }
 
   handleDestroyRole (id) {
@@ -35,6 +39,7 @@ class RolesContainer extends Component {
         isLoading={this.props.isLoading}
         roles={this.props.roles}
         redirectTo={(path) => this.redirectTo(path)}
+        onRowClick={(selectedRow) => this.handleRowClick(selectedRow)}
         onDestroyRole={(id) => this.handleDestroyRole(id)} />
     )
   }

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NotFound from './config/NotFound'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { validateLocalCredentials } from './redux/modules/user'
+import { fetchAndHandleMultipleCompanies } from './redux/modules/companies'
 
 import {
   NavBarContainer,
@@ -18,6 +19,7 @@ import {
   RPSFormContainer,
   RoleFormContainer,
   ActivityFormContainer,
+  RPSIndexContainer,
 } from './containers'
 
 import './App.css'
@@ -25,7 +27,9 @@ import './App.css'
 class App extends Component {
 
   async componentWillMount () {
-    await this.props.dispatch(validateLocalCredentials())
+    if (await this.props.dispatch(validateLocalCredentials())) {
+      await this.props.dispatch(fetchAndHandleMultipleCompanies())
+    }
   }
 
   render() {
@@ -48,6 +52,7 @@ class App extends Component {
                       <Route exact path='/affiliates/new' component={AffiliateFormContainer} />
                       <Route exact path='/affiliates/:id/edit' component={AffiliateFormContainer} />
                       <Route exact path='/roles' component={RolesContainer} />
+                      <Route exact path='/rps' component={RPSIndexContainer} />
                       <Route exact path='/rps/new' component={RPSFormContainer} />
                       <Route exact path='/rps/:id/edit' component={RPSFormContainer} />
                       <Route exact path='/roles/new' component={RoleFormContainer} />
@@ -55,7 +60,7 @@ class App extends Component {
                       <Route exact path='/activities/new' component={ActivityFormContainer} />
                       <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
-                        component={() => <div>Pagina não encontrada(autenticado)</div>} />
+                        component={() => <div>Pagina não encontrada</div>} />
                       </Switch>
                     </NavBarContainer>
                   : <NotFound isAuthenticating={this.props.isAuthenticating}

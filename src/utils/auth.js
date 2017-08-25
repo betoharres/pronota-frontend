@@ -69,14 +69,14 @@ export async function validateCredentials () {
   if (response.ok) {
     const newCredentials = getCredentials(response.headers)
     // too many reloads makes the API return empty headers,
-    // but current credentials are still valid.
+    // but current credentials are still valid(sometimes, urgh).
     if (newCredentials) {writeCredentials(newCredentials)}
     // get user data from response
     const { data } = await parseResponse(response)
     return data
   } else {
     // deleteCredentials()
-    return Promise.reject('Invalid token')
+    return Promise.reject('Invalid local token')
   }
 }
 
@@ -85,10 +85,10 @@ export function saveQueryCredentials (query) {
     const client = query.client_id
     const { uid, expiry, token } = query
     const credentials = {'access-token': token, client, uid, expiry}
-    localStorage.setItem('default', JSON.stringify(credentials))
+    writeCredentials(credentials)
     return true
   } catch (e) {
-    console.log('Error trying to save credentials', e)
+    console.error('Error saving credentials: ', e)
     return false
   }
 }
@@ -102,7 +102,7 @@ export async function logout () {
     })
     deleteCredentials()
   } catch (e) {
-    return Promise.reject('Error requesting logout', e)
+    return Promise.reject('Error requesting logout: ', e)
   }
 }
 

@@ -106,8 +106,8 @@ export function loadingUserRoleFailure (error) {
 
 const initialState = fromJS({
   currentSubdomain: 'f7',
-  currentCompanyName: '',
-  currentCompanyId: null,
+  currentCompanyName: 'Fator7',
+  currentCompanyId: 1,
   isAuthenticating: false,
   isAuthenticated: false,
   error: null,
@@ -149,6 +149,7 @@ export function validateLocalCredentials () {
       dispatch(loginUserSuccess(user))
       return true
     } catch (e) {
+      console.error('Error validating local credentials', e)
       dispatch(loginUserFailure(e))
       return false
     }

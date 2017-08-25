@@ -123,7 +123,6 @@ export function fetchAndHandleMultipleRoles (currentSubdomain) {
       const multiplesRoles = await callAPI('/roles', currentSubdomain)
       dispatch(loadingMultipleRolesSuccess(multiplesRoles))
     } catch (e) {
-      console.log(e)
       dispatch(loadingMultipleRolesFailure(e))
     }
   }

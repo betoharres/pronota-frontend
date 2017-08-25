@@ -6,22 +6,14 @@ import { bindActionCreators } from 'redux'
 
 import * as drawerActionCreators from '../../redux/modules/drawer'
 import * as userActionCreators from '../../redux/modules/user'
-import * as companiesActionCreators from '../../redux/modules/companies'
 
 import { AppDrawer } from '../../components'
 
 class AppDrawerContainer extends Component {
 
-  state = {
-    hasSmallScreen: false,
-    width: window.innerWidth,
-    height: window.innerHeight,
-  }
-
   async componentDidMount () {
-    this.updateWindowSize()
+    this.props.shouldDockDrawer(window.innerWidth)
     window.addEventListener("resize", () => this.updateWindowSize())
-    await this.props.fetchAndHandleMultipleCompanies()
   }
 
   componentWillUnmount () {
@@ -29,17 +21,7 @@ class AppDrawerContainer extends Component {
   }
 
   updateWindowSize () {
-    const hasSmallScreen = window.innerWidth < 1024
-    if (hasSmallScreen) {
-      this.props.closeDrawer()
-    } else {
-      this.props.openDrawer()
-    }
-    this.setState({
-      hasSmallScreen,
-      width: window.innerWidth,
-      height: window.innerHeight,
-    })
+    this.props.shouldDockDrawer(window.innerWidth)
   }
 
   toggleDrawer (isOpen) {
@@ -48,7 +30,7 @@ class AppDrawerContainer extends Component {
 
   handleRedirectTo (path) {
     this.props.history.push(path)
-    if (this.state.hasSmallScreen && this.props.isOpen)
+    if (this.props.hasSmallScreen && this.props.isOpen)
       this.props.closeDrawer()
   }
 
@@ -58,44 +40,47 @@ class AppDrawerContainer extends Component {
     : this.props.openDrawer()
   }
 
-  selectCompany (id) {
+  async selectCompany (id) {
     this.props.setUserCurrentSubdomain(
       this.props.companies.getIn([`${id}`, 'subdomain']),
       this.props.companies.getIn([`${id}`, 'name']),
-      id
-    )
+      id)
+    await this.props.fetchAndHandleUserRole(this.props.currentSubdomain)
     this.props.history.push(`/companies/${id}`)
-    if (this.state.hasSmallScreen && this.props.isOpen)
+    if (this.props.hasSmallScreen && this.props.isOpen)
       this.props.closeDrawer()
   }
 
   render () {
     return (
-      <AppDrawer toggleDrawer={(isOpen) => this.toggleDrawer(isOpen)}
+      <AppDrawer
+        toggleDrawer={(isOpen) => this.toggleDrawer(isOpen)}
         redirectToAccount={(e) => this.redirectToAccount(e)}
         isOpen={this.props.isOpen}
         navBarTitle={this.props.navBarTitle}
         companies={this.props.companies.delete('status')}
-        hasSmallScreen={this.state.hasSmallScreen}
+        currentCompanyId={this.props.currentCompanyId}
+        hasSmallScreen={this.props.hasSmallScreen}
         onRedirectTo={(e) => this.handleRedirectTo(e)}
         selectCompany={(id) => this.selectCompany(id)} />
     )
   }
 }
 
-function mapStateToProps ({drawer, companies, navBar}) {
+function mapStateToProps ({drawer, companies, navBar, user}) {
   return {
-    navBarTitle: navBar.get('title'),
-    isOpen: drawer.get('isOpen'),
     companies,
+    isOpen: drawer.get('isOpen'),
+    navBarTitle: navBar.get('title'),
+    hasSmallScreen: drawer.get('hasSmallScreen'),
+    currentCompanyId: user.get('currentCompanyId'),
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...userActionCreators,
-    ...drawerActionCreators,
-    ...companiesActionCreators},
+    ...drawerActionCreators},
     dispatch)
 }
 

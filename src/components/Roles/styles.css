@@ -1,7 +1,11 @@
 .paperRoleContainer {
   padding: 20px;
-  margin: 20px;
+  /* margin: 20px; */
 }
 
-.rolesContainer {
+.newBtn {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-content: right;
 }

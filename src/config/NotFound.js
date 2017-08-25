@@ -1,6 +1,5 @@
 import React  from 'react'
 import { Loading } from '../components'
-import { HomeContainer } from '../containers'
 import { Route } from 'react-router-dom'
 
 const NotFound = ({ component: Component, ...rest }) => {

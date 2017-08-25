@@ -13,7 +13,6 @@ import { parseToAutocomplete } from '../../utils'
 class RPSFormContainer extends Component {
 
   async componentDidMount () {
-      await this.props.setUserCurrentSubdomain(this.props.currentSubdomain)
       await this.props.fetchAndHandleMultipleClients(this.props.currentSubdomain)
       await this.props.fetchAndHandleMultipleAffiliates(this.props.currentSubdomain)
 

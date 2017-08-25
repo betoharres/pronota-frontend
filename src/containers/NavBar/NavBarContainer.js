@@ -31,10 +31,12 @@ class NavBarContainer extends Component {
   render () {
     return (
       <div>
-        <NavBar title={this.props.title}
+        <NavBar
+          title={this.props.title}
           handleHomeTap={() => this.handleHomeTap()}
           handleDrawerTap={() => this.handleDrawerTap()}
           handleAccountTap={() => this.handleAccountTap()}
+          hasSmallScreen={this.props.hasSmallScreen}
           isDrawerOpen={this.props.isDrawerOpen}
           onLogout={() => this.handleLogout()}>
           {this.props.children}
@@ -49,6 +51,7 @@ function mapStateToProps ({navBar, drawer, user}) {
     title: navBar.get('title'),
     isDrawerOpen: drawer.get('isOpen'),
     currentCompanyId: user.get('currentCompanyId'),
+    hasSmallScreen: drawer.get('hasSmallScreen'),
   }
 }
 

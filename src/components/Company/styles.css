@@ -1,6 +1,6 @@
 .paperContainer {
   margin: 30px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .welcomeContainer {
@@ -85,6 +85,18 @@
   display: flex;
   flex-direction: row-reverse;
 }
+
+.newBtn {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-content: right;
+}
+
+.headerColumnText {
+  color: white;
+}
+
 @media screen and (max-width: 414px) {
   .welcomeContainer {
     display: none;

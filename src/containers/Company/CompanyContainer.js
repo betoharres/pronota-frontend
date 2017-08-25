@@ -43,12 +43,17 @@ class CompanyContainer extends Component {
     }
   }
 
+  redirectTo (path) {
+    this.props.history.push(path)
+  }
+
   render () {
     return (
       <Company name={this.props.name}
         multipleRPS={this.props.rps}
         roleName={this.props.roleName}
         destroyCompany={() => this.destroyCompany()}
+        redirectTo={(path) => this.redirectTo(path)}
         onRedirectToRoles={() => this.handleRedirectToRoles()}
         onRedirectToRPS={(rps) => this.handleRedirectToRPS(rps)}
         isLoadingCompany={this.props.isLoadingCompany}

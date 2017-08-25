@@ -3,11 +3,12 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
-import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
+import SelectField from 'material-ui/SelectField'
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline'
 import AccountIcon from 'material-ui/svg-icons/action/account-circle'
 import RoleIcon from 'material-ui/svg-icons/action/assignment-ind'
+import ReceiptIcon from 'material-ui/svg-icons/action/receipt'
 
 export default function AppDrawer ({
   isOpen,
@@ -17,6 +18,7 @@ export default function AppDrawer ({
   selectCompany,
   onRedirectTo,
   companies,
+  currentCompanyId,
 }) {
 
   return (
@@ -31,22 +33,26 @@ export default function AppDrawer ({
           titleStyle={{fontWeight: 100}}
           title={navBarTitle} />
         <Menu>
+          <Subheader>Minhas Empresas</Subheader>
+          <SelectField disabled={companies.size === 0}
+            value={Number(currentCompanyId)}
+            style={{marginLeft: 20, maxWidth: 220}}>
+            {companies.size > 0
+              ? companies.valueSeq().map((company) => (
+                <MenuItem key={company.get('id')}
+                  value={company.get('id')}
+                  primaryText={company.get('name')}
+                  onClick={() => selectCompany(company.get('id'))} />
+                ))
+              : null}
+          </SelectField>
           <MenuItem leftIcon={<AccountIcon />} primaryText='Minha Conta'
             onTouchTap={() => onRedirectTo('/account')} />
           <MenuItem leftIcon={<RoleIcon />} primaryText='Permissōes'
             onTouchTap={() => onRedirectTo('/roles')} />
-          <MenuItem leftIcon={<AddIcon />} primaryText='Novo RPS'
-            onTouchTap={() => onRedirectTo('/rps/new')} />
-          <Subheader>Minhas Empresas</Subheader>
-          <div>
-            {companies.size > 0
-            ? companies.valueSeq().map((company) => (
-              <MenuItem key={company.get('id')} primaryText={company.get('name')}
-                onClick={() => selectCompany(company.get('id'))} />
-              ))
-            : null}
-            <Divider />
-          </div>
+          <MenuItem leftIcon={<ReceiptIcon />} primaryText='RPS'
+            onTouchTap={() => onRedirectTo('/rps')} />
+          <Subheader>Criar Empresa/Cliente</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onTouchTap={() => onRedirectTo('/companies/new')} />
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Filial'
