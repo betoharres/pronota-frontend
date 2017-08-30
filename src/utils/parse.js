@@ -23,13 +23,12 @@ export async function callAPI (endpoint = '/', subdomain = '',
   subdomain = subdomain.length > 0 ? `${subdomain}.` : ''
   const url = `${API_PROTOCOL}://${subdomain}${API_DOMAIN}${endpoint}`
 
-  if ((typeof body !== 'undefined')) {
-    headers.body = JSON.stringify(parseToSneakCase(body))
-  }
-
   const credentials = readCredentials()
   if (credentials) {
     const request = {...{method}, headers: {...headers, ...credentials}}
+    if ((typeof body !== 'undefined')) {
+      request.body = JSON.stringify(parseToSneakCase(body))
+    }
     const response = await fetch(url, request)
     const newCredentials = getCredentials(response.headers)
     if (newCredentials) { writeCredentials(newCredentials) }
