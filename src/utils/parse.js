@@ -92,3 +92,18 @@ export function parseToAutocomplete (obj, objConfig) {
   ))
   return parsedObjects
 }
+
+export function paramsToObject (params) {
+  params = params.substring(1)
+  try {
+    params = JSON.parse('{"'
+      + decodeURIComponent(params)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g,'":"')
+      + '"}')
+  } catch (e) {
+    return null
+  }
+  return params
+}

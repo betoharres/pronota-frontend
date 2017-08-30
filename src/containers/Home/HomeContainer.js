@@ -17,7 +17,11 @@ class HomeContainer extends Component {
 
   render () {
     if (this.props.isAuthenticated) {
-      return <Redirect to='/account' />
+      if (this.props.companiesCount > 0) {
+        return <Redirect to='/account' />
+      } else {
+        return <Redirect to='/companies/new' />
+      }
     } else if (this.props.isAuthenticating) {
       return <Loading />
     } else {
@@ -29,8 +33,10 @@ class HomeContainer extends Component {
   }
 }
 
-function mapStateToProps ({navBar, user}) {
+function mapStateToProps ({navBar, user, companies}) {
+  companies = companies.delete('status')
   return {
+    companiesCount: companies.size,
     isAuthenticated: user.get('isAuthenticated'),
     isAuthenticating: user.get('isAuthenticating'),
   }
