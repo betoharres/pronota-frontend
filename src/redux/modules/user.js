@@ -135,7 +135,6 @@ export function authenticate (credentials) {
       const user = await login(email, password)
       dispatch(loginUserSuccess(user))
     } catch (e) {
-      console.error(e)
       dispatch(loginUserFailure(e))
     }
   }
@@ -149,7 +148,6 @@ export function validateLocalCredentials () {
       dispatch(loginUserSuccess(user))
       return true
     } catch (e) {
-      console.error('Error validating local credentials', e)
       dispatch(loginUserFailure(e))
       return false
     }
