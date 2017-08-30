@@ -1,5 +1,5 @@
 import { API_PROTOCOL, API_DOMAIN, headers } from '../config/constants'
-import { parseResponse } from './parse'
+import { parseResponse, paramsToObject } from './parse'
 
 const endpoints = {
   signOutPath:           "/auth/sign_out",
@@ -81,6 +81,7 @@ export async function validateCredentials () {
 }
 
 export function saveQueryCredentials (query) {
+  query = paramsToObject(query)
   try {
     const client = query.client_id
     const { uid, expiry, token } = query

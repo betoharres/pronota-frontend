@@ -5,7 +5,7 @@ import NotFound from './config/NotFound'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { validateLocalCredentials } from './redux/modules/user'
 import { fetchAndHandleMultipleCompanies } from './redux/modules/companies'
-import { paramsToObject, saveQueryCredentials } from './utils'
+import { saveQueryCredentials } from './utils'
 
 import {
   NavBarContainer,
@@ -28,9 +28,10 @@ import './App.css'
 class App extends Component {
 
   async componentWillMount () {
-    if (this.props.params) {
-      saveQueryCredentials(this.props.params)
+    if (window.location.search) {
+      saveQueryCredentials(window.location.search)
       await this.props.dispatch(validateLocalCredentials())
+      await this.props.dispatch(fetchAndHandleMultipleCompanies())
     } else if (this.props.dispatch(validateLocalCredentials())) {
       await this.props.dispatch(fetchAndHandleMultipleCompanies())
     }
@@ -80,7 +81,6 @@ class App extends Component {
 
 function mapStateToProps ({user}) {
   return {
-    params: paramsToObject(window.location.search),
     isAuthenticated: user.get('isAuthenticated'),
     isAuthenticating: user.get('isAuthenticating'),
   }
