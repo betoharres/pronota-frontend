@@ -7,7 +7,6 @@ import { staleCompany, staleUserRole } from '../../utils'
 import * as companiesActionsCreators from '../../redux/modules/companies'
 import * as userActionCreators from '../../redux/modules/user'
 import * as navBarActionCreators from '../../redux/modules/navBar'
-import * as rpsActionCreators from '../../redux/modules/rps'
 
 class CompanyContainer extends Component {
 
@@ -20,13 +19,11 @@ class CompanyContainer extends Component {
     this.props.history.push(`/rps/${id}/edit`)
   }
 
-  async componentDidMount () {
+  async loadCompany () {
     const { id } = this.props
     if (this.props.noCompany || staleCompany(this.props.lastUpdated)) {
-      await this.props.fetchAndHandleCompany(id)
-      const { subdomain, name } = this.props
+      const { subdomain, name } = await this.props.fetchAndHandleCompany(id)
       await this.props.setUserCurrentSubdomain(subdomain, name, id)
-      await this.props.fetchAndHandleMultipleRps(subdomain)
       await this.props.fetchAndHandleUserRole(subdomain)
     } else if (!this.props.noCompany) {
       const { subdomain, name } = this.props
@@ -34,7 +31,17 @@ class CompanyContainer extends Component {
       if (staleUserRole(this.props.lastUpdatedUserRole))
         await this.props.fetchAndHandleUserRole(this.props.currentSubdomain)
     }
-      this.props.setNavBarTitle(this.props.name)
+    this.props.setNavBarTitle(this.props.name)
+  }
+
+  async componentDidUpdate (prevProps, prevState) {
+    if (prevProps.id !== this.props.id) {
+      this.loadCompany()
+    }
+  }
+
+  async componentDidMount () {
+    this.loadCompany()
   }
 
   async destroyCompany () {
@@ -50,12 +57,9 @@ class CompanyContainer extends Component {
   render () {
     return (
       <Company name={this.props.name}
-        multipleRPS={this.props.rps}
         roleName={this.props.roleName}
         destroyCompany={() => this.destroyCompany()}
         redirectTo={(path) => this.redirectTo(path)}
-        onRedirectToRoles={() => this.handleRedirectToRoles()}
-        onRedirectToRPS={(rps) => this.handleRedirectToRPS(rps)}
         isLoadingCompany={this.props.isLoadingCompany}
         isLoadingRole={this.props.isLoadingRole} />
     )
@@ -72,7 +76,6 @@ function mapStateToProps ({companies, user, rps}, {match}) {
     return {
       id,
       noCompany,
-      rps,
       name: '',
       subdomain: '',
       roleName: '',
@@ -86,7 +89,6 @@ function mapStateToProps ({companies, user, rps}, {match}) {
       return {
         id,
         noCompany,
-        rps,
         name: company.get('name'),
         subdomain: company.get('subdomain'),
         roleName: user.getIn(['role', 'info', 'name']),
@@ -102,7 +104,6 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...companiesActionsCreators,
     ...userActionCreators,
-    ...rpsActionCreators,
     ...navBarActionCreators,
   }, dispatch)
 }

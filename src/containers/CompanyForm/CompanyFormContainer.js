@@ -18,10 +18,14 @@ class CompanyFormContainer extends Component {
     }
   }
 
-  handleSubmitCompany (company) {
-    this.props.id
-      ? this.props.handleUpdateCompany(this.props.id, company)
-      : this.props.handleCreateCompany(company)
+  async handleSubmitCompany (company) {
+    let newCompany = null
+    if (this.props.id) {
+      newCompany = await this.props.handleUpdateCompany(this.props.id, company)
+    } else {
+      newCompany = await this.props.handleCreateCompany(company)
+    }
+    if (newCompany) {this.props.history.push(`/companies/${newCompany.id}`)}
   }
 
   render () {
