@@ -2,7 +2,8 @@ export {
   callAPI,
   parseToSneakCase,
   parseBodyToCamelCase,
-  parseToAutocomplete
+  parseToAutocomplete,
+  paramsToObject,
 } from './parse'
 
 export {
