@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { LOGOUT_USER } from './user'
 import { callAPI } from '../../utils'
 
 export const LOADING_MULTIPLE_ACTIVITIES = 'LOADING_MULTIPLE_ACTIVITIES'
@@ -233,6 +234,9 @@ export default function activities (state = initialState, action) {
     case DESTROYING_ACTIVITY_SUCCESS :
       state = state.delete(action.activityId)
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
+
+    case LOGOUT_USER :
+      return initialState
 
     default :
       return state

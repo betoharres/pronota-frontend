@@ -72,7 +72,7 @@ export function logoutUserFailure (error) {
 export function setUserCurrentSubdomain (subdomain, companyName, companyId) {
   return {
     type: SET_USER_CURRENT_SUBDOMAIN,
-    subdomain: 'f7',
+    subdomain,
     companyName,
     companyId,
   }
@@ -105,9 +105,9 @@ export function loadingUserRoleFailure (error) {
 }
 
 const initialState = fromJS({
-  currentSubdomain: 'f7',
-  currentCompanyName: 'Fator7',
-  currentCompanyId: 1,
+  currentSubdomain: '',
+  currentCompanyName: '',
+  currentCompanyId: null,
   isAuthenticating: false,
   isAuthenticated: false,
   error: null,

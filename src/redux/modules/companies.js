@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { LOGOUT_USER } from './user'
 import { callAPI } from '../../utils'
 
 export const SIGN_OUT_COMPLETE = 'SIGN_OUT_COMPLETE'
@@ -124,8 +125,10 @@ export function fetchAndHandleMultipleCompanies () {
     try {
       const multipleCompanies = await callAPI('/companies')
       dispatch(loadingMultipleCompaniesSuccess(multipleCompanies))
+      return multipleCompanies
     } catch (e) {
       dispatch(loadingMultipleCompaniesFailure(e))
+      return null
     }
   }
 }
@@ -136,9 +139,10 @@ export function fetchAndHandleCompany (companyId) {
     try {
       const company = await callAPI(`/companies/${companyId}`)
       dispatch(loadingCompanySuccess(company))
+      return company
     } catch (e) {
-      console.warn(e)
       dispatch(loadingCompanyFailure(e))
+      return null
     }
   }
 }
@@ -149,9 +153,10 @@ export function handleCreateCompany (newCompany) {
     try {
       const createdCompany = await callAPI('/companies', '', 'POST', newCompany)
       dispatch(creatingCompanySuccess(createdCompany))
+      return createdCompany
     } catch (e) {
-      console.warn(e)
       dispatch(creatingCompanyFailure(e))
+      return null
     }
   }
 }
@@ -162,9 +167,10 @@ export function handleUpdateCompany (companyId, newCompany) {
     try {
       const updatedCompany = await callAPI(`/companies/${companyId}`, '', 'PUT', newCompany)
       dispatch(updatingCompanySuccess(updatedCompany))
+      return updatedCompany
     } catch (e) {
-      console.warn(e)
       dispatch(updatingCompanyFailure(e))
+      return null
     }
   }
 }
@@ -235,7 +241,7 @@ export default function companies (state = initialState, action) {
       state = state.delete(action.companyId)
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
 
-    case SIGN_OUT_COMPLETE :
+    case LOGOUT_USER :
       return initialState
 
     default :

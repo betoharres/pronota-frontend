@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { LOGOUT_USER } from './user'
 import { callAPI } from '../../utils'
 
 export const LOADING_MULTIPLE_CLIENTS = 'LOADING_MULTIPLE_CLIENTS'
@@ -231,6 +232,9 @@ export default function clients (state = initialState, action) {
     case DESTROYING_CLIENT_SUCCESS :
       state = state.delete(action.clientId)
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
+
+    case LOGOUT_USER :
+      return initialState
 
     default :
       return state

@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { LOGOUT_USER } from './user'
 import { callAPI } from '../../utils'
 
 export const LOADING_MULTIPLE_AFFILIATES = 'LOADING_MULTIPLE_AFFILIATES'
@@ -233,6 +234,9 @@ export default function affiliatess (state = initialState, action) {
     case DESTROYING_AFFILIATE_SUCCESS :
       state = state.delete(action.affiliatesId)
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
+
+    case LOGOUT_USER :
+      return initialState
 
     default :
       return state

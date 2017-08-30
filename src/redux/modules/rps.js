@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { LOGOUT_USER } from './user'
 import { callAPI } from '../../utils'
 
 export const LOADING_MULTIPLE_RPS = 'LOADING_MULTIPLE_RPS'
@@ -231,6 +232,9 @@ export default function rps (state = initialState, action) {
     case DESTROYING_RPS_SUCCESS :
       state = state.delete(action.rpsId)
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
+
+    case LOGOUT_USER :
+      return initialState
 
     default :
       return state
