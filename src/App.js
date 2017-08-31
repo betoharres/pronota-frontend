@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NotFound from './config/NotFound'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { validateLocalCredentials } from './redux/modules/user'
@@ -28,13 +28,11 @@ import './App.css'
 class App extends Component {
 
   async componentWillMount () {
-    if (window.location.search) {
+    if (window.location.search.length > 0) {
       saveQueryCredentials(window.location.search)
-      await this.props.dispatch(validateLocalCredentials())
-      await this.props.dispatch(fetchAndHandleMultipleCompanies())
-    } else if (this.props.dispatch(validateLocalCredentials())) {
-      await this.props.dispatch(fetchAndHandleMultipleCompanies())
     }
+    const user = await this.props.dispatch(validateLocalCredentials())
+    if (user) {await this.props.dispatch(fetchAndHandleMultipleCompanies())}
   }
 
   render() {
@@ -43,11 +41,10 @@ class App extends Component {
         <Router>
           <div>
             <ModalContainer />
-            <Switch>
-              <Route exact path='/' component={HomeContainer} />
               {this.props.isAuthenticated
                 ? <NavBarContainer>
                     <Switch>
+                      <Route exact path='/' component={HomeContainer} />
                       <Route exact path='/account' component={AccountContainer} />
                       <Route exact path='/companies/new' component={CompanyFormContainer} />
                       <Route exact path='/companies/:id' component={CompanyContainer} />
@@ -56,22 +53,21 @@ class App extends Component {
                       <Route exact path='/clients/:id' component={ClientFormContainer} />
                       <Route exact path='/affiliates/new' component={AffiliateFormContainer} />
                       <Route exact path='/affiliates/:id/edit' component={AffiliateFormContainer} />
-                      <Route exact path='/roles' component={RolesContainer} />
                       <Route exact path='/rps' component={RPSIndexContainer} />
                       <Route exact path='/rps/new' component={RPSFormContainer} />
                       <Route exact path='/rps/:id/edit' component={RPSFormContainer} />
+                      <Route exact path='/roles' component={RolesContainer} />
                       <Route exact path='/roles/new' component={RoleFormContainer} />
                       <Route exact path='/roles/:id/edit' component={RoleFormContainer} />
                       <Route exact path='/activities/new' component={ActivityFormContainer} />
                       <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
                       <NotFound isAuthenticating={this.props.isAuthenticating}
-                        component={() => <div>Pagina não encontrada</div>} />
+                        component={() => <Redirect to='/account'/>} />
                       </Switch>
                     </NavBarContainer>
                   : <NotFound isAuthenticating={this.props.isAuthenticating}
                       component={() => <HomeContainer />} />
               }
-            </Switch>
           </div>
         </Router>
       </MuiThemeProvider>

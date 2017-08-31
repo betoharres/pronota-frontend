@@ -134,8 +134,10 @@ export function authenticate (credentials) {
     try {
       const user = await login(email, password)
       dispatch(loginUserSuccess(user))
+      return user
     } catch (e) {
       dispatch(loginUserFailure(e))
+      return null
     }
   }
 }
@@ -146,10 +148,10 @@ export function validateLocalCredentials () {
       dispatch(loginUser())
       const user = await validateCredentials()
       dispatch(loginUserSuccess(user))
-      return true
+      return user
     } catch (e) {
       dispatch(loginUserFailure(e))
-      return false
+      return null
     }
   }
 }
@@ -189,8 +191,10 @@ export function fetchAndHandleUserRole (currentSubdomain) {
     try {
       const userRole = await callAPI('/user_role', currentSubdomain)
       dispatch(loadingUserRoleSuccess(userRole))
+      return userRole
     } catch (e) {
       dispatch(loadingUserRoleFailure(e))
+      return null
     }
   }
 }
