@@ -24,21 +24,27 @@ class RPSForm extends Component {
 
   buildCompanyObject (company) {
     return Map({
-              cnpj: company.get('cnpj'),
-              cpf: company.get('cpf'),
-              tipo: company.get('tipo'),
-              inscMunicipal: company.get('inscMunicipal'),
-              razaoSocial: company.get('razaoSocial'),
-              logradouro: company.get('logradouro'),
-              numero: company.get('numero'),
-              complemento: company.get('complemento'),
-              bairro: company.get('bairro'),
-              cidadeId: company.get('cidadeId'),
-              ufId: company.get('ufId'),
-              cep: company.get('cep'),
-              email: company.get('email'),
-              fone: company.get('fone'),
+            cnpj: company.get('cnpj'),
+            cpf: company.get('cpf'),
+            tipo: company.get('tipo'),
+            inscMunicipal: company.get('inscMunicipal'),
+            razaoSocial: company.get('razaoSocial'),
+            logradouro: company.get('logradouro'),
+            numero: company.get('numero'),
+            complemento: company.get('complemento'),
+            bairro: company.get('bairro'),
+            cidadeId: company.get('cidadeId'),
+            ufId: company.get('ufId'),
+            cep: company.get('cep'),
+            email: company.get('email'),
+            fone: company.get('fone'),
           })
+  }
+
+  parseSelectedCompany (value) {
+    const selectedCompany = this.props.autoCompleteCompanies[value -1]
+    const company = this.props.allCompanies.get(selectedCompany.id.toString())
+    return this.buildCompanyObject(company)
   }
 
   render () {
@@ -68,26 +74,13 @@ class RPSForm extends Component {
             <FormSection name='rps'>
               <div className='rpsField'>
                 <Field name='prestadorAttributes' label='Prestador' component={AutoCompleteForm}
-                  dataSource={this.props.parsedAllCompanies} dataSourceConfig={{text: 'name', value: 'id'}}
-                  normalize={(value) => {
-                    if (Number.isInteger(value)) {
-                      value = value.toString()
-                      const company = this.props.allCompanies.get(value)
-                      return this.buildCompanyObject(company)
-                    }
-                    return value}
-                  } />
+                  dataSource={this.props.autoCompleteCompanies} dataSourceConfig={{text: 'name', value: 'id'}}
+                  normalize={(value) => this.parseSelectedCompany(value)} />
               </div>
               <div className='rpsField'>
                 <Field name='tomadorAttributes' label='Tomador' component={AutoCompleteForm}
-                    dataSource={this.props.parsedAllCompanies} dataSourceConfig={{text: 'name', value: 'id'}}
-                    normalize={(value) => {
-                      if (Number.isInteger(value)) {
-                        value = value.toString()
-                        const company = this.props.allCompanies.get(value)
-                        return this.buildCompanyObject(company)
-                      }
-                    }}/>
+                    dataSource={this.props.autoCompleteCompanies} dataSourceConfig={{text: 'name', value: 'id'}}
+                    normalize={(value) => this.parseSelectedCompany(value)}/>
               </div>
               <div className='rpsField'>
                 <Field name='serie' component={TextForm} label="Serie" />

@@ -36,7 +36,7 @@ class RPSFormContainer extends Component {
   render () {
     return (
       <RPSForm allCompanies={this.props.allCompanies}
-               parsedAllCompanies={this.props.parsedAllCompanies}
+               autoCompleteCompanies={this.props.autoCompleteCompanies}
                onSubmit={(rps) => this.handleSubmitRPS(rps)} />
     )
   }
@@ -48,19 +48,19 @@ function mapStateToProps ({user, rps, activities, companies, clients, affiliates
   clients = clients.delete('status')
   affiliates = affiliates.delete('status')
   const allCompanies = companies.merge(clients).merge(affiliates)
-  const parsedAllCompanies = parseToAutocomplete(allCompanies, {id: 'id', text: 'name'})
+  const autoCompleteCompanies = parseToAutocomplete(allCompanies, {id: 'id', text: 'name'})
 
   if (id) {
     return {
       id,
-      parsedAllCompanies,
+      autoCompleteCompanies,
       allCompanies,
       rps: rps.get(id),
       currentSubdomain: user.get('currentSubdomain'),
     }
   } else {
     return {
-      parsedAllCompanies,
+      autoCompleteCompanies,
       allCompanies,
       currentSubdomain: user.get('currentSubdomain'),
     }
