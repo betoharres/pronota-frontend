@@ -13,19 +13,19 @@ export async function parseResponse (response, cb = () => {}) {
   }
 }
 
-export async function callAPI (endpoint = '/', subdomain = '',
-                               method = 'GET', body) {
+export async function callAPI (endpoint = '/', subdomain, method = 'GET', body) {
 
   if (method.match(/POST|PUT|PATCH/) && typeof body === 'undefined') {
     throw new Error(`missing body in ${method} method`)
   }
 
-  subdomain = subdomain.length > 0 ? `${subdomain}.` : ''
-  const url = `${API_PROTOCOL}://${subdomain}${API_DOMAIN}${endpoint}`
+  const url = `${API_PROTOCOL}://${API_DOMAIN}${endpoint}`
 
   const credentials = readCredentials()
   if (credentials) {
-    const request = {...{method}, headers: {...headers, ...credentials}}
+    let subdomainHeader = {}
+    if (subdomain) { subdomainHeader = {Subdomain: subdomain} }
+    const request = {...{method}, headers: {...headers, ...credentials, ...subdomainHeader}}
     if ((typeof body !== 'undefined')) {
       request.body = JSON.stringify(parseToSneakCase(body))
     }
