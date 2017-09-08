@@ -5,7 +5,7 @@ import { getCredentials } from './auth'
 
 export async function parseResponse (response, cb = () => {}) {
   const json = await response.json()
-  if (response.status >= 200 && response.status < 300) {
+  if (json && response.status >= 200 && response.status < 300) {
     return parseBodyToCamelCase(json)
   } else {
     cb()
