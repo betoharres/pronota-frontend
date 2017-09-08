@@ -41,11 +41,10 @@ class AppDrawerContainer extends Component {
   }
 
   async selectCompany (id) {
-    this.props.setUserCurrentSubdomain(
+    await this.props.setUserCurrentSubdomain(
       this.props.companies.getIn([`${id}`, 'subdomain']),
       this.props.companies.getIn([`${id}`, 'name']),
       id)
-    await this.props.fetchAndHandleUserRole(this.props.currentSubdomain)
     this.props.history.push(`/companies/${id}`)
     if (this.props.hasSmallScreen && this.props.isOpen)
       this.props.closeDrawer()
