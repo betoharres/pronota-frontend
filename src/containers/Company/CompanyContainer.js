@@ -23,15 +23,14 @@ class CompanyContainer extends Component {
     const { id } = this.props
     if (this.props.noCompany || staleCompany(this.props.lastUpdated)) {
       const { subdomain, name } = await this.props.fetchAndHandleCompany(id)
+      this.props.setNavBarTitle(this.props.name)
       await this.props.setUserCurrentSubdomain(subdomain, name, id)
       await this.props.fetchAndHandleUserRole(subdomain)
-    } else if (!this.props.noCompany) {
-      const { subdomain, name } = this.props
-      await this.props.setUserCurrentSubdomain(subdomain, name, id)
+    } else {
+      this.props.setNavBarTitle(this.props.name)
       if (staleUserRole(this.props.lastUpdatedUserRole))
         await this.props.fetchAndHandleUserRole(this.props.currentSubdomain)
     }
-    this.props.setNavBarTitle(this.props.name)
   }
 
   async componentDidUpdate (prevProps, prevState) {
