@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NotFound from './config/NotFound'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { validateLocalCredentials } from './redux/modules/user'
+import { loginLocalCredentials } from './redux/modules/user'
 import { fetchAndHandleMultipleCompanies } from './redux/modules/companies'
 import { saveQueryCredentials } from './utils'
 
@@ -31,7 +31,7 @@ class App extends Component {
     if (window.location.search.length > 0) {
       saveQueryCredentials(window.location.search)
     }
-    const user = await this.props.dispatch(validateLocalCredentials())
+    const user = await this.props.dispatch(loginLocalCredentials())
     if (user) {await this.props.dispatch(fetchAndHandleMultipleCompanies())}
   }
 

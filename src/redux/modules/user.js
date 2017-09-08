@@ -142,7 +142,7 @@ export function authenticate (credentials) {
   }
 }
 
-export function validateLocalCredentials () {
+export function loginLocalCredentials () {
   return async function (dispatch) {
     try {
       dispatch(loginUser())
