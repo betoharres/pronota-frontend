@@ -19,6 +19,7 @@ export default function AppDrawer ({
   onRedirectTo,
   companies,
   currentCompanyId,
+  isDisabled,
 }) {
 
   return (
@@ -49,16 +50,16 @@ export default function AppDrawer ({
           <MenuItem leftIcon={<AccountIcon />} primaryText='Minha Conta'
             onTouchTap={() => onRedirectTo('/account')} />
           <MenuItem leftIcon={<RoleIcon />} primaryText='Permissōes'
-            onTouchTap={() => onRedirectTo('/roles')} />
+            disabled={isDisabled} onTouchTap={() => onRedirectTo('/roles')} />
           <MenuItem leftIcon={<ReceiptIcon />} primaryText='RPS'
-            onTouchTap={() => onRedirectTo('/rps')} />
+            disabled={isDisabled} onTouchTap={() => onRedirectTo('/rps')} />
           <Subheader>Criar Empresa/Cliente</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onTouchTap={() => onRedirectTo('/companies/new')} />
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Filial'
-            onTouchTap={() => onRedirectTo('/affiliates/new')} />
+            disabled={isDisabled} onTouchTap={() => onRedirectTo('/affiliates/new')} />
           <MenuItem leftIcon={<AddIcon />} primaryText='Novo Cliente'
-            onTouchTap={() => onRedirectTo('/clients/new')} />
+            disabled={isDisabled} onTouchTap={() => onRedirectTo('/clients/new')} />
         </Menu>
       </span>
     </Drawer>

@@ -105,7 +105,7 @@ export function loadingUserRoleFailure (error) {
 }
 
 const initialState = fromJS({
-  currentSubdomain: '',
+  currentSubdomain: null,
   currentCompanyName: '',
   currentCompanyId: null,
   isAuthenticating: false,

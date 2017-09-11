@@ -15,13 +15,13 @@ class LoginContainer extends Component {
   }
 
   async handleLogin (credentials) {
-    await this.props.dispatch(authenticate(credentials))
-    await this.props.dispatch(fetchAndHandleMultipleCompanies())
     this.props.dispatch(closeModal())
-    if (this.props.numberOfCompanies > 0) {
+    const user = await this.props.dispatch(authenticate(credentials))
+    if (user) {
+      await this.props.dispatch(fetchAndHandleMultipleCompanies())
       this.props.history.push('/account')
     } else {
-      this.props.history.push('/companies/new')
+      console.log('Not logged in')
     }
   }
 
@@ -32,10 +32,4 @@ class LoginContainer extends Component {
   }
 }
 
-function mapStateToProps ({companies}) {
-  return {
-    numberOfCompanies: companies.delete('status').count(),
-  }
-}
-
-export default withRouter(connect(mapStateToProps)(LoginContainer))
+export default withRouter(connect()(LoginContainer))

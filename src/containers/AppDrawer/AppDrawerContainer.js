@@ -56,6 +56,7 @@ class AppDrawerContainer extends Component {
         toggleDrawer={(isOpen) => this.toggleDrawer(isOpen)}
         redirectToAccount={(e) => this.redirectToAccount(e)}
         isOpen={this.props.isOpen}
+        isDisabled={this.props.isDisabled}
         navBarTitle={this.props.navBarTitle}
         companies={this.props.companies.delete('status')}
         currentCompanyId={this.props.currentCompanyId}
@@ -71,6 +72,7 @@ function mapStateToProps ({drawer, companies, navBar, user}) {
     companies,
     isOpen: drawer.get('isOpen'),
     navBarTitle: navBar.get('title'),
+    isDisabled: user.get('currentSubdomain') ? false : true,
     hasSmallScreen: drawer.get('hasSmallScreen'),
     currentCompanyId: user.get('currentCompanyId'),
   }
