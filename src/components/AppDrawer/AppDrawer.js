@@ -9,6 +9,7 @@ import AddIcon from 'material-ui/svg-icons/content/add-circle-outline'
 import AccountIcon from 'material-ui/svg-icons/action/account-circle'
 import RoleIcon from 'material-ui/svg-icons/action/assignment-ind'
 import ReceiptIcon from 'material-ui/svg-icons/action/receipt'
+import WorkIcon from 'material-ui/svg-icons/action/work'
 
 export default function AppDrawer ({
   isOpen,
@@ -53,6 +54,8 @@ export default function AppDrawer ({
             disabled={isDisabled} onTouchTap={() => onRedirectTo('/roles')} />
           <MenuItem leftIcon={<ReceiptIcon />} primaryText='RPS'
             disabled={isDisabled} onTouchTap={() => onRedirectTo('/rps')} />
+          <MenuItem leftIcon={<WorkIcon />} primaryText='Atividades'
+            disabled={isDisabled} onTouchTap={() => onRedirectTo('/activities')} />
           <Subheader>Criar Empresa/Cliente</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onTouchTap={() => onRedirectTo('/companies/new')} />

@@ -186,7 +186,7 @@ export function handleDestroyActivity (currentSubdomain, activityId) {
 const initialState = fromJS({
   status: {
     isLoading: false,
-    errors: {},
+    errors: '',
     lastUpdated: 0,
   }
 })

@@ -21,6 +21,7 @@ import {
   RoleFormContainer,
   ActivityFormContainer,
   RPSIndexContainer,
+  ActivitiesContainer,
 } from './containers'
 
 import { Loading } from './components'
@@ -61,6 +62,7 @@ class App extends Component {
                     <Route exact path='/roles' component={RolesContainer} />
                     <Route exact path='/roles/new' component={RoleFormContainer} />
                     <Route exact path='/roles/:id/edit' component={RoleFormContainer} />
+                    <Route exact path='/activities' component={ActivitiesContainer} />
                     <Route exact path='/activities/new' component={ActivityFormContainer} />
                     <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
                     <NotFound component={() => <span>Pagina nao encontrada</span>}/>

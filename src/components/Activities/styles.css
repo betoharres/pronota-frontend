@@ -1,0 +1,11 @@
+.paperRoleContainer {
+  padding: 20px;
+  /* margin: 20px; */
+}
+
+.newBtn {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-content: right;
+}

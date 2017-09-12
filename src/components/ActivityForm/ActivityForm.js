@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { reduxForm, Field, FormSection } from 'redux-form/immutable'
-import { TextForm, AutoCompleteForm, SelectForm } from '../../components/FormComponents'
+import { TextForm, AutoCompleteForm } from '../../components/FormComponents'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import { tributacaoMunicipio, CNAE }from '../../datasources'

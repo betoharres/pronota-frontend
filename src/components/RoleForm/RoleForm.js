@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { reduxForm, FormSection, Field } from 'redux-form/immutable'
 import { TextForm } from '../../components/FormComponents'
-import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 import './styles.css'
