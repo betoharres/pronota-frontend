@@ -1,41 +1,29 @@
 import React, { Component } from 'react'
 import { reduxForm, FormSection, Field } from 'redux-form/immutable'
+import { TextForm } from '../../components/FormComponents'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 import './styles.css'
 
-class RoleForm extends Component {
+function RoleForm (props) {
 
-  renderTextField ({ input, label, meta: { touched, error }, ...custom}) {
-    return (
-      <TextField hintText={label}
-      fullWidth={true}
-      floatingLabelText={label}
-      errorText={touched && error}
-      {...input}
-      {...custom} />
-    )
-  }
-
-  render () {
-    return (
-      <div className='roleFormContainer'>
-        <Paper className='paperRoleContainer'>
-          <form onSubmit={this.props.handleSubmit}>
-            <FormSection name='role'>
-              <div className='roleFormField'>
-                <Field name='name' label='Nome' component={this.renderTextField} />
-              </div>
-              <div className='roleFormSubmitContainer'>
-                <RaisedButton type='submit' label={'Enviar'} fullWidth={true}
-                  disabled={this.props.pristine || this.props.submitting} />
-              </div>
-            </FormSection>
-          </form>
-        </Paper>
-      </div>
-    )
-  }
+  return (
+    <div className='roleFormContainer'>
+      <Paper className='paperRoleContainer'>
+        <form onSubmit={props.handleSubmit}>
+          <FormSection name='role'>
+            <div className='roleFormField'>
+              <Field name='name' label='Nome' component={TextForm} />
+            </div>
+            <div className='roleFormSubmitContainer'>
+              <RaisedButton type='submit' label={'Enviar'} fullWidth={true}
+                disabled={props.pristine || props.submitting} />
+            </div>
+          </FormSection>
+        </form>
+      </Paper>
+    </div>
+  )
 }
 export default reduxForm({form: 'RoleForm'})(RoleForm)

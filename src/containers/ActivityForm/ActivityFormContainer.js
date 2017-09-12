@@ -11,8 +11,8 @@ import { ActivityForm } from '../../components'
 class ActivityFormContainer extends Component {
 
   async componentDidMount () {
-    this.props.setNavBarTitle('Editar Atividade')
     if (!(this.props.activity) && this.props.id){
+      this.props.setNavBarTitle('Editar Atividade')
       const activity = await this.props
         .fetchAndHandleActivity(this.props.currentSubdomain, this.props.id)
       if (activity) {this.props.initialize('ActivityForm', {activity: activity})}
@@ -33,9 +33,7 @@ class ActivityFormContainer extends Component {
 
   render () {
     return (
-      <ActivityForm
-        isNewRecord={this.props.id ? false : true}
-        onSubmit={(activity) => this.handleSubmitActivity(activity)} />
+      <ActivityForm onSubmit={(activity) => this.handleSubmitActivity(activity)} />
     )
   }
 }

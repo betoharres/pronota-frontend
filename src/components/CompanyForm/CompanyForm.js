@@ -9,6 +9,7 @@ import { UF, cidades } from '../../datasources'
 import './styles.css'
 
 function CompanyForm (props) {
+
   return (
     <div className='divContainer'>
       <Paper className='companyFormContainer'>
@@ -89,7 +90,7 @@ function CompanyForm (props) {
         </form>
       </Paper>
     </div>
-    )
+  )
 }
 
 export default reduxForm({form: 'CompanyForm'})(CompanyForm)

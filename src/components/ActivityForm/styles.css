@@ -1,21 +1,19 @@
 .activityContainer {
   display: flex;
   flex: 1;
-  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
-  align-content: stretch;
-  margin: 15px;
-}
-
-.activityTitle {
-  display: flex;
-  justify-content: center;
+  margin: 10px;
+  padding: 20px;
 }
 
 .activityField {
+  margin: 5px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-.submitBtn {
+.activityPaperContainer {
+  padding: 20px;
 }
