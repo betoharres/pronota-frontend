@@ -48,9 +48,9 @@ export default function Roles ({
               <TableRowColumn>{role.get('name')}</TableRowColumn>
               <TableRowColumn>
                 <FlatButton icon={<ShowIcon />}
-                  onClick={() => redirectTo(`roles/${roles.get('id')}/edit`)} />
+                  onClick={() => redirectTo(`roles/${role.get('id')}/edit`)} />
                 <FlatButton icon={<DeleteIcon />}
-                  onClick={() => onDestroyRole(roles.get('id'))} />
+                  onClick={() => onDestroyRole(role.get('id'))} />
               </TableRowColumn>
             </TableRow>
           ))}

@@ -42,15 +42,15 @@ export default function Clients ({
           </TableRow>
         </TableHeader>
         <TableBody showRowHover={true} displayRowCheckbox={false}>
-          {clients.valueSeq().map((clients, index) => (
+          {clients.valueSeq().map((client, index) => (
             <TableRow key={index}>
-              <TableRowColumn>{clients.get('id')}</TableRowColumn>
-              <TableRowColumn>{clients.get('name')}</TableRowColumn>
+              <TableRowColumn>{client.get('id')}</TableRowColumn>
+              <TableRowColumn>{client.get('name')}</TableRowColumn>
               <TableRowColumn>
                 <FlatButton icon={<ShowIcon />}
-                  onClick={() => redirectTo(`clients/${clients.get('id')}/edit`)} />
+                  onClick={() => redirectTo(`clients/${client.get('id')}/edit`)} />
                 <FlatButton icon={<DeleteIcon />}
-                  onClick={() => onDestroyClient(clients.get('id'))} />
+                  onClick={() => onDestroyClient(client.get('id'))} />
               </TableRowColumn>
             </TableRow>
           ))}

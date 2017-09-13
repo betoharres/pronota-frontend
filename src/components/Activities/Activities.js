@@ -42,15 +42,15 @@ export default function Activities ({
           </TableRow>
         </TableHeader>
         <TableBody showRowHover={true} displayRowCheckbox={false}>
-          {activities.valueSeq().map((activities, index) => (
+          {activities.valueSeq().map((activity, index) => (
             <TableRow key={index}>
-              <TableRowColumn>{activities.get('id')}</TableRowColumn>
-              <TableRowColumn>{activities.get('nome')}</TableRowColumn>
+              <TableRowColumn>{activity.get('id')}</TableRowColumn>
+              <TableRowColumn>{activity.get('nome')}</TableRowColumn>
               <TableRowColumn>
                 <FlatButton icon={<ShowIcon />}
-                  onClick={() => redirectTo(`activities/${activities.get('id')}/edit`)} />
+                  onClick={() => redirectTo(`activities/${activity.get('id')}/edit`)} />
                 <FlatButton icon={<DeleteIcon />}
-                  onClick={() => onDestroyActivity(activities.get('id'))} />
+                  onClick={() => onDestroyActivity(activity.get('id'))} />
               </TableRowColumn>
             </TableRow>
           ))}
