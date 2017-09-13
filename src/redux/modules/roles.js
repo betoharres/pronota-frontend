@@ -230,7 +230,7 @@ export default function roles (state = initialState, action) {
       })
 
     case DESTROYING_ROLE_SUCCESS :
-      state = state.delete(action.roleId)
+      state = state.delete(action.roleId.toString())
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
 
     case LOGOUT_USER :

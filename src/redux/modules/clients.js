@@ -230,7 +230,7 @@ export default function clients (state = initialState, action) {
       })
 
     case DESTROYING_CLIENT_SUCCESS :
-      state = state.delete(action.clientId)
+      state = state.delete(action.clientId.toString())
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
 
     case LOGOUT_USER :

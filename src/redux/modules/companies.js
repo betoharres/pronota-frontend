@@ -238,7 +238,7 @@ export default function companies (state = initialState, action) {
       })
 
     case DESTROYING_COMPANY_SUCCESS :
-      state = state.delete(action.companyId)
+      state = state.delete(action.companyId.toString())
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
 
     case LOGOUT_USER :

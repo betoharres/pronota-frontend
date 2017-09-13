@@ -14,6 +14,7 @@ import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete-forever'
+import ShowIcon from 'material-ui/svg-icons/image/remove-red-eye'
 
 import {
   cyan300,
@@ -59,11 +60,12 @@ export default function RPSIndex ({
   isLoadingCompany,
   redirectTo,
   onRedirectToRPS,
+  onDestroyRps,
 }) {
 
   return (
     <Paper className='paperContainer'>
-      <Table onCellClick={(rps) => onRedirectToRPS(rps)}>
+      <Table>
         <TableHeader
           style={{backgroundColor: cyan300}}
           adjustForCheckbox={false}
@@ -87,7 +89,10 @@ export default function RPSIndex ({
                 <RPSChip>{rps.get('state')}</RPSChip>
               </TableRowColumn>
               <TableRowColumn>
-                <FlatButton icon={<DeleteIcon />} />
+                <FlatButton icon={<ShowIcon />}
+                  onClick={() => redirectTo(`rps/${rps.get('id')}/edit`)} />
+                <FlatButton icon={<DeleteIcon />}
+                  onClick={() => onDestroyRps(rps.get('id'))} />
               </TableRowColumn>
             </TableRow>
           ))}

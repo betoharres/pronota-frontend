@@ -12,20 +12,21 @@ import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete-forever'
+import ShowIcon from 'material-ui/svg-icons/image/remove-red-eye'
 import { cyan300 } from 'material-ui/styles/colors'
 import './styles.css'
 
 export default function Activities ({
   isLoading,
   activities,
-  onDestroyRole,
+  onDestroyActivity,
   redirectTo,
   onRowClick,
 }) {
 
   return (
     <Paper className='paperContainer'>
-      <Table onCellClick={(activities) => onRowClick(activities)}>
+      <Table>
         <TableHeader
           style={{backgroundColor: cyan300}}
           adjustForCheckbox={false}
@@ -46,7 +47,10 @@ export default function Activities ({
               <TableRowColumn>{activities.get('id')}</TableRowColumn>
               <TableRowColumn>{activities.get('nome')}</TableRowColumn>
               <TableRowColumn>
-                <FlatButton icon={<DeleteIcon />} />
+                <FlatButton icon={<ShowIcon />}
+                  onClick={() => redirectTo(`activities/${activities.get('id')}/edit`)} />
+                <FlatButton icon={<DeleteIcon />}
+                  onClick={() => onDestroyActivity(activities.get('id'))} />
               </TableRowColumn>
             </TableRow>
           ))}

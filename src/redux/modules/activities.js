@@ -232,7 +232,7 @@ export default function activities (state = initialState, action) {
       })
 
     case DESTROYING_ACTIVITY_SUCCESS :
-      state = state.delete(action.activityId)
+      state = state.delete(action.activityId.toString())
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
 
     case LOGOUT_USER :

@@ -39,11 +39,9 @@ class ActivitiesContainer extends Component {
 }
 
 function mapStateToProps ({activities, user}) {
-  activities = activities.delete('status')
-  const noActivities = (activities.size === 0)
   return {
-    noActivities,
-    activities,
+    noActivities: activities.size === 0,
+    activities: activities.delete('status'),
     currentSubdomain: user.get('currentSubdomain'),
     currentCompanyName: user.get('currentCompanyName'),
     isLoading: activities.getIn(['status', 'isLoading']),

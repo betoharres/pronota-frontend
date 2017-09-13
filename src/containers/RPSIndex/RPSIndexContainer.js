@@ -23,11 +23,16 @@ class RPSIndexContainer extends Component {
     this.props.history.push(path)
   }
 
+  handleDestroyRps (id) {
+    this.props.handleDestroyRps(this.props.currentSubdomain, id)
+  }
+
   render () {
     return (
       <RPSIndex
         multipleRPS={this.props.rps}
         redirectTo={(path) => this.redirectTo(path)}
+        onDestroyRps={(id) => this.handleDestroyRps(id)}
         onRedirectToRPS={(rps) => this.handleRedirectToRPS(rps)} />
     )
   }
