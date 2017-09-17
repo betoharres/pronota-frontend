@@ -45,40 +45,37 @@ class App extends Component {
         <Router>
           <div>
             <ModalContainer />
-            {this.props.isAuthenticated
-              ? <NavBarContainer>
-                  <Switch>
-                    <Route exact path='/' component={() => <Redirect to='/account' />} />
-                    <Route exact path='/account' component={AccountContainer} />
-                    <Route exact path='/companies/new' component={CompanyFormContainer} />
-                    <Route exact path='/companies/:id' component={CompanyContainer} />
-                    <Route exact path='/companies/:id/edit' component={CompanyFormContainer} />
-                    <Route exact path='/clients' component={ClientsContainer} />
-                    <Route exact path='/clients/new' component={ClientFormContainer} />
-                    <Route exact path='/clients/:id/edit' component={ClientFormContainer} />
-                    <Route exact path='/affiliates/new' component={AffiliateFormContainer} />
-                    <Route exact path='/affiliates/:id/edit' component={AffiliateFormContainer} />
-                    <Route exact path='/rps' component={RPSIndexContainer} />
-                    <Route exact path='/rps/new' component={RPSFormContainer} />
-                    <Route exact path='/rps/:id/edit' component={RPSFormContainer} />
-                    <Route exact path='/roles' component={RolesContainer} />
-                    <Route exact path='/roles/new' component={RoleFormContainer} />
-                    <Route exact path='/roles/:id/edit' component={RoleFormContainer} />
-                    <Route exact path='/activities' component={ActivitiesContainer} />
-                    <Route exact path='/activities/new' component={ActivityFormContainer} />
-                    <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
-                    <NotFound component={() => <span>Pagina nao encontrada</span>}/>
-                  </Switch>
-                </NavBarContainer>
-              : <Switch>
-                {this.props.isAuthenticating
-                  ? <Route component={Loading} />
-                    : <Switch>
-                        <Route exact path='/' component={HomeContainer} />
-                        <NotFound component={() => <span>Pagina nao encontrada</span>} />
-                      </Switch>
-                }
-                </Switch>
+            {this.props.isAuthenticating
+              ? <Route component={Loading} />
+                : this.props.isAuthenticated
+                    ? <NavBarContainer>
+                        <Switch>
+                          <Route exact path='/' component={() => <Redirect to='/account' />} />
+                          <Route exact path='/account' component={AccountContainer} />
+                          <Route exact path='/companies/new' component={CompanyFormContainer} />
+                          <Route exact path='/companies/:id' component={CompanyContainer} />
+                          <Route exact path='/companies/:id/edit' component={CompanyFormContainer} />
+                          <Route exact path='/clients' component={ClientsContainer} />
+                          <Route exact path='/clients/new' component={ClientFormContainer} />
+                          <Route exact path='/clients/:id/edit' component={ClientFormContainer} />
+                          <Route exact path='/affiliates/new' component={AffiliateFormContainer} />
+                          <Route exact path='/affiliates/:id/edit' component={AffiliateFormContainer} />
+                          <Route exact path='/rps' component={RPSIndexContainer} />
+                          <Route exact path='/rps/new' component={RPSFormContainer} />
+                          <Route exact path='/rps/:id/edit' component={RPSFormContainer} />
+                          <Route exact path='/roles' component={RolesContainer} />
+                          <Route exact path='/roles/new' component={RoleFormContainer} />
+                          <Route exact path='/roles/:id/edit' component={RoleFormContainer} />
+                          <Route exact path='/activities' component={ActivitiesContainer} />
+                          <Route exact path='/activities/new' component={ActivityFormContainer} />
+                          <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
+                          <NotFound component={() => <span></span>}/>
+                        </Switch>
+                      </NavBarContainer>
+                  : <Switch>
+                      <Route exact path='/' component={HomeContainer} />
+                      <NotFound component={() => <HomeContainer notFound={true} />} />
+                    </Switch>
             }
           </div>
         </Router>

@@ -6,6 +6,11 @@ import { openModal } from '../../redux/modules/modal'
 
 class HomeContainer extends Component {
 
+  componentDidMount () {
+    if (this.props.notFound === true)
+      this.props.dispatch(openModal(() => <span>Página não encontrada</span>))
+  }
+
   handleOpenLoginModal () {
     this.props.dispatch(openModal(LoginContainer))
   }

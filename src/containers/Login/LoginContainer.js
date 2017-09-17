@@ -19,7 +19,6 @@ class LoginContainer extends Component {
     const user = await this.props.dispatch(authenticate(credentials))
     if (user) {
       await this.props.dispatch(fetchAndHandleMultipleCompanies())
-      this.props.history.push('/account')
     } else {
       console.log('Not logged in')
     }

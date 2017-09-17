@@ -22,9 +22,9 @@ class NavBarContainer extends Component {
   }
 
   async handleLogout () {
-    if(await this.props.requestLogoutUser()) {
+    this.props.history.push('/')
+    if (await this.props.requestLogoutUser()) {
       this.props.closeDrawer()
-      this.props.history.push('/')
     }
   }
 

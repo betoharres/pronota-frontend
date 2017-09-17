@@ -175,11 +175,12 @@ export function handleRegisterUser (credentials) {
 export function requestLogoutUser () {
   return async function (dispatch) {
     try {
+      dispatch(loginUser())
       await logout()
       dispatch(logoutUser())
       return true
     } catch (e) {
-      console.error(e)
+      dispatch(logoutUserFailure(e))
       return false
     }
   }
