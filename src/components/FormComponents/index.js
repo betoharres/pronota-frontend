@@ -17,8 +17,8 @@ export const TextForm = props => (
 
 export const AutoCompleteForm = props => {
   const key = props.dataSourceConfig['text']
-  const selectedItem = props.dataSource[props.input.value - 1]
-  const searchText = selectedItem ? selectedItem[key] : ''
+  const selectedRow = props.dataSource.filter((obj) => obj['id'] === props.input.value)
+  const searchText = selectedRow[0] ? selectedRow[0][key] : ''
 
   return (
     <AutoComplete
@@ -26,7 +26,9 @@ export const AutoCompleteForm = props => {
       floatingLabelText={props.label}
       errorText={props.touched && props.error}
       maxSearchResults={6}
-      onNewRequest={(e, i, v) => props.input.onChange(++i)}
+      onNewRequest={(value) => (
+        props.input.onChange(value[props.dataSourceConfig['value']])
+      )}
       filter={AutoComplete.caseInsensitiveFilter}
       dataSourceConfig={props.dataSourceConfig}
       searchText={searchText}

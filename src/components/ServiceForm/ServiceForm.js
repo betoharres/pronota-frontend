@@ -24,6 +24,7 @@ class ServiceForm extends Component {
   }
 
   render () {
+    const { autocompleteActivities } = this.props
     return (
       <div>
         <div className='serviceField'>
@@ -37,7 +38,7 @@ class ServiceForm extends Component {
         <div className='serviceField'>
           <Field name='activityId' component={AutoCompleteForm}
             dataSourceConfig={{text: 'nome', value: 'id'}}
-            dataSource={this.props.activities} label='Atividade' />
+            dataSource={autocompleteActivities} label='Atividade' />
         </div>
         <div className='serviceField'>
           <Field name='baseCalculo' label='Base Calculo' component={TextForm}/>
@@ -63,6 +64,7 @@ class ServiceForm extends Component {
         <div className='serviceField'>
           <Field name='valorCsll' label='Valor CSLL' component={TextForm}/>
         </div>
+        <br/>
         <div className='serviceField'>
           <Field name='issRetido' label='ISS Retido' component={CheckBoxForm}/>
         </div>
@@ -88,9 +90,10 @@ class ServiceForm extends Component {
 
 function mapStateToProps ({user, activities}) {
   activities = activities.delete('status')
-  activities = parseToAutocomplete(activities, {id: 'id', text: 'nome'})
+  const autocompleteActivities = parseToAutocomplete(activities, {id: 'id', text: 'nome'})
   return {
     activities,
+    autocompleteActivities,
     currentSubdomain: user.get('currentSubdomain'),
   }
 }
