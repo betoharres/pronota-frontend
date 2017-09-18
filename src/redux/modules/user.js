@@ -108,7 +108,7 @@ const initialState = fromJS({
   currentSubdomain: null,
   currentCompanyName: '',
   currentCompanyId: null,
-  isAuthenticating: false,
+  isAuthenticating: true,
   isAuthenticated: false,
   error: null,
   info: {
@@ -289,7 +289,8 @@ export default function user (state = initialState, action) {
         }})
 
     case LOGOUT_USER :
-      return initialState
+      state = initialState
+      return state.merge({isAuthenticating: false})
 
     default:
       return state
