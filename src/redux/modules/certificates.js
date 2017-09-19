@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable'
+import { fromJS, Map } from 'immutable'
 import { LOGOUT_USER } from './user'
 import { callAPI } from '../../utils'
 
@@ -147,6 +147,7 @@ export function handleCreateCertificate (currentSubdomain, newCertificate) {
   return async function (dispatch, getState) {
     dispatch(creatingCertificate())
     try {
+      newCertificate = Map(newCertificate)
       const createdCertificate = await callAPI('/certificates', currentSubdomain,
         'POST', newCertificate)
       dispatch(creatingCertificateSuccess(createdCertificate))

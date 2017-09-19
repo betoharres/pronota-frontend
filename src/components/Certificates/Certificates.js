@@ -45,7 +45,7 @@ export default function Certificates ({
           {certificates.valueSeq().map((certificate, index) => (
             <TableRow key={index}>
               <TableRowColumn>{certificate.get('id')}</TableRowColumn>
-              <TableRowColumn>{certificate.get('name')}</TableRowColumn>
+              <TableRowColumn>{certificate.get('filename')}</TableRowColumn>
               <TableRowColumn>
                 <FlatButton icon={<ShowIcon />}
                   onClick={() => redirectTo(`certificates/${certificate.get('id')}/edit`)} />

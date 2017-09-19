@@ -10,16 +10,29 @@ import * as certificatesActionCreators from '../../redux/modules/certificates'
 
 class CertificatesContainer extends Component {
 
-  componentDidMount () {
+  async handleUploadClick (e, results) {
+    results.forEach(async (result) => {
+      const [e, file] = result
+      const content = e.target.result.replace(/\u0000/g, '')
+      const newCertificate = {certificate: {filename: file.name, content}}
+      await this.props.handleCreateCertificate(this.props.currentSubdomain, newCertificate)
+    })
+    this.props.closeModal()
+  }
+
+  async componentDidMount () {
     this.props.setNavBarTitle('Certificados')
+    await this.props.fetchAndHandleMultipleCertificates(this.props.currentSubdomain)
   }
 
   handleAddClick () {
-    this.props.openModal(UploadCertificate)
+    this.props.openModal(() =>
+      <UploadCertificate
+        onUploadClick={(e, results) => this.handleUploadClick(e, results)} />)
   }
 
-  async destroyCertificate (id) {
-    await this.props.handleDestroyRole(this.props.currentSubdomain, id)
+  handleDestroyCertificate (id) {
+    this.props.handleDestroyCertificate(this.props.currentSubdomain, id)
   }
 
   redirectTo (path) {
@@ -31,7 +44,8 @@ class CertificatesContainer extends Component {
       <Certificates
         certificates={this.props.certificates}
         onAddClick={() => this.handleAddClick()}
-        redirectTo={(path) => this.redirectTo(path)}/>
+        onDestroyCertificate={(id) => this.handleDestroyCertificate(id)}
+        redirectTo={(path) => this.redirectTo(path)} />
     )
   }
 }
