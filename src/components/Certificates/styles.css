@@ -1,0 +1,19 @@
+.certificatesContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.title {
+  font-weight: normal;
+}
+
+.hint {
+  font-weight: normal;
+  color: #9E9E9E;
+  margin-bottom: 15px;
+  font-size: 14px;
+}

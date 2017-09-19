@@ -11,6 +11,7 @@ import RoleIcon from 'material-ui/svg-icons/action/assignment-ind'
 import ReceiptIcon from 'material-ui/svg-icons/action/receipt'
 import WorkIcon from 'material-ui/svg-icons/action/work'
 import ClientsIcon from 'material-ui/svg-icons/communication/business'
+import CertificatesIcon from 'material-ui/svg-icons/hardware/security'
 
 export default function AppDrawer ({
   isOpen,
@@ -59,6 +60,8 @@ export default function AppDrawer ({
             disabled={isDisabled} onTouchTap={() => onRedirectTo('/clients')} />
           <MenuItem leftIcon={<WorkIcon />} primaryText='Atividades'
             disabled={isDisabled} onTouchTap={() => onRedirectTo('/activities')} />
+          <MenuItem leftIcon={<CertificatesIcon />} primaryText='Certificados'
+            disabled={isDisabled} onTouchTap={() => onRedirectTo('/certificates')} />
           <Subheader>Criar Empresa/Cliente</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onTouchTap={() => onRedirectTo('/companies/new')} />

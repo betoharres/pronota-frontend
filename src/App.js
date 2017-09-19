@@ -23,6 +23,7 @@ import {
   RPSIndexContainer,
   ActivitiesContainer,
   ClientsContainer,
+  CertificatesContainer,
 } from './containers'
 
 import { Loading } from './components'
@@ -69,7 +70,7 @@ class App extends Component {
                       <Route exact path='/activities' component={ActivitiesContainer} />
                       <Route exact path='/activities/new' component={ActivityFormContainer} />
                       <Route exact path='/activities/:id/edit' component={ActivityFormContainer} />
-                      <Route exact path='/certificates' component={ActivitiesContainer} />
+                      <Route exact path='/certificates' component={CertificatesContainer} />
                       <NotFound component={() => <span>Pagina nao encontrada</span>}/>
                     </Switch>
                   </NavBarContainer>

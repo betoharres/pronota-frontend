@@ -16,3 +16,4 @@ export { default as ActivityFormContainer } from './ActivityForm/ActivityFormCon
 export { default as RPSIndexContainer } from './RPSIndex/RPSIndexContainer'
 export { default as ActivitiesContainer } from './Activities/ActivitiesContainer'
 export { default as ClientsContainer } from './Clients/ClientsContainer'
+export { default as CertificatesContainer } from './Certificates/CertificatesContainer'
