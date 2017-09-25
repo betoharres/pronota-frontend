@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import NotFound from './config/NotFound'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { loginLocalCredentials } from './redux/modules/user'
-import { fetchAndHandleMultipleCompanies } from './redux/modules/companies'
 import { saveQueryCredentials } from './utils'
 
 import {
@@ -33,25 +32,25 @@ import './App.css'
 class App extends Component {
 
   async componentWillMount () {
-    if (window.location.search.length > 0) {
+    if (window.location.search.length > 0)
       saveQueryCredentials(window.location.search)
-    }
-    const user = await this.props.dispatch(loginLocalCredentials())
-    if (user) {await this.props.dispatch(fetchAndHandleMultipleCompanies())}
+
+    await this.props.dispatch(loginLocalCredentials())
   }
 
   render() {
+    const { isAuthenticated, isAuthenticating, homePath } = this.props
     return (
       <MuiThemeProvider>
         <Router>
           <div>
             <ModalContainer />
-            {this.props.isAuthenticating
+            {isAuthenticating
               ? <Route component={Loading} />
-              : this.props.isAuthenticated
+              : isAuthenticated
                 ? <NavBarContainer>
                     <Switch>
-                      <Route exact path='/' component={() => <Redirect to='/account' />} />
+                      <Route exact path='/' component={() => <Redirect to={homePath} />} />
                       <Route exact path='/account' component={AccountContainer} />
                       <Route exact path='/companies/new' component={CompanyFormContainer} />
                       <Route exact path='/companies/:id' component={CompanyContainer} />
@@ -86,10 +85,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({user}) {
+function mapStateToProps ({user, companies}) {
+  const currentId = user.get('currentCompanyId')
   return {
     isAuthenticated: user.get('isAuthenticated'),
     isAuthenticating: user.get('isAuthenticating'),
+    homePath: currentId ? `/companies/${currentId}` : '/companies/new',
   }
 }
 

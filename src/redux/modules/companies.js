@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable'
-import { LOGOUT_USER } from './user'
+import { LOGOUT_USER, setUserCurrentSubdomain } from './user'
 import { callAPI } from '../../utils'
 
 export const SIGN_OUT_COMPLETE = 'SIGN_OUT_COMPLETE'
@@ -124,6 +124,10 @@ export function fetchAndHandleMultipleCompanies () {
     dispatch(loadingMultipleCompanies())
     try {
       const multipleCompanies = await callAPI('/companies')
+      if (multipleCompanies.length >= 1) {
+        const [{subdomain, name, id}] = multipleCompanies
+        dispatch(setUserCurrentSubdomain(subdomain, name, id))
+      }
       dispatch(loadingMultipleCompaniesSuccess(multipleCompanies))
       return multipleCompanies
     } catch (e) {
@@ -211,7 +215,13 @@ export default function companies (state = initialState, action) {
     case CREATING_COMPANY_FAILURE :
     case UPDATING_COMPANY_FAILURE :
     case DESTROYING_COMPANY_FAILURE :
-      return state.mergeIn(['status', 'errors'], action.error)
+      return state.mergeDeep({
+        status: {
+          isLoading: false,
+          error: action.error,
+          lastUpdated: 0,
+        }
+      })
 
     case LOADING_MULTIPLE_COMPANIES_SUCCESS :
       action.multipleCompanies.forEach((company) => {

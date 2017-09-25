@@ -18,7 +18,7 @@ class NavBarContainer extends Component {
   handleHomeTap () {
     this.props.currentCompanyId
       ? this.props.history.push(`/companies/${this.props.currentCompanyId}`)
-      : this.props.history.push('/account')
+      : this.props.history.push('/')
   }
 
   async handleLogout () {

@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { fetchAndHandleMultipleCompanies } from './companies'
 import { callAPI, login, logout, register, validateCredentials } from '../../utils'
 
 export const SET_USER_CURRENT_SUBDOMAIN = 'SET_USER_CURRENT_SUBDOMAIN'
@@ -133,6 +134,7 @@ export function authenticate (credentials) {
     dispatch(loginUser())
     try {
       const user = await login(email, password)
+      if (user) { await dispatch(fetchAndHandleMultipleCompanies()) }
       dispatch(loginUserSuccess(user))
       return user
     } catch (e) {
@@ -147,6 +149,7 @@ export function loginLocalCredentials () {
     try {
       dispatch(loginUser())
       const user = await validateCredentials()
+      if (user) { await dispatch(fetchAndHandleMultipleCompanies()) }
       dispatch(loginUserSuccess(user))
       return user
     } catch (e) {
