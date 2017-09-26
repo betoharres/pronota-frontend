@@ -12,7 +12,6 @@ import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete-forever'
-import ShowIcon from 'material-ui/svg-icons/image/remove-red-eye'
 import { cyan300 } from 'material-ui/styles/colors'
 import './styles.css'
 
@@ -47,8 +46,6 @@ export default function Certificates ({
               <TableRowColumn>{certificate.get('id')}</TableRowColumn>
               <TableRowColumn>{certificate.get('filename')}</TableRowColumn>
               <TableRowColumn>
-                <FlatButton icon={<ShowIcon />}
-                  onClick={() => redirectTo(`certificates/${certificate.get('id')}/edit`)} />
                 <FlatButton icon={<DeleteIcon />}
                   onClick={() => onDestroyCertificate(certificate.get('id'))} />
               </TableRowColumn>

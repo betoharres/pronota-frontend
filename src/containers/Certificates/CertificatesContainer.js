@@ -13,7 +13,7 @@ class CertificatesContainer extends Component {
   async handleUploadClick (e, results) {
     results.forEach(async (result) => {
       const [e, file] = result
-      const content = e.target.result.replace(/\u0000/g, '')
+      const content = e.target.result
       const newCertificate = {certificate: {filename: file.name, content}}
       await this.props.handleCreateCertificate(this.props.currentSubdomain, newCertificate)
     })
