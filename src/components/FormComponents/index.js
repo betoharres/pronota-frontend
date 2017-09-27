@@ -17,7 +17,8 @@ export const TextForm = props => (
 
 export const AutoCompleteForm = props => {
   const key = props.dataSourceConfig['text']
-  const selectedRow = props.dataSource.filter((obj) => obj['id'] === props.input.value)
+  const selectedRow = props.dataSource.filter((obj) =>
+    obj[props.dataSourceConfig['value']] === props.input.value)
   const searchText = selectedRow[0] ? selectedRow[0][key] : ''
 
   return (
