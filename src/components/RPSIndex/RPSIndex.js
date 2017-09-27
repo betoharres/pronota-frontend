@@ -75,7 +75,7 @@ export default function RPSIndex ({
             <TableHeaderColumn style={{color: 'white'}}>Emissao</TableHeaderColumn>
             <TableHeaderColumn style={{color: 'white'}}>Status</TableHeaderColumn>
             <TableHeaderColumn>
-              <RaisedButton onTouchTap={() => redirectTo('/rps/new')}
+              <RaisedButton onClick={() => redirectTo('/rps/new')}
                 label='Novo' />
             </TableHeaderColumn>
           </TableRow>

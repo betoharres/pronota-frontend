@@ -36,7 +36,7 @@ export default function Activities ({
             <TableHeaderColumn style={{color: 'white'}}>Nome</TableHeaderColumn>
             <TableHeaderColumn>
               <RaisedButton
-                onTouchTap={() => redirectTo('/activities/new')}
+                onClick={() => redirectTo('/activities/new')}
                 label='Novo' />
             </TableHeaderColumn>
           </TableRow>

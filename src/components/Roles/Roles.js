@@ -36,7 +36,7 @@ export default function Roles ({
             <TableHeaderColumn style={{color: 'white'}}>Nome</TableHeaderColumn>
             <TableHeaderColumn>
               <RaisedButton
-                onTouchTap={() => redirectTo('/roles/new')}
+                onClick={() => redirectTo('/roles/new')}
                 label='Novo' />
             </TableHeaderColumn>
           </TableRow>

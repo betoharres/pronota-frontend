@@ -51,24 +51,24 @@ export default function AppDrawer ({
               : null}
           </SelectField>
           <MenuItem leftIcon={<AccountIcon />} primaryText='Minha Conta'
-            onTouchTap={() => onRedirectTo('/account')} />
+            onClick={() => onRedirectTo('/account')} />
           <MenuItem leftIcon={<RoleIcon />} primaryText='Permissōes'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/roles')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/roles')} />
           <MenuItem leftIcon={<ReceiptIcon />} primaryText='RPS'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/rps')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/rps')} />
           <MenuItem leftIcon={<ClientsIcon />} primaryText='Clientes'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/clients')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/clients')} />
           <MenuItem leftIcon={<WorkIcon />} primaryText='Atividades'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/activities')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/activities')} />
           <MenuItem leftIcon={<CertificatesIcon />} primaryText='Certificados'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/certificates')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/certificates')} />
           <Subheader>Criar Empresa/Cliente</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
-            onTouchTap={() => onRedirectTo('/companies/new')} />
+            onClick={() => onRedirectTo('/companies/new')} />
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Filial'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/affiliates/new')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/affiliates/new')} />
           <MenuItem leftIcon={<AddIcon />} primaryText='Novo Cliente'
-            disabled={isDisabled} onTouchTap={() => onRedirectTo('/clients/new')} />
+            disabled={isDisabled} onClick={() => onRedirectTo('/clients/new')} />
         </Menu>
       </span>
     </Drawer>

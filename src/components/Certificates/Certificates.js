@@ -35,7 +35,7 @@ export default function Certificates ({
             <TableHeaderColumn style={{color: 'white'}}>Nome</TableHeaderColumn>
             <TableHeaderColumn>
               <RaisedButton
-                onTouchTap={onAddClick}
+                onClick={onAddClick}
                 label='Novo' />
             </TableHeaderColumn>
           </TableRow>

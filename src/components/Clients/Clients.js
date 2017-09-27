@@ -36,7 +36,7 @@ export default function Clients ({
             <TableHeaderColumn style={{color: 'white'}}>Nome</TableHeaderColumn>
             <TableHeaderColumn>
               <RaisedButton
-                onTouchTap={() => redirectTo('/clients/new')}
+                onClick={() => redirectTo('/clients/new')}
                 label='Novo' />
             </TableHeaderColumn>
           </TableRow>
