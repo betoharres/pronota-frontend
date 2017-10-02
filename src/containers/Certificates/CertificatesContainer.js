@@ -8,15 +8,24 @@ import * as modalActionCreators from '../../redux/modules/modal'
 import * as navbarActionCreators from '../../redux/modules/navBar'
 import * as certificatesActionCreators from '../../redux/modules/certificates'
 
+import { arrayBufferToBase64 } from '../../utils'
+
 class CertificatesContainer extends Component {
 
-  async handleUploadClick (e, results) {
-    results.forEach(async (result) => {
-      const [e, file] = result
-      const content = e.target.result
+  async handleUploadClick (e, files) {
+    const [file] = files
+    const reader = new FileReader()
+    reader.onload = async () => {
+      const { result } = reader
+      const content = arrayBufferToBase64(result)
       const newCertificate = {certificate: {filename: file.name, content}}
       await this.props.handleCreateCertificate(this.props.currentSubdomain, newCertificate)
-    })
+    }
+    reader.onabort = () => console.error('file reading was aborted')
+    reader.onerror = () => console.error('file reading has failed')
+    reader.readAsArrayBuffer(file)
+    window.URL.revokeObjectURL(file.preview)
+
     this.props.closeModal()
   }
 

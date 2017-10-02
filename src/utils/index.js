@@ -4,6 +4,7 @@ export {
   parseBodyToCamelCase,
   parseToAutocomplete,
   paramsToObject,
+  arrayBufferToBase64,
 } from './parse'
 
 export {

@@ -107,3 +107,8 @@ export function paramsToObject (params) {
   }
   return params
 }
+
+export function arrayBufferToBase64 (arrayBuffer) {
+  return btoa(new Uint8Array(arrayBuffer)
+    .reduce((data, byte) => data + String.fromCharCode(byte), ''))
+}

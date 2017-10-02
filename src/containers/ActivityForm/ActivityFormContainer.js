@@ -15,7 +15,7 @@ class ActivityFormContainer extends Component {
       this.props.setNavBarTitle('Editar Atividade')
       const activity = await this.props
         .fetchAndHandleActivity(this.props.currentSubdomain, this.props.id)
-      if (activity) {this.props.initialize('ActivityForm', {activity: activity})}
+      if (activity) { this.props.initialize('ActivityForm', {activity}) }
     } else if (this.props.activity && this.props.id) {
       this.props.initialize('ActivityForm', {activity: this.props.activity})
     } else {
