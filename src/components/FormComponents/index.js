@@ -15,25 +15,22 @@ export const TextForm = props => (
     value={props.input.value} />
 );
 
-export const AutoCompleteForm = props => {
-  const key = props.dataSourceConfig['text']
-  const selectedRow = props.dataSource.filter((obj) =>
-    obj[props.dataSourceConfig['value']] === props.input.value)
-  const searchText = selectedRow[0] ? selectedRow[0][key] : ''
+export const AutoCompleteForm = ({input, dataSource, dataSourceConfig, ...props}) => {
+  const [selectedRow] = dataSource.filter((obj) => obj[dataSourceConfig['value']] === input.value)
+  const searchText = selectedRow ? selectedRow[dataSourceConfig['text']] : false
 
   return (
     <AutoComplete
       fullWidth={true}
-      floatingLabelText={props.label}
-      errorText={props.touched && props.error}
       maxSearchResults={6}
-      onNewRequest={(value) => (
-        props.input.onChange(value[props.dataSourceConfig['value']])
-      )}
+      floatingLabelText={props.label}
+      errorText={props.meta.touched && props.meta.error}
+      onUpdateInput={(searchText) => {input.onChange(searchText)}}
+      onNewRequest={(value) => input.onChange(value[dataSourceConfig['value']])}
       filter={AutoComplete.caseInsensitiveFilter}
-      dataSourceConfig={props.dataSourceConfig}
-      searchText={searchText}
-      dataSource={props.dataSource} />
+      dataSourceConfig={dataSourceConfig}
+      searchText={searchText ? searchText : input.value}
+      dataSource={dataSource} />
   )
 }
 
