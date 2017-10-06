@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { RPSIndex } from '../../components'
+import { SelectCertificateContainer } from '../../containers'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as rpsActionCreators from '../../redux/modules/rps'
 import * as userActionCreators from '../../redux/modules/user'
 import * as navBarActionCreators from '../../redux/modules/navBar'
+import * as modalActionCreators from '../../redux/modules/modal'
 
 class RPSIndexContainer extends Component {
 
@@ -27,12 +29,17 @@ class RPSIndexContainer extends Component {
     this.props.handleDestroyRps(this.props.currentSubdomain, id)
   }
 
+  handleSignClick (id) {
+    this.props.openModal(() => <SelectCertificateContainer rpsId={id} />)
+  }
+
   render () {
     return (
       <RPSIndex
         multipleRPS={this.props.rps}
         redirectTo={(path) => this.redirectTo(path)}
         onDestroyRps={(id) => this.handleDestroyRps(id)}
+        onSignClick={(id) => this.handleSignClick(id)}
         onRedirectToRPS={(rps) => this.handleRedirectToRPS(rps)} />
     )
   }
@@ -51,6 +58,7 @@ function mapDispatchToProps (dispatch) {
     ...userActionCreators,
     ...navBarActionCreators,
     ...rpsActionCreators,
+    ...modalActionCreators,
   }, dispatch)
 }
 

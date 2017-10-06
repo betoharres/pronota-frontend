@@ -117,6 +117,30 @@ export function destroyingRpsFailure (error) {
   }
 }
 
+export const SIGNING_RPS = 'SIGNING_RPS'
+export function signingRps (rpsId) {
+  return {
+    type: SIGNING_RPS,
+    rpsId,
+  }
+}
+
+export const SIGNING_RPS_SUCCESS = 'SIGNING_RPS_SUCCESS'
+export function signingRpsSuccess (signedRps) {
+  return {
+    type: SIGNING_RPS_SUCCESS,
+    signedRps,
+  }
+}
+
+export const SIGNING_RPS_FAILURE = 'SIGNING_RPS_FAILURE'
+export function signedRpsFailure (error) {
+  return {
+    type: SIGNING_RPS_FAILURE,
+    error,
+  }
+}
+
 export function fetchAndHandleMultipleRps (currentSubdomain) {
   return async function (dispatch, getState) {
     dispatch(loadingMultipleRps())
@@ -159,7 +183,8 @@ export function handleUpdateRps (currentSubdomain, rpsId, newRps) {
   return async function (dispatch, getState) {
     dispatch(updatingRps())
     try {
-      const updatedRps = await callAPI(`/rps/${rpsId}`, currentSubdomain, 'PUT', newRps)
+      const updatedRps =
+        await callAPI(`/rps/${rpsId}`, currentSubdomain, 'PUT', newRps)
       dispatch(updatingRpsSuccess(updatedRps))
     } catch (e) {
       dispatch(updatingRpsFailure(e))
@@ -176,6 +201,21 @@ export function handleDestroyRps (currentSubdomain, rpsId) {
       return true
     } catch (e) {
       dispatch(destroyingRpsFailure(e))
+      return false
+    }
+  }
+}
+
+export function signRps (currentSubdomain, rpsId, certificateId, password) {
+  return async function (dispatch, getState) {
+    const signBody = fromJS({sign: {rpsId, certificateId, password}})
+    dispatch(signingRps())
+    try {
+      const signedRps = callAPI('/sign_rps', currentSubdomain, 'POST', signBody)
+      dispatch(signingRpsSuccess(signedRps))
+      return signedRps
+    } catch (e) {
+      dispatch(signedRpsFailure(e))
       return false
     }
   }

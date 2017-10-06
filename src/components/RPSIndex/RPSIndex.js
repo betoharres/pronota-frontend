@@ -15,6 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete-forever'
 import ShowIcon from 'material-ui/svg-icons/image/remove-red-eye'
+import SignIcon from 'material-ui/svg-icons/action/assignment-turned-in'
 
 import {
   cyan300,
@@ -61,6 +62,7 @@ export default function RPSIndex ({
   redirectTo,
   onRedirectToRPS,
   onDestroyRps,
+  onSignClick,
 }) {
 
   return (
@@ -91,6 +93,8 @@ export default function RPSIndex ({
               <TableRowColumn>
                 <FlatButton icon={<ShowIcon />}
                   onClick={() => redirectTo(`rps/${rps.get('id')}/edit`)} />
+                <FlatButton icon={<SignIcon />}
+                  onClick={(id) => onSignClick(rps.get('id'))} />
                 <FlatButton icon={<DeleteIcon />}
                   onClick={() => onDestroyRps(rps.get('id'))} />
               </TableRowColumn>
