@@ -41,6 +41,9 @@ class ServiceForm extends Component {
             dataSource={autocompleteActivities} label='Atividade' />
         </div>
         <div className='serviceField'>
+          <Field name='valorServicos' label='Valor Servicos' component={TextForm}/>
+        </div>
+        <div className='serviceField'>
           <Field name='baseCalculo' label='Base Calculo' component={TextForm}/>
         </div>
         <div className='serviceField'>
