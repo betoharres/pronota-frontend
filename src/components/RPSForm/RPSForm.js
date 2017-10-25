@@ -9,6 +9,7 @@ import DatePicker from 'material-ui/DatePicker'
 import './styles.css'
 
 import { ServiceForm } from '../../components'
+import { alphaNumeric, required, number, maxLength } from '../../validations'
 
 class RPSForm extends Component {
 
@@ -19,6 +20,8 @@ class RPSForm extends Component {
         {...custom} />
     )
   }
+
+  maxLength5 = maxLength(5)
 
   render () {
 
@@ -49,6 +52,7 @@ class RPSForm extends Component {
                 <Field
                   name='prestadorAttributes'
                   label='Prestador'
+                  validate={[required, alphaNumeric]}
                   component={AutoCompleteForm}
                   dataSource={this.props.autoCompleteCompanies}
                   dataSourceConfig={{text: 'name', value: 'id'}} />
@@ -57,37 +61,59 @@ class RPSForm extends Component {
                 <Field
                   name='tomadorAttributes'
                   label='Tomador'
+                  validate={[required, alphaNumeric]}
                   component={AutoCompleteForm}
                   dataSource={this.props.autoCompleteCompanies}
                   dataSourceConfig={{text: 'name', value: 'id'}} />
               </div>
               <div className='rpsField'>
-                <Field name='serie' component={TextForm} label="Serie" />
+                <Field
+                  name='serie'
+                  validate={[required, number, this.maxLength5]}
+                  component={TextForm}
+                  label="Serie" />
               </div>
               <div className='rpsField'>
-                <Field name='tipo' component={SelectForm} label="Tipo">
-                  <MenuItem value={0} primaryText={'Registro de Prestação de Serviços'} />
-                  <MenuItem value={1} primaryText={'Nota Fiscal Conjugada (Mista)'} />
-                  <MenuItem value={2} primaryText={'Cupom'} />
+                <Field
+                  name='tipo'
+                  validate={[required]}
+                  component={SelectForm}
+                  label="Tipo">
+                  <MenuItem value={1} primaryText={'Recibo Provisório de Serviços'} />
+                  <MenuItem value={2} primaryText={'Nota Fiscal Conjugada (Mista)'} />
+                  <MenuItem value={3} primaryText={'Cupom'} />
                 </Field>
               </div>
               <br/>
               <div className='rpsField'>
-                <Field name='emissao' component={this.renderDatePicker} label="Emissao" />
+                <Field
+                  name='emissao'
+                  validate={[required]}
+                  component={this.renderDatePicker}
+                  label="Emissao" />
               </div>
               <div className='rpsField'>
-                <Field name='situacao' component={SelectForm} label="Situacao">
-                    <MenuItem value={0} primaryText={'Normal'} />
-                    <MenuItem value={1} primaryText={'Cancelado'} />
+                <Field name='situacao'
+                  validate={[required]}
+                  component={SelectForm}
+                  label="Situacao">
+                    <MenuItem value={1} primaryText={'Normal'} />
+                    <MenuItem value={2} primaryText={'Cancelado'} />
                 </Field>
               </div>
               <div className='rpsField'>
-                <Field name='natOperId' component={AutoCompleteForm}
+                <Field
+                  name='natOperId'
+                  component={AutoCompleteForm}
+                  validate={[required, alphaNumeric]}
                   dataSourceConfig={{text: 'descricao', value: 'id'}}
                   dataSource={naturezaOperacao} label='Natureza da Operacao' />
               </div>
               <div className='rpsField'>
-                <Field name='regimeId' component={AutoCompleteForm}
+                <Field
+                  name='regimeId'
+                  component={AutoCompleteForm}
+                  validate={[alphaNumeric]}
                   dataSource={regimeTributacao} label='Regime Tributacao'
                   dataSourceConfig={{text: 'descricao', value: 'id'}} />
               </div>

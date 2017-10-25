@@ -1,0 +1,26 @@
+export const required = value => (value ? undefined : 'Obrigatorio')
+
+export const number = value =>
+  value && isNaN(Number(value)) ? 'Deve ser numerico' : undefined
+
+export const maxLength = max => value =>
+  value && value.length > max ? `Deve ser no maximo ${max} caracteres ou menos` : undefined
+
+export const minLength = min => value =>
+  value && value.length < min ? `Deve ser no minimo ${min} caracteres ou mais` : undefined
+
+export const minValue = min => value =>
+  value && value < min ? `Deve ser no minimo ${min}` : undefined
+
+export const maxValue = max => value =>
+  value && value > max ? `Deve ser no maximo ${max}` : undefined
+
+export const email = value =>
+  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'E-mail invalido'
+    : undefined
+
+export const alphaNumeric = value =>
+  value && /[^a-zA-Z0-9 ]/i.test(value)
+    ? 'Somente letras e numeros'
+    : undefined

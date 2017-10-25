@@ -49,10 +49,20 @@ class RPSFormContainer extends Component {
   handleSubmitRPS (rps) {
     const prestadorPath = ['rps', 'prestadorAttributes']
     const tomadorPath = ['rps', 'tomadorAttributes']
-    rps = rps.mergeIn(prestadorPath, this.buildCompanyObject(rps.getIn(prestadorPath)))
-    rps = rps.mergeIn(tomadorPath, this.buildCompanyObject(rps.getIn(tomadorPath)))
+    rps = rps.mergeIn(
+      prestadorPath,
+      this.buildCompanyObject(rps.getIn(prestadorPath)),
+    )
+    rps = rps.mergeIn(
+      tomadorPath,
+      this.buildCompanyObject(rps.getIn(tomadorPath)),
+    )
     if (this.props.id){
-      this.props.handleUpdateRps(this.props.currentSubdomain, this.props.id, rps)
+      this.props.handleUpdateRps(
+        this.props.currentSubdomain,
+        this.props.id,
+        rps,
+      )
     } else {
       this.props.handleCreateRps(this.props.currentSubdomain, rps)
     }
@@ -66,6 +76,8 @@ class RPSFormContainer extends Component {
               cpf: company.get('cpf'),
               tipo: company.get('tipo'),
               inscMunicipal: company.get('inscMunicipal'),
+              simplesNacional: company.get('simplesNacional'),
+              incentivadorCultural: company.get('incentivadorCultural'),
               razaoSocial: company.get('razaoSocial'),
               logradouro: company.get('logradouro'),
               numero: company.get('numero'),
