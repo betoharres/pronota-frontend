@@ -211,7 +211,8 @@ export function signRps (currentSubdomain, rpsId, certificateId, password) {
     const signBody = fromJS({sign: {rpsId, certificateId, password}})
     dispatch(signingRps())
     try {
-      const signedRps = callAPI('/sign_rps', currentSubdomain, 'POST', signBody)
+      const signedRps =
+        await callAPI('/sign_rps', currentSubdomain, 'POST', signBody)
       dispatch(signingRpsSuccess(signedRps))
       return signedRps
     } catch (e) {
