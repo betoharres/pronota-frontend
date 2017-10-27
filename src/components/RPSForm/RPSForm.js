@@ -90,7 +90,7 @@ class RPSForm extends Component {
                   name='emissao'
                   validate={[required]}
                   component={this.renderDatePicker}
-                  label="Emissao" />
+                  label="Data do Serviço" />
               </div>
               <div className='rpsField'>
                 <Field name='situacao'
