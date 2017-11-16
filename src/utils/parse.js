@@ -13,7 +13,13 @@ export async function parseResponse (response, cb = () => {}) {
   }
 }
 
-export async function callAPI (endpoint = '/', subdomain, method = 'GET', body) {
+export async function callAPI (
+  endpoint = '/',
+  subdomain,
+  method = 'GET',
+  body,
+  customHeaders
+) {
 
   if (method.match(/POST|PUT|PATCH/) && typeof body === 'undefined') {
     throw new Error(`missing body in ${method} method`)
@@ -25,8 +31,10 @@ export async function callAPI (endpoint = '/', subdomain, method = 'GET', body) 
   if (credentials) {
     let subdomainHeader = {}
     if (subdomain) { subdomainHeader = {Subdomain: subdomain} }
-    const request = {...{method}, headers: {...headers, ...credentials, ...subdomainHeader}}
-    if ((typeof body !== 'undefined')) {
+    const request = {...{method}, headers: {
+      ...headers, ...customHeaders, ...credentials, ...subdomainHeader}
+    }
+    if (body && (typeof body !== 'undefined')) {
       request.body = JSON.stringify(parseToSneakCase(body))
     }
     const response = await fetch(url, request)
