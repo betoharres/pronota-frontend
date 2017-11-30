@@ -16,19 +16,12 @@ import { cidades, UF } from '../../datasources'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as userActionCreators from '../../redux/modules/user'
-import * as activitiesActionCreators from '../../redux/modules/activities'
 
 import { required, alphaNumeric, number } from '../../validations'
 import './styles.css'
 
 // TODO: Validate valorServicos
 class ServiceForm extends Component {
-
-  async componentDidMount () {
-    await this.props.fetchAndHandleMultipleActivities(
-      this.props.currentSubdomain
-    )
-  }
 
   render () {
     return (
@@ -135,9 +128,7 @@ function mapStateToProps ({ user, activities }) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    ...userActionCreators,
-    ...activitiesActionCreators}, dispatch)
+  return bindActionCreators({...userActionCreators}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceForm)

@@ -9,6 +9,7 @@ import * as navBarActionCreators from '../../redux/modules/navBar'
 import * as rpsActionCreators from '../../redux/modules/rps'
 import * as affiliatesActionCreators from '../../redux/modules/affiliates'
 import * as clientsActionCreators from '../../redux/modules/clients'
+import * as activitiesActionCreators from '../../redux/modules/activities'
 import { parseToAutocomplete } from '../../utils'
 
 class RPSFormContainer extends Component {
@@ -27,15 +28,14 @@ class RPSFormContainer extends Component {
     const allCompanies = companies.merge(clients).merge(affiliates)
     if (companies || clients || affiliates)
       this.setState({
-        autoCompleteCompanies: parseToAutocomplete(allCompanies, {id: 'id', text: 'name'}),
-        allCompanies: allCompanies
+        allCompanies: allCompanies,
+        autoCompleteCompanies: parseToAutocomplete(
+          allCompanies, {id: 'id', text: 'name'}
+        ),
       })
   }
 
   async componentDidMount () {
-    await this.props.fetchAndHandleMultipleClients(this.props.currentSubdomain)
-    await this.props.fetchAndHandleMultipleAffiliates(this.props.currentSubdomain)
-
     if (this.props.id) {
       this.props.setNavBarTitle('Editar RPS')
       await this.props.fetchAndHandleRps(this.props.currentSubdomain, this.props.id)
@@ -43,6 +43,11 @@ class RPSFormContainer extends Component {
     } else {
       this.props.setNavBarTitle('Novo RPS')
     }
+    await Promise.all([
+      await this.props.fetchAndHandleMultipleClients(this.props.currentSubdomain),
+      await this.props.fetchAndHandleMultipleActivities(this.props.currentSubdomain),
+      await this.props.fetchAndHandleMultipleAffiliates(this.props.currentSubdomain)
+    ])
     this.buildAutoCompleteCompanies()
   }
 
@@ -57,12 +62,8 @@ class RPSFormContainer extends Component {
       tomadorPath,
       this.buildCompanyObject(rps.getIn(tomadorPath)),
     )
-    if (this.props.id){
-      this.props.handleUpdateRps(
-        this.props.currentSubdomain,
-        this.props.id,
-        rps,
-      )
+    if (this.props.id) {
+      this.props.handleUpdateRps(this.props.currentSubdomain, this.props.id, rps)
     } else {
       this.props.handleCreateRps(this.props.currentSubdomain, rps)
     }
@@ -129,6 +130,7 @@ function mapDispatchToProps (dispatch) {
     ...navBarActionCreators,
     ...affiliatesActionCreators,
     ...clientsActionCreators,
+    ...activitiesActionCreators,
     ...{initialize}}, dispatch)
 }
 

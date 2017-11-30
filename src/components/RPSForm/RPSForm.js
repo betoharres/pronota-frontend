@@ -14,13 +14,21 @@ import { alphaNumeric, required, number, maxLength } from '../../validations'
 class RPSForm extends Component {
 
   renderDatePicker ({input, label, meta: {touched, error}, ...custom}) {
-    const date = new Date(`${input.value}T12:00:00.000Z`)
+    let date
+    if (input.value.match(/^\d{4}-\d{2}-\d{2}$/)){
+      // TODO: make this work worldwide
+      date = new Date(`${input.value}T12:00:00.000Z`)
+    } else if (input.value) {
+      date = new Date(input.value)
+    } else {
+      date = undefined
+    }
     return (
       <DatePicker
         hintText={label}
         mode={'portrait'}
         fullWidth={true}
-        value={input.value ? date : null}
+        value={date}
         onChange={(e, value) => {input.onChange(value)}}
         {...custom}
       />

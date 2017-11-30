@@ -157,7 +157,7 @@ export function fetchAndHandleRps (currentSubdomain, rpsId) {
   return async function (dispatch, getState) {
     dispatch(loadingRps())
     try {
-      const rps = await callAPI(`/rps/${rpsId}`, currentSubdomain)
+      const rps = await callAPI(`/rps/${rpsId}.json`, currentSubdomain)
       dispatch(loadingRpsSuccess(rps))
       return rps
     } catch (e) {
