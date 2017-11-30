@@ -40,7 +40,12 @@ export async function callAPI (
     const response = await fetch(url, request)
     const newCredentials = getCredentials(response.headers)
     if (newCredentials) { writeCredentials(newCredentials) }
-    return response.status === 204 ? null : await parseResponse(response)
+
+    if (customHeaders && customHeaders['Content-Type'].match(/application\/pdf/)) {
+      return await response.text()
+    } else {
+      return response.status === 204 ? null : await parseResponse(response)
+    }
   } else {
     return Promise.reject('Cannot make API call. Missing credentials.')
   }

@@ -141,6 +141,27 @@ export function signedRpsFailure (error) {
   }
 }
 
+export function fetchPDF (rpsId, currentSubdomain) {
+  return async function (dispatch, getState) {
+    dispatch(loadingRps())
+    try {
+      const rpsPDF = await callAPI(
+        `/rps/${rpsId}.pdf`,
+        currentSubdomain,
+        'GET',
+        undefined,
+        {'Content-Type': 'application/pdf'}
+      )
+      const blob = new Blob([rpsPDF], { type: 'application/pdf' })
+      const URL = window.URL || window.webkitURL
+      const downloadURL = URL.createObjectURL(blob)
+      console.log(downloadURL)
+    } catch (e) {
+      dispatch(loadingMultipleRpsFailure(e))
+    }
+  }
+}
+
 export function fetchAndHandleMultipleRps (currentSubdomain) {
   return async function (dispatch, getState) {
     dispatch(loadingMultipleRps())

@@ -40,6 +40,7 @@ class RPSFormContainer extends Component {
       this.props.setNavBarTitle('Editar RPS')
       await this.props.fetchAndHandleRps(this.props.currentSubdomain, this.props.id)
       if (this.props.rps) { this.props.initialize('RPSForm', {rps: this.props.rps}) }
+      await this.props.fetchPDF(this.props.id, this.props.currentSubdomain)
     } else {
       this.props.setNavBarTitle('Novo RPS')
     }
