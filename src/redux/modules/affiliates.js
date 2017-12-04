@@ -117,8 +117,9 @@ export function destroyingAffiliateFailure (error) {
   }
 }
 
-export function fetchAndHandleMultipleAffiliates (currentSubdomain) {
+export function fetchAndHandleMultipleAffiliates () {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingMultipleAffiliates())
     try {
       const multiplesAffiliates = await callAPI('/filiais', currentSubdomain)
@@ -131,8 +132,9 @@ export function fetchAndHandleMultipleAffiliates (currentSubdomain) {
   }
 }
 
-export function fetchAndHandleAffiliate (currentSubdomain, affiliatesId) {
+export function fetchAndHandleAffiliate (affiliatesId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingAffiliate())
     try {
       const affiliates = await callAPI(`/filiais/${affiliatesId}`, currentSubdomain)
@@ -145,8 +147,9 @@ export function fetchAndHandleAffiliate (currentSubdomain, affiliatesId) {
   }
 }
 
-export function handleCreateAffiliate (currentSubdomain, newAffiliate) {
+export function handleCreateAffiliate (newAffiliate) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(creatingAffiliate())
     try {
       const createdAffiliate = await callAPI('/filiais', currentSubdomain, 'POST', newAffiliate)
@@ -160,8 +163,9 @@ export function handleCreateAffiliate (currentSubdomain, newAffiliate) {
   }
 }
 
-export function handleUpdateAffiliate (currentSubdomain, affiliatesId, newAffiliate) {
+export function handleUpdateAffiliate (affiliatesId, newAffiliate) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(updatingAffiliate())
     try {
       const updatedAffiliate = await callAPI(
@@ -175,8 +179,9 @@ export function handleUpdateAffiliate (currentSubdomain, affiliatesId, newAffili
   }
 }
 
-export function handleDestroyAffiliate (currentSubdomain, affiliatesId) {
+export function handleDestroyAffiliate (affiliatesId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(destroyingAffiliate())
     try {
       await callAPI(`/filiais/${affiliatesId}`, currentSubdomain, 'DELETE')

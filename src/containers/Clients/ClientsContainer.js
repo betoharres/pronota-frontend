@@ -8,7 +8,7 @@ import * as clientsActionCreators from '../../redux/modules/clients'
 class ClientsContainer extends Component {
 
   async componentDidMount () {
-    await this.props.fetchAndHandleMultipleClients(this.props.currentSubdomain)
+    await this.props.fetchAndHandleMultipleClients()
     this.props.setNavBarTitle('Atividades')
   }
 
@@ -22,7 +22,7 @@ class ClientsContainer extends Component {
   }
 
   handleDestroyClient (id) {
-    this.props.handleDestroyClient(this.props.currentSubdomain, id)
+    this.props.handleDestroyClient(id)
   }
 
   render () {
@@ -41,7 +41,6 @@ function mapStateToProps ({clients, user}) {
   return {
     noClients: clients.size === 0,
     clients: clients.delete('status'),
-    currentSubdomain: user.get('currentSubdomain'),
     currentCompanyName: user.get('currentCompanyName'),
     isLoading: clients.getIn(['status', 'isLoading']),
     lastUpdated: clients.getIn(['status', 'lastUpdated']),

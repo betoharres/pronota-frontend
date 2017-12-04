@@ -117,8 +117,9 @@ export function destroyingRoleFailure (error) {
   }
 }
 
-export function fetchAndHandleMultipleRoles (currentSubdomain) {
+export function fetchAndHandleMultipleRoles () {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingMultipleRoles())
     try {
       const multiplesRoles = await callAPI('/roles', currentSubdomain)
@@ -131,8 +132,9 @@ export function fetchAndHandleMultipleRoles (currentSubdomain) {
   }
 }
 
-export function fetchAndHandleRole (currentSubdomain, roleId) {
+export function fetchAndHandleRole (roleId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingRole())
     try {
       const role = await callAPI(`/roles/${roleId}`, currentSubdomain)
@@ -145,8 +147,9 @@ export function fetchAndHandleRole (currentSubdomain, roleId) {
   }
 }
 
-export function handleCreateRole (currentSubdomain, newRole) {
+export function handleCreateRole (newRole) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(creatingRole())
     try {
       const createdRole = await callAPI('/roles', currentSubdomain, 'POST', newRole)
@@ -159,8 +162,9 @@ export function handleCreateRole (currentSubdomain, newRole) {
   }
 }
 
-export function handleUpdateRole (currentSubdomain, roleId, newRole) {
+export function handleUpdateRole (roleId, newRole) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(updatingRole())
     try {
       const updatedRole = await callAPI(`/roles/${roleId}`, currentSubdomain, 'PUT', newRole)
@@ -173,8 +177,9 @@ export function handleUpdateRole (currentSubdomain, roleId, newRole) {
   }
 }
 
-export function handleDestroyRole (currentSubdomain, roleId) {
+export function handleDestroyRole (roleId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(destroyingRole())
     try {
       await callAPI(`/roles/${roleId}`, currentSubdomain, 'DELETE')

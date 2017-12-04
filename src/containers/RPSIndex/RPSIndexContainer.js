@@ -13,7 +13,7 @@ class RPSIndexContainer extends Component {
 
   async componentDidMount () {
     this.props.setNavBarTitle('RPS')
-    await this.props.fetchAndHandleMultipleRps(this.props.currentSubdomain)
+    await this.props.fetchAndHandleMultipleRps()
   }
 
   handleRedirectToRPS (selectedRow) {
@@ -26,7 +26,7 @@ class RPSIndexContainer extends Component {
   }
 
   handleDestroyRps (id) {
-    this.props.handleDestroyRps(this.props.currentSubdomain, id)
+    this.props.handleDestroyRps(id)
   }
 
   handleSignClick (id) {
@@ -49,7 +49,6 @@ function mapStateToProps ({user, rps}) {
   rps = rps.delete('status')
   return {
     rps,
-    currentSubdomain: user.get('currentSubdomain'),
   }
 }
 

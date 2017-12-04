@@ -11,7 +11,7 @@ class ClientFormContainer extends Component {
   async componentDidMount () {
     if (this.props.id) {
       this.props.setNavBarTitle('Editar Cliente')
-      if (await this.props.fetchAndHandleClient(this.props.currentSubdomain, this.props.id)) {
+      if (await this.props.fetchAndHandleClient(this.props.id)) {
         this.props.initialize('CompanyForm', {cliente: this.props.client})
       }
     } else {
@@ -20,9 +20,11 @@ class ClientFormContainer extends Component {
   }
 
   handleSubmitClient (client) {
-    this.props.id
-      ? this.props.handleUpdateClient(this.props.currentSubdomain, this.props.id, client)
-      : this.props.handleCreateClient(this.props.currentSubdomain, client)
+    if (this.props.id) {
+      this.props.handleUpdateClient(this.props.id, client)
+    } else {
+      this.props.handleCreateClient(client)
+    }
   }
 
   render () {
@@ -39,11 +41,6 @@ function mapStateToProps ({user, clients}, {match}) {
     return {
       id,
       client: clients.get(id),
-      currentSubdomain: user.get('currentSubdomain'),
-    }
-  } else {
-    return {
-      currentSubdomain: user.get('currentSubdomain'),
     }
   }
 }

@@ -29,7 +29,7 @@ class CompanyContainer extends Component {
     } else {
       this.props.setNavBarTitle(this.props.name)
       if (staleUserRole(this.props.lastUpdatedUserRole))
-        await this.props.fetchAndHandleUserRole(this.props.currentSubdomain)
+        await this.props.fetchAndHandleUserRole()
     }
   }
 
@@ -82,7 +82,6 @@ function mapStateToProps ({companies, user, rps}, {match}) {
       isLoadingCompany: true,
       lastUpdated: 0,
       lastUpdatedUserRole: 0,
-      currentSubdomain: user.get('currentSubdomain'),
     }
   } else {
       return {

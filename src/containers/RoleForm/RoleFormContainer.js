@@ -12,7 +12,7 @@ class RoleFormContainer extends Component {
   async componentDidMount () {
     if (this.props.id) {
       this.props.setNavBarTitle('Editar Permissão')
-      if (await this.props.fetchAndHandleRole(this.props.currentSubdomain, this.props.id)) {
+      if (await this.props.fetchAndHandleRole(this.props.id)) {
         this.props.initialize('RoleForm', {role: this.props.role})
       }
     } else {
@@ -22,10 +22,10 @@ class RoleFormContainer extends Component {
 
   handleSubmitRole (role) {
     if (this.props.id) {
-      this.props.handleUpdateRole(this.props.currentSubdomain, this.props.id, role)
+      this.props.handleUpdateRole(this.props.id, role)
       this.props.showSnackbar('Permissão atualizada com sucesso')
     } else {
-      this.props.handleCreateRole(this.props.currentSubdomain, role)
+      this.props.handleCreateRole(role)
       this.props.showSnackbar('Permissão criada com sucesso')
     }
   }
@@ -44,11 +44,6 @@ function mapStateToProps ({user, roles}, {match}) {
     return {
       id,
       role: roles.get(id),
-      currentSubdomain: user.get('currentSubdomain'),
-    }
-  } else {
-    return {
-      currentSubdomain: user.get('currentSubdomain'),
     }
   }
 }

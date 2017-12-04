@@ -143,6 +143,7 @@ export function signedRpsFailure (error) {
 
 export function fetchPDF (rpsId, currentSubdomain) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingRps())
     try {
       const rpsPDF = await callAPI(
@@ -164,8 +165,9 @@ export function fetchPDF (rpsId, currentSubdomain) {
   }
 }
 
-export function fetchAndHandleMultipleRps (currentSubdomain) {
+export function fetchAndHandleMultipleRps () {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingMultipleRps())
     try {
       const multiplesRps = await callAPI('/rps', currentSubdomain)
@@ -178,8 +180,9 @@ export function fetchAndHandleMultipleRps (currentSubdomain) {
   }
 }
 
-export function fetchAndHandleRps (currentSubdomain, rpsId) {
+export function fetchAndHandleRps (rpsId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingRps())
     try {
       const rps = await callAPI(`/rps/${rpsId}.json`, currentSubdomain)
@@ -192,8 +195,9 @@ export function fetchAndHandleRps (currentSubdomain, rpsId) {
   }
 }
 
-export function handleCreateRps (currentSubdomain, newRps) {
+export function handleCreateRps (newRps) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(creatingRps())
     try {
       const createdRps = await callAPI('/rps', currentSubdomain, 'POST', newRps)
@@ -206,8 +210,9 @@ export function handleCreateRps (currentSubdomain, newRps) {
   }
 }
 
-export function handleUpdateRps (currentSubdomain, rpsId, newRps) {
+export function handleUpdateRps (rpsId, newRps) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(updatingRps())
     try {
       const updatedRps =
@@ -221,8 +226,9 @@ export function handleUpdateRps (currentSubdomain, rpsId, newRps) {
   }
 }
 
-export function handleDestroyRps (currentSubdomain, rpsId) {
+export function handleDestroyRps (rpsId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(destroyingRps())
     try {
       await callAPI(`/rps/${rpsId}`, currentSubdomain, 'DELETE')
@@ -235,8 +241,9 @@ export function handleDestroyRps (currentSubdomain, rpsId) {
   }
 }
 
-export function signRps (currentSubdomain, rpsId, certificateId, password) {
+export function signRps (rpsId, certificateId, password) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     const signBody = fromJS({sign: {rpsId, certificateId, password}})
     dispatch(signingRps())
     try {

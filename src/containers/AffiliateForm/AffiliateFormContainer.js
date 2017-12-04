@@ -12,7 +12,7 @@ class AffiliateFormContainer extends Component {
   async componentDidMount () {
     if (this.props.id) {
       this.props.setNavBarTitle('Editar Filial')
-      if (await this.props.fetchAndHandleAffiliate(this.props.currentSubdomain, this.props.id)) {
+      if (await this.props.fetchAndHandleAffiliate(this.props.id)) {
         this.props.initialize('CompanyForm', {affiliate: this.props.affiliate})
       }
     } else {
@@ -22,10 +22,10 @@ class AffiliateFormContainer extends Component {
 
   handleSubmitAffiliate (affiliate) {
     if (this.props.id) {
-      this.props.handleUpdateAffiliate(this.props.currentSubdomain, this.props.id, affiliate)
+      this.props.handleUpdateAffiliate(this.props.id, affiliate)
       this.props.showSnackbar('Afiliado atualizado com sucesso')
     } else {
-      this.props.handleCreateAffiliate(this.props.currentSubdomain, affiliate)
+      this.props.handleCreateAffiliate(affiliate)
       this.props.showSnackbar('Afiliado criado com sucesso')
     }
   }
@@ -44,11 +44,6 @@ function mapStateToProps ({user, affiliates}, {match}) {
     return {
       id,
       affiliate: affiliates.get(id),
-      currentSubdomain: user.get('currentSubdomain'),
-    }
-  } else {
-    return {
-      currentSubdomain: user.get('currentSubdomain'),
     }
   }
 }

@@ -117,8 +117,9 @@ export function destroyingActivityFailure (error) {
   }
 }
 
-export function fetchAndHandleMultipleActivities (currentSubdomain) {
+export function fetchAndHandleMultipleActivities () {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingMultipleActivities())
     try {
       const activities = await callAPI('/activities', currentSubdomain)
@@ -131,8 +132,9 @@ export function fetchAndHandleMultipleActivities (currentSubdomain) {
   }
 }
 
-export function fetchAndHandleActivity (currentSubdomain, activityId) {
+export function fetchAndHandleActivity (activityId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingActivity())
     try {
       const activity = await callAPI(`/activities/${activityId}`, currentSubdomain)
@@ -145,8 +147,9 @@ export function fetchAndHandleActivity (currentSubdomain, activityId) {
   }
 }
 
-export function handleCreateActivity (currentSubdomain, newActivity) {
+export function handleCreateActivity (newActivity) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(creatingActivity())
     try {
       const createdActivity = await callAPI('/activities', currentSubdomain, 'POST', newActivity)
@@ -159,8 +162,9 @@ export function handleCreateActivity (currentSubdomain, newActivity) {
   }
 }
 
-export function handleUpdateActivity (currentSubdomain, activityId, newActivity) {
+export function handleUpdateActivity (activityId, newActivity) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(updatingActivity())
     try {
       const updatedActivity = await callAPI(`/activities/${activityId}`,
@@ -174,8 +178,9 @@ export function handleUpdateActivity (currentSubdomain, activityId, newActivity)
   }
 }
 
-export function handleDestroyActivity (currentSubdomain, activityId) {
+export function handleDestroyActivity (activityId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(destroyingActivity())
     try {
       await callAPI(`/activities/${activityId}`, currentSubdomain, 'DELETE')

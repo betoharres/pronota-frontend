@@ -189,8 +189,9 @@ export function requestLogoutUser () {
   }
 }
 
-export function fetchAndHandleUserRole (currentSubdomain) {
-  return async function (dispatch) {
+export function fetchAndHandleUserRole () {
+  return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingUserRole())
     try {
       const userRole = await callAPI('/user_role', currentSubdomain)

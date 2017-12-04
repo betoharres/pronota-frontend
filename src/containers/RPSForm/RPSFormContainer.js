@@ -39,16 +39,16 @@ class RPSFormContainer extends Component {
   async componentDidMount () {
     if (this.props.id) {
       this.props.setNavBarTitle('Editar RPS')
-      await this.props.fetchAndHandleRps(this.props.currentSubdomain, this.props.id)
+      await this.props.fetchAndHandleRps(this.props.id)
       if (this.props.rps) { this.props.initialize('RPSForm', {rps: this.props.rps}) }
-      await this.props.fetchPDF(this.props.id, this.props.currentSubdomain)
+      await this.props.fetchPDF(this.props.id)
     } else {
       this.props.setNavBarTitle('Novo RPS')
     }
     await Promise.all([
-      await this.props.fetchAndHandleMultipleClients(this.props.currentSubdomain),
-      await this.props.fetchAndHandleMultipleActivities(this.props.currentSubdomain),
-      await this.props.fetchAndHandleMultipleAffiliates(this.props.currentSubdomain)
+      await this.props.fetchAndHandleMultipleClients(),
+      await this.props.fetchAndHandleMultipleActivities(),
+      await this.props.fetchAndHandleMultipleAffiliates()
     ])
     this.buildAutoCompleteCompanies()
   }
@@ -65,10 +65,10 @@ class RPSFormContainer extends Component {
       this.buildCompanyObject(rps.getIn(tomadorPath)),
     )
     if (this.props.id) {
-      this.props.handleUpdateRps(this.props.currentSubdomain, this.props.id, rps)
+      this.props.handleUpdateRps(this.props.id, rps)
       this.props.showSnackbar('RPS atualizado com sucesso')
     } else {
-      this.props.handleCreateRps(this.props.currentSubdomain, rps)
+      this.props.handleCreateRps(rps)
       this.props.showSnackbar('RPS criado com sucesso')
     }
   }
@@ -115,14 +115,12 @@ function mapStateToProps ({user, rps, activities, companies, clients, affiliates
       companies,
       clients,
       affiliates,
-      currentSubdomain: user.get('currentSubdomain'),
     }
   } else {
     return {
       companies,
       clients,
       affiliates,
-      currentSubdomain: user.get('currentSubdomain'),
     }
   }
 }

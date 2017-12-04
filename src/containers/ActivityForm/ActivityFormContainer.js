@@ -15,7 +15,7 @@ class ActivityFormContainer extends Component {
     if (!(this.props.activity) && this.props.id){
       this.props.setNavBarTitle('Editar Atividade')
       const activity = await this.props
-        .fetchAndHandleActivity(this.props.currentSubdomain, this.props.id)
+        .fetchAndHandleActivity(this.props.id)
       if (activity) { this.props.initialize('ActivityForm', {activity}) }
     } else if (this.props.activity && this.props.id) {
       this.props.initialize('ActivityForm', {activity: this.props.activity})
@@ -26,10 +26,10 @@ class ActivityFormContainer extends Component {
 
   handleSubmitActivity (activity) {
     if (this.props.id) {
-      this.props.handleUpdateActivity(this.props.currentSubdomain, this.props.id, activity)
+      this.props.handleUpdateActivity(this.props.id, activity)
       this.props.showSnackbar('Atividade atualizada com sucesso')
     } else {
-      this.props.handleCreateActivity(this.props.currentSubdomain, activity)
+      this.props.handleCreateActivity(activity)
       this.props.showSnackbar('Atividade criada com sucesso')
     }
   }
@@ -56,11 +56,6 @@ function mapStateToProps ({user, activities}, {match}) {
     return {
       id,
       activity: activities.get(id),
-      currentSubdomain: user.get('currentSubdomain'),
-    }
-  } else {
-    return {
-      currentSubdomain: user.get('currentSubdomain'),
     }
   }
 }

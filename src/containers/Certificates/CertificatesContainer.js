@@ -20,7 +20,7 @@ class CertificatesContainer extends Component {
       const { result } = reader
       const content = arrayBufferToBase64(result)
       const newCertificate = {certificate: {filename: file.name, content}}
-      if (await this.props.handleCreateCertificate(this.props.currentSubdomain, newCertificate)) {
+      if (await this.props.handleCreateCertificate(newCertificate)) {
         this.props.showSnackbar('Certificado criado com sucesso')
       }
     }
@@ -34,7 +34,7 @@ class CertificatesContainer extends Component {
 
   async componentDidMount () {
     this.props.setNavBarTitle('Certificados')
-    await this.props.fetchAndHandleMultipleCertificates(this.props.currentSubdomain)
+    await this.props.fetchAndHandleMultipleCertificates()
   }
 
   handleAddClick () {
@@ -44,7 +44,7 @@ class CertificatesContainer extends Component {
   }
 
   handleDestroyCertificate (id) {
-    if (this.props.handleDestroyCertificate(this.props.currentSubdomain, id)) {
+    if (this.props.handleDestroyCertificate(id)) {
       this.props.showSnackbar('Certificado deletado com sucesso')
     } else {
       this.props.showSnackbar('Nao foi possivel deletar certificado')
@@ -68,7 +68,6 @@ class CertificatesContainer extends Component {
 
 function mapStateToProps ({user, certificates}) {
   return {
-    currentSubdomain: user.get('currentSubdomain'),
     certificates: certificates.delete('status'),
   }
 }

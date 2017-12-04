@@ -11,7 +11,7 @@ class RolesContainer extends Component {
 
   async componentDidMount () {
     if (this.props.noRoles || staleRoles(this.props.lastUpdated)) {
-      await this.props.fetchAndHandleMultipleRoles(this.props.currentSubdomain)
+      await this.props.fetchAndHandleMultipleRoles()
     } else {
       const rolesInArray = []
       this.props.roles.map((role) => rolesInArray.push(role.toJS()))
@@ -30,7 +30,7 @@ class RolesContainer extends Component {
   }
 
   handleDestroyRole (id) {
-    this.props.handleDestroyRole(this.props.currentSubdomain, id)
+    this.props.handleDestroyRole(id)
   }
 
   render () {
@@ -51,7 +51,6 @@ function mapStateToProps ({roles, user}) {
   return {
     noRoles,
     roles,
-    currentSubdomain: user.get('currentSubdomain'),
     currentCompanyName: user.get('currentCompanyName'),
     isLoading: roles.getIn(['status', 'isLoading']),
     lastUpdated: roles.getIn(['status', 'lastUpdated']),

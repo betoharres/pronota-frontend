@@ -117,8 +117,9 @@ export function destroyingClientFailure (error) {
   }
 }
 
-export function fetchAndHandleMultipleClients (currentSubdomain) {
+export function fetchAndHandleMultipleClients () {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingMultipleClients())
     try {
       const multiplesClients = await callAPI('/clientes', currentSubdomain)
@@ -131,8 +132,9 @@ export function fetchAndHandleMultipleClients (currentSubdomain) {
   }
 }
 
-export function fetchAndHandleClient (currentSubdomain, clientId) {
+export function fetchAndHandleClient (clientId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingClient())
     try {
       const client = await callAPI(`/clientes/${clientId}`, currentSubdomain)
@@ -145,8 +147,9 @@ export function fetchAndHandleClient (currentSubdomain, clientId) {
   }
 }
 
-export function handleCreateClient (currentSubdomain, newClient) {
+export function handleCreateClient (newClient) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(creatingClient())
     try {
       const createdClient = await callAPI('/clientes', currentSubdomain, 'POST', newClient)
@@ -159,8 +162,9 @@ export function handleCreateClient (currentSubdomain, newClient) {
   }
 }
 
-export function handleUpdateClient (currentSubdomain, clientId, newClient) {
+export function handleUpdateClient (clientId, newClient) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(updatingClient())
     try {
       const updatedClient = await callAPI(
@@ -174,8 +178,9 @@ export function handleUpdateClient (currentSubdomain, clientId, newClient) {
   }
 }
 
-export function handleDestroyClient (currentSubdomain, clientId) {
+export function handleDestroyClient (clientId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(destroyingClient())
     try {
       await callAPI(`/clientes/${clientId}`, currentSubdomain, 'DELETE')

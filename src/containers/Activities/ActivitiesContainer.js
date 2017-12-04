@@ -9,7 +9,7 @@ import * as navBarActionCreators from '../../redux/modules/navBar'
 class ActivitiesContainer extends Component {
 
   async componentDidMount () {
-    await this.props.fetchAndHandleMultipleActivities(this.props.currentSubdomain)
+    await this.props.fetchAndHandleMultipleActivities()
     this.props.setNavBarTitle('Atividades')
   }
 
@@ -23,7 +23,7 @@ class ActivitiesContainer extends Component {
   }
 
   handleDestroyActivity (id) {
-    this.props.handleDestroyActivity(this.props.currentSubdomain, id)
+    this.props.handleDestroyActivity(id)
   }
 
   render () {
@@ -42,7 +42,6 @@ function mapStateToProps ({activities, user}) {
   return {
     noActivities: activities.size === 0,
     activities: activities.delete('status'),
-    currentSubdomain: user.get('currentSubdomain'),
     currentCompanyName: user.get('currentCompanyName'),
     isLoading: activities.getIn(['status', 'isLoading']),
     lastUpdated: activities.getIn(['status', 'lastUpdated']),

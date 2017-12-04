@@ -117,8 +117,9 @@ export function destroyingCertificateFailure (error) {
   }
 }
 
-export function fetchAndHandleMultipleCertificates (currentSubdomain) {
+export function fetchAndHandleMultipleCertificates () {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingMultipleCertificates())
     try {
       const multiplesCertificates = await callAPI('/certificates', currentSubdomain)
@@ -131,8 +132,9 @@ export function fetchAndHandleMultipleCertificates (currentSubdomain) {
   }
 }
 
-export function fetchAndHandleCertificate (currentSubdomain, certificateId) {
+export function fetchAndHandleCertificate (certificateId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(loadingCertificate())
     try {
       const certificate = await callAPI(`/certificates/${certificateId}`, currentSubdomain)
@@ -145,8 +147,9 @@ export function fetchAndHandleCertificate (currentSubdomain, certificateId) {
   }
 }
 
-export function handleCreateCertificate (currentSubdomain, newCertificate) {
+export function handleCreateCertificate (newCertificate) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(creatingCertificate())
     try {
       newCertificate = Map(newCertificate)
@@ -161,8 +164,9 @@ export function handleCreateCertificate (currentSubdomain, newCertificate) {
   }
 }
 
-export function handleUpdateCertificate (currentSubdomain, certificateId, newCertificate) {
+export function handleUpdateCertificate (certificateId, newCertificate) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(updatingCertificate())
     try {
       const updatedCertificate = await callAPI(
@@ -176,8 +180,9 @@ export function handleUpdateCertificate (currentSubdomain, certificateId, newCer
   }
 }
 
-export function handleDestroyCertificate (currentSubdomain, certificateId) {
+export function handleDestroyCertificate (certificateId) {
   return async function (dispatch, getState) {
+    const currentSubdomain = getState().user.get('currentSubdomain')
     dispatch(destroyingCertificate())
     try {
       await callAPI(`/certificates/${certificateId}`, currentSubdomain, 'DELETE')
