@@ -123,8 +123,10 @@ export function fetchAndHandleMultipleClients (currentSubdomain) {
     try {
       const multiplesClients = await callAPI('/clientes', currentSubdomain)
       dispatch(loadingMultipleClientsSuccess(multiplesClients))
+      return multiplesClients
     } catch (e) {
       dispatch(loadingMultipleClientsFailure(e))
+      return null
     }
   }
 }
@@ -149,8 +151,10 @@ export function handleCreateClient (currentSubdomain, newClient) {
     try {
       const createdClient = await callAPI('/clientes', currentSubdomain, 'POST', newClient)
       dispatch(creatingClientSuccess(createdClient))
+      return createdClient
     } catch (e) {
       dispatch(creatingClientFailure(e))
+      return null
     }
   }
 }
@@ -159,10 +163,13 @@ export function handleUpdateClient (currentSubdomain, clientId, newClient) {
   return async function (dispatch, getState) {
     dispatch(updatingClient())
     try {
-      const updatedClient = await callAPI(`/clientes/${clientId}`, currentSubdomain, 'PUT', newClient)
+      const updatedClient = await callAPI(
+        `/clientes/${clientId}`, currentSubdomain, 'PUT', newClient)
       dispatch(updatingClientSuccess(updatedClient))
+      return updatedClient
     } catch (e) {
       dispatch(updatingClientFailure(e))
+      return null
     }
   }
 }

@@ -156,8 +156,10 @@ export function fetchPDF (rpsId, currentSubdomain) {
       const URL = window.URL || window.webkitURL
       const downloadURL = URL.createObjectURL(blob)
       console.log(downloadURL)
+      return downloadURL
     } catch (e) {
       dispatch(loadingMultipleRpsFailure(e))
+      return null
     }
   }
 }
@@ -168,8 +170,10 @@ export function fetchAndHandleMultipleRps (currentSubdomain) {
     try {
       const multiplesRps = await callAPI('/rps', currentSubdomain)
       dispatch(loadingMultipleRpsSuccess(multiplesRps))
+      return multiplesRps
     } catch (e) {
       dispatch(loadingMultipleRpsFailure(e))
+      return null
     }
   }
 }
@@ -194,8 +198,10 @@ export function handleCreateRps (currentSubdomain, newRps) {
     try {
       const createdRps = await callAPI('/rps', currentSubdomain, 'POST', newRps)
       dispatch(creatingRpsSuccess(createdRps))
+      return createdRps
     } catch (e) {
       dispatch(creatingRpsFailure(e))
+      return null
     }
   }
 }
@@ -207,8 +213,10 @@ export function handleUpdateRps (currentSubdomain, rpsId, newRps) {
       const updatedRps =
         await callAPI(`/rps/${rpsId}`, currentSubdomain, 'PUT', newRps)
       dispatch(updatingRpsSuccess(updatedRps))
+      return updatedRps
     } catch (e) {
       dispatch(updatingRpsFailure(e))
+      return null
     }
   }
 }

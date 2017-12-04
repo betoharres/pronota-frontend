@@ -123,8 +123,10 @@ export function fetchAndHandleMultipleAffiliates (currentSubdomain) {
     try {
       const multiplesAffiliates = await callAPI('/filiais', currentSubdomain)
       dispatch(loadingMultipleAffiliatesSuccess(multiplesAffiliates))
+      return multiplesAffiliates
     } catch (e) {
       dispatch(loadingMultipleAffiliatesFailure(e))
+      return null
     }
   }
 }
@@ -149,9 +151,11 @@ export function handleCreateAffiliate (currentSubdomain, newAffiliate) {
     try {
       const createdAffiliate = await callAPI('/filiais', currentSubdomain, 'POST', newAffiliate)
       dispatch(creatingAffiliateSuccess(createdAffiliate))
+      return createdAffiliate
     } catch (e) {
       console.warn(e)
       dispatch(creatingAffiliateFailure(e))
+      return null
     }
   }
 }
@@ -160,11 +164,13 @@ export function handleUpdateAffiliate (currentSubdomain, affiliatesId, newAffili
   return async function (dispatch, getState) {
     dispatch(updatingAffiliate())
     try {
-      const updatedAffiliate = await callAPI(`/filiais/${affiliatesId}`,
-                                        currentSubdomain, 'PUT', newAffiliate)
+      const updatedAffiliate = await callAPI(
+        `/filiais/${affiliatesId}`, currentSubdomain, 'PUT', newAffiliate)
       dispatch(updatingAffiliateSuccess(updatedAffiliate))
+      return updatedAffiliate
     } catch (e) {
       dispatch(updatingAffiliateFailure(e))
+      return null
     }
   }
 }

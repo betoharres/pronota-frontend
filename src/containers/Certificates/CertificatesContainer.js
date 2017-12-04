@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import * as modalActionCreators from '../../redux/modules/modal'
 import * as navbarActionCreators from '../../redux/modules/navBar'
 import * as certificatesActionCreators from '../../redux/modules/certificates'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 import { arrayBufferToBase64 } from '../../utils'
 
@@ -19,7 +20,9 @@ class CertificatesContainer extends Component {
       const { result } = reader
       const content = arrayBufferToBase64(result)
       const newCertificate = {certificate: {filename: file.name, content}}
-      await this.props.handleCreateCertificate(this.props.currentSubdomain, newCertificate)
+      if (await this.props.handleCreateCertificate(this.props.currentSubdomain, newCertificate)) {
+        this.props.showSnackbar('Certificado criado com sucesso')
+      }
     }
     reader.onabort = () => console.error('file reading was aborted')
     reader.onerror = () => console.error('file reading has failed')
@@ -41,7 +44,11 @@ class CertificatesContainer extends Component {
   }
 
   handleDestroyCertificate (id) {
-    this.props.handleDestroyCertificate(this.props.currentSubdomain, id)
+    if (this.props.handleDestroyCertificate(this.props.currentSubdomain, id)) {
+      this.props.showSnackbar('Certificado deletado com sucesso')
+    } else {
+      this.props.showSnackbar('Nao foi possivel deletar certificado')
+    }
   }
 
   redirectTo (path) {
@@ -71,6 +78,7 @@ function mapDispatchToProps (dispatch) {
     ...modalActionCreators,
     ...navbarActionCreators,
     ...certificatesActionCreators,
+    ...snackbarActionCreators,
   }, dispatch)
 }
 

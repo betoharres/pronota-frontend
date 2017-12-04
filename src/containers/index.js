@@ -18,3 +18,4 @@ export { default as ActivitiesContainer } from './Activities/ActivitiesContainer
 export { default as ClientsContainer } from './Clients/ClientsContainer'
 export { default as CertificatesContainer } from './Certificates/CertificatesContainer'
 export { default as SelectCertificateContainer } from './SelectCertificate/SelectCertificateContainer'
+export { default as SnackbarContainer } from './Snackbar/SnackbarContainer'

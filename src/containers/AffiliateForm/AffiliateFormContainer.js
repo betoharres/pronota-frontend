@@ -5,6 +5,7 @@ import { initialize } from 'redux-form'
 import { CompanyForm } from '../../components'
 import * as affiliateActionCreators from '../../redux/modules/affiliates'
 import * as navBarActionCreators from '../../redux/modules/navBar'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 class AffiliateFormContainer extends Component {
 
@@ -20,9 +21,13 @@ class AffiliateFormContainer extends Component {
   }
 
   handleSubmitAffiliate (affiliate) {
-    this.props.id
-      ? this.props.handleUpdateAffiliate(this.props.currentSubdomain, this.props.id, affiliate)
-      : this.props.handleCreateAffiliate(this.props.currentSubdomain, affiliate)
+    if (this.props.id) {
+      this.props.handleUpdateAffiliate(this.props.currentSubdomain, this.props.id, affiliate)
+      this.props.showSnackbar('Afiliado atualizado com sucesso')
+    } else {
+      this.props.handleCreateAffiliate(this.props.currentSubdomain, affiliate)
+      this.props.showSnackbar('Afiliado criado com sucesso')
+    }
   }
 
   render () {
@@ -52,6 +57,7 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...navBarActionCreators,
     ...affiliateActionCreators,
+    ...snackbarActionCreators,
     ...{initialize},
   }, dispatch)
 }

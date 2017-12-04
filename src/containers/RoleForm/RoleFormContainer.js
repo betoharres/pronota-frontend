@@ -5,6 +5,7 @@ import { initialize } from 'redux-form'
 import { RoleForm } from '../../components'
 import * as rolesActionCreators from '../../redux/modules/roles'
 import * as navBarActionCreators from '../../redux/modules/navBar'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 class RoleFormContainer extends Component {
 
@@ -20,9 +21,13 @@ class RoleFormContainer extends Component {
   }
 
   handleSubmitRole (role) {
-    this.props.id
-      ? this.props.handleUpdateRole(this.props.currentSubdomain, this.props.id, role)
-      : this.props.handleCreateRole(this.props.currentSubdomain, role)
+    if (this.props.id) {
+      this.props.handleUpdateRole(this.props.currentSubdomain, this.props.id, role)
+      this.props.showSnackbar('Permissão atualizada com sucesso')
+    } else {
+      this.props.handleCreateRole(this.props.currentSubdomain, role)
+      this.props.showSnackbar('Permissão criada com sucesso')
+    }
   }
 
   render () {
@@ -52,6 +57,7 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...navBarActionCreators,
     ...rolesActionCreators,
+    ...snackbarActionCreators,
     ...{initialize},
   }, dispatch)
 }

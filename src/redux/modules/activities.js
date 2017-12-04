@@ -123,8 +123,10 @@ export function fetchAndHandleMultipleActivities (currentSubdomain) {
     try {
       const activities = await callAPI('/activities', currentSubdomain)
       dispatch(loadingMultipleActivitiesSuccess(activities))
+      return activities
     } catch (e) {
       dispatch(loadingMultipleActivitiesFailure(e))
+      return null
     }
   }
 }
@@ -147,11 +149,12 @@ export function handleCreateActivity (currentSubdomain, newActivity) {
   return async function (dispatch, getState) {
     dispatch(creatingActivity())
     try {
-      const createdActivity = await callAPI('/activities', currentSubdomain,
-                                            'POST', newActivity)
+      const createdActivity = await callAPI('/activities', currentSubdomain, 'POST', newActivity)
       dispatch(creatingActivitySuccess(createdActivity))
+      return createdActivity
     } catch (e) {
       dispatch(creatingActivityFailure(e))
+      return null
     }
   }
 }
@@ -163,8 +166,10 @@ export function handleUpdateActivity (currentSubdomain, activityId, newActivity)
       const updatedActivity = await callAPI(`/activities/${activityId}`,
                                             currentSubdomain, 'PUT', newActivity)
       dispatch(updatingActivitySuccess(updatedActivity))
+      return updatedActivity
     } catch (e) {
       dispatch(updatingActivityFailure(e))
+      return null
     }
   }
 }

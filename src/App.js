@@ -23,6 +23,7 @@ import {
   ActivitiesContainer,
   ClientsContainer,
   CertificatesContainer,
+  SnackbarContainer,
 } from './containers'
 
 import { Loading } from './components'
@@ -45,6 +46,7 @@ class App extends Component {
         <Router>
           <div>
             <ModalContainer />
+            <SnackbarContainer />
             {isAuthenticating
               ? <Route component={Loading} />
               : isAuthenticated

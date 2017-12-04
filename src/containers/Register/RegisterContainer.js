@@ -3,14 +3,21 @@ import { Register } from '../../components'
 
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import { handleRegisterUser } from '../../redux/modules/user'
 import { closeModal } from '../../redux/modules/modal'
+import { showSnackbar } from '../../redux/modules/snackbar'
 
 class RegisterContainer extends Component {
 
   async handleUserRegistration (credentials) {
-    await this.props.dispatch(handleRegisterUser(credentials))
-    this.props.dispatch(closeModal())
+    if (await this.props.handleRegisterUser(credentials)) {
+      this.props.showSnackbar('Registrado com sucesso. Confira seu E-mail.')
+    } else {
+      this.props.showSnackbar('Não foi possível registrar-se. Tente novamente.')
+    }
+    this.props.closeModal()
   }
 
   render () {
@@ -20,4 +27,12 @@ class RegisterContainer extends Component {
   }
 }
 
-export default withRouter(connect()(RegisterContainer))
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({
+    ...{showSnackbar},
+    ...{handleRegisterUser},
+    ...{closeModal}
+  }, dispatch)
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(RegisterContainer))

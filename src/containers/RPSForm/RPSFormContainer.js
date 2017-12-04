@@ -10,6 +10,7 @@ import * as rpsActionCreators from '../../redux/modules/rps'
 import * as affiliatesActionCreators from '../../redux/modules/affiliates'
 import * as clientsActionCreators from '../../redux/modules/clients'
 import * as activitiesActionCreators from '../../redux/modules/activities'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 import { parseToAutocomplete } from '../../utils'
 
 class RPSFormContainer extends Component {
@@ -65,8 +66,10 @@ class RPSFormContainer extends Component {
     )
     if (this.props.id) {
       this.props.handleUpdateRps(this.props.currentSubdomain, this.props.id, rps)
+      this.props.showSnackbar('RPS atualizado com sucesso')
     } else {
       this.props.handleCreateRps(this.props.currentSubdomain, rps)
+      this.props.showSnackbar('RPS criado com sucesso')
     }
   }
 
@@ -132,6 +135,7 @@ function mapDispatchToProps (dispatch) {
     ...affiliatesActionCreators,
     ...clientsActionCreators,
     ...activitiesActionCreators,
+    ...snackbarActionCreators,
     ...{initialize}}, dispatch)
 }
 

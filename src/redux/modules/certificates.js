@@ -123,8 +123,10 @@ export function fetchAndHandleMultipleCertificates (currentSubdomain) {
     try {
       const multiplesCertificates = await callAPI('/certificates', currentSubdomain)
       dispatch(loadingMultipleCertificatesSuccess(multiplesCertificates))
+      return multiplesCertificates
     } catch (e) {
       dispatch(loadingMultipleCertificatesFailure(e))
+      return null
     }
   }
 }
@@ -148,11 +150,13 @@ export function handleCreateCertificate (currentSubdomain, newCertificate) {
     dispatch(creatingCertificate())
     try {
       newCertificate = Map(newCertificate)
-      const createdCertificate = await callAPI('/certificates', currentSubdomain,
-        'POST', newCertificate)
+      const createdCertificate = await callAPI(
+        '/certificates', currentSubdomain, 'POST', newCertificate)
       dispatch(creatingCertificateSuccess(createdCertificate))
+      return createdCertificate
     } catch (e) {
       dispatch(creatingCertificateFailure(e))
+      return null
     }
   }
 }
@@ -161,11 +165,13 @@ export function handleUpdateCertificate (currentSubdomain, certificateId, newCer
   return async function (dispatch, getState) {
     dispatch(updatingCertificate())
     try {
-      const updatedCertificate = await callAPI(`/certificates/${certificateId}`,
-        currentSubdomain, 'PUT', newCertificate)
+      const updatedCertificate = await callAPI(
+        `/certificates/${certificateId}`, currentSubdomain, 'PUT', newCertificate)
       dispatch(updatingCertificateSuccess(updatedCertificate))
+      return updatedCertificate
     } catch (e) {
       dispatch(updatingCertificateFailure(e))
+      return null
     }
   }
 }

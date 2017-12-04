@@ -123,8 +123,10 @@ export function fetchAndHandleMultipleRoles (currentSubdomain) {
     try {
       const multiplesRoles = await callAPI('/roles', currentSubdomain)
       dispatch(loadingMultipleRolesSuccess(multiplesRoles))
+      return multiplesRoles
     } catch (e) {
       dispatch(loadingMultipleRolesFailure(e))
+      return null
     }
   }
 }
@@ -149,8 +151,10 @@ export function handleCreateRole (currentSubdomain, newRole) {
     try {
       const createdRole = await callAPI('/roles', currentSubdomain, 'POST', newRole)
       dispatch(creatingRoleSuccess(createdRole))
+      return createdRole
     } catch (e) {
       dispatch(creatingRoleFailure(e))
+      return null
     }
   }
 }
@@ -161,8 +165,10 @@ export function handleUpdateRole (currentSubdomain, roleId, newRole) {
     try {
       const updatedRole = await callAPI(`/roles/${roleId}`, currentSubdomain, 'PUT', newRole)
       dispatch(updatingRoleSuccess(updatedRole))
+      return updatedRole
     } catch (e) {
       dispatch(updatingRoleFailure(e))
+      return null
     }
   }
 }

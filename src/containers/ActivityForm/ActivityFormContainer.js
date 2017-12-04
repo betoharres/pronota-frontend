@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as navBarActionCreators from '../../redux/modules/navBar'
 import * as activitiesActionCreators from '../../redux/modules/activities'
 import * as userActionCreators from '../../redux/modules/user'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 import { ActivityForm } from '../../components'
 
@@ -26,8 +27,10 @@ class ActivityFormContainer extends Component {
   handleSubmitActivity (activity) {
     if (this.props.id) {
       this.props.handleUpdateActivity(this.props.currentSubdomain, this.props.id, activity)
+      this.props.showSnackbar('Atividade atualizada com sucesso')
     } else {
       this.props.handleCreateActivity(this.props.currentSubdomain, activity)
+      this.props.showSnackbar('Atividade criada com sucesso')
     }
   }
 
@@ -43,6 +46,7 @@ function mapDispatchToProps (dispatch) {
     ...userActionCreators,
     ...activitiesActionCreators,
     ...navBarActionCreators,
+    ...snackbarActionCreators,
     ...{initialize}}, dispatch)
 }
 
