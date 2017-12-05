@@ -21,7 +21,7 @@ class RPSForm extends Component {
 
   renderDatePicker ({input, label, meta: {touched, error}, ...custom}) {
     let date
-    if (input.value.match(/^\d{4}-\d{2}-\d{2}$/)){
+    if (input.value.length > 0 && input.value.match(/^\d{4}-\d{2}-\d{2}$/)){
       // TODO: make this work worldwide
       date = new Date(`${input.value}T12:00:00.000Z`)
     } else if (input.value) {
