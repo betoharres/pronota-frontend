@@ -45,8 +45,8 @@ class App extends Component {
       <MuiThemeProvider>
         <Router>
           <div>
-            <ModalContainer />
-            <SnackbarContainer />
+            <div><ModalContainer /></div>
+            <div><SnackbarContainer /></div>
             {isAuthenticating
               ? <Route component={Loading} />
               : isAuthenticated
