@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { SelectCertificate } from '../../components'
 import { fetchAndHandleMultipleCertificates } from '../../redux/modules/certificates'
 import { signRps } from '../../redux/modules/rps'
+import { showSnackbar } from '../../redux/modules/snackbar'
 
 class SelectCertificateContainer extends Component {
 
@@ -14,20 +15,24 @@ class SelectCertificateContainer extends Component {
 
   async componentDidMount () {
     await this.props.dispatch(
-      fetchAndHandleMultipleCertificates(this.props.currentSubdomain)
+      fetchAndHandleMultipleCertificates()
     )
   }
 
   async handleSignRps () {
     this.setState({isSigning: true})
     const { selectedCertificate, password } = this.state
-    const { rpsId, currentSubdomain } = this.props
-    await this.props.dispatch(signRps(
-      currentSubdomain,
+    const { rpsId } = this.props
+    const signedRPS = await this.props.dispatch(signRps(
       rpsId,
       selectedCertificate,
       password,
     ))
+    if (signedRPS) {
+      this.props.dispatch(showSnackbar('RPS assinado com sucesso'))
+    } else {
+      this.props.dispatch(showSnackbar('Não foi possível assinar o RPS. Tente novamente.'))
+    }
     this.setState({isSigning: false})
   }
 
@@ -55,7 +60,6 @@ function mapStateToProps ({certificates, user}) {
   return {
     certificates: certificates.delete('status'),
     isLoading: certificates.getIn(['status', 'isLoading']),
-    currentSubdomain: user.get('currentSubdomain'),
   }
 }
 
