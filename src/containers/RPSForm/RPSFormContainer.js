@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+
+import { SelectCertificateContainer } from '../../containers'
+
 import { Map } from 'immutable'
 import { connect } from 'react-redux'
 import { initialize } from 'redux-form'
@@ -11,6 +14,7 @@ import * as affiliatesActionCreators from '../../redux/modules/affiliates'
 import * as clientsActionCreators from '../../redux/modules/clients'
 import * as activitiesActionCreators from '../../redux/modules/activities'
 import * as snackbarActionCreators from '../../redux/modules/snackbar'
+import * as modalActionCreators from '../../redux/modules/modal'
 import { parseToAutocomplete } from '../../utils'
 
 class RPSFormContainer extends Component {
@@ -41,7 +45,6 @@ class RPSFormContainer extends Component {
       this.props.setNavBarTitle('Editar RPS')
       await this.props.fetchAndHandleRps(this.props.id)
       if (this.props.rps) { this.props.initialize('RPSForm', {rps: this.props.rps}) }
-      await this.props.fetchPDF(this.props.id)
     } else {
       this.props.setNavBarTitle('Novo RPS')
     }
@@ -97,10 +100,23 @@ class RPSFormContainer extends Component {
     }
   }
 
+  async handleOpenPDF () {
+    const pdfLink = await this.props.fetchPDF(this.props.id)
+    window.open(pdfLink, '_blank').focus()
+  }
+
+  handleSignClick () {
+    const id = this.props.rps.get('id')
+    this.props.openModal(() => <SelectCertificateContainer rpsId={id} />)
+  }
+
   render () {
     return (
       <RPSForm onSubmit={(rps) => this.handleSubmitRPS(rps)}
-               autoCompleteCompanies={this.state.autoCompleteCompanies} />
+        autoCompleteCompanies={this.state.autoCompleteCompanies}
+        onSignClick={() => this.handleSignClick()}
+        onOpenPDF={() => this.handleOpenPDF()}
+        rps={this.props.rps} />
     )
   }
 }
@@ -134,6 +150,7 @@ function mapDispatchToProps (dispatch) {
     ...clientsActionCreators,
     ...activitiesActionCreators,
     ...snackbarActionCreators,
+    ...modalActionCreators,
     ...{initialize}}, dispatch)
 }
 

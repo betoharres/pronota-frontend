@@ -62,13 +62,11 @@ export default function AppDrawer ({
             disabled={isDisabled} onClick={() => onRedirectTo('/activities')} />
           <MenuItem leftIcon={<CertificatesIcon />} primaryText='Certificados'
             disabled={isDisabled} onClick={() => onRedirectTo('/certificates')} />
-          <Subheader>Criar Empresa/Cliente</Subheader>
+          <Subheader>Criar Empresa</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onClick={() => onRedirectTo('/companies/new')} />
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Filial'
             disabled={isDisabled} onClick={() => onRedirectTo('/affiliates/new')} />
-          <MenuItem leftIcon={<AddIcon />} primaryText='Novo Cliente'
-            disabled={isDisabled} onClick={() => onRedirectTo('/clients/new')} />
         </Menu>
       </span>
     </Drawer>

@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 import DatePicker from 'material-ui/DatePicker'
+import SignIcon from 'material-ui/svg-icons/action/assignment-turned-in'
+import PDFIcon from 'material-ui/svg-icons/image/picture-as-pdf'
 
 import './styles.css'
 
@@ -12,6 +14,10 @@ import { ServiceForm } from '../../components'
 import { alphaNumeric, required, number, maxLength } from '../../validations'
 
 class RPSForm extends Component {
+
+  static defaultProps = {
+    isSigned: false
+  }
 
   renderDatePicker ({input, label, meta: {touched, error}, ...custom}) {
     let date
@@ -57,8 +63,17 @@ class RPSForm extends Component {
       {id: 6, descricao: 'Exigibilidade suspensa por procedimento administrativo'},
     ]
 
+    const { rps, onOpenPDF, onSignClick } = this.props
+    const isSigned = rps && rps.get('assinatura') ? true : false
+
     return (
       <div className='rpsContainer'>
+        <div class="rpsActionButtons">
+          <RaisedButton icon={<SignIcon />} onClick={onSignClick}
+            primary={!(isSigned)} disabled={!(isSigned)} label='Assinar'/>
+          <RaisedButton disabled={!(isSigned)} primary={isSigned}
+            icon={<PDFIcon />} onClick={onOpenPDF} label='PDF'/>
+        </div>
         <Paper className='rpsPaperContainer'>
           <form onSubmit={this.props.handleSubmit}>
             <FormSection name='rps'>

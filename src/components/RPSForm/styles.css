@@ -13,3 +13,12 @@
 .rpsPaperContainer {
   padding: 20px;
 }
+
+.rpsActionButtons {
+  margin: 20px;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.rpsActionBtn {
+}
