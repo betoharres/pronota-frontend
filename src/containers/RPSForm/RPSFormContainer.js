@@ -116,6 +116,7 @@ class RPSFormContainer extends Component {
     return (
       <RPSForm onSubmit={(rps) => this.handleSubmitRPS(rps)}
         autoCompleteCompanies={this.state.autoCompleteCompanies}
+        hasCertificates={this.props.hasCertificates}
         onSignClick={() => this.handleSignClick()}
         onOpenPDF={() => this.handleOpenPDF()}
         rps={this.props.rps} />
@@ -123,13 +124,18 @@ class RPSFormContainer extends Component {
   }
 }
 
-function mapStateToProps ({user, rps, activities, companies, clients, affiliates}, {match}) {
+function mapStateToProps ({
+  user, rps, activities, companies, clients, affiliates, certificates
+}, {match}) {
+
+  certificates = certificates.delete('status')
   const { id } = match.params
 
   if (id) {
     return {
       id,
       rps: rps.get(id),
+      hasCertificates: certificates.size > 0,
       companies,
       clients,
       affiliates,
