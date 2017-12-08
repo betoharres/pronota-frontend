@@ -23,10 +23,12 @@ class RoleFormContainer extends Component {
   handleSubmitRole (role) {
     if (this.props.id) {
       this.props.handleUpdateRole(this.props.id, role)
-      this.props.showSnackbar('Permissão atualizada com sucesso')
+        ? this.props.showSnackbar('Permissão atualizado com sucesso')
+        : this.props.showSnackbar('Erro ao atualizar Permissão')
     } else {
       this.props.handleCreateRole(role)
-      this.props.showSnackbar('Permissão criada com sucesso')
+        ? this.props.showSnackbar('Permissão criar com sucesso')
+        : this.props.showSnackbar('Erro ao criar Permissão')
     }
   }
 
@@ -46,6 +48,7 @@ function mapStateToProps ({user, roles}, {match}) {
       role: roles.get(id),
     }
   }
+  return {}
 }
 
 function mapDispatchToProps (dispatch) {

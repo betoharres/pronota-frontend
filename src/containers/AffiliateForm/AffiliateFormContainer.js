@@ -46,6 +46,7 @@ function mapStateToProps ({user, affiliates}, {match}) {
       affiliate: affiliates.get(id),
     }
   }
+  return {}
 }
 
 function mapDispatchToProps (dispatch) {

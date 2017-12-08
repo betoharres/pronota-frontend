@@ -5,6 +5,7 @@ import { initialize } from 'redux-form'
 import { CompanyForm } from '../../components'
 import * as clientsActionCreators from '../../redux/modules/clients'
 import * as navBarActionCreators from '../../redux/modules/navBar'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 class ClientFormContainer extends Component {
 
@@ -22,8 +23,12 @@ class ClientFormContainer extends Component {
   handleSubmitClient (client) {
     if (this.props.id) {
       this.props.handleUpdateClient(this.props.id, client)
+        ? this.props.showSnackbar('Cliente atualizado com sucesso')
+        : this.props.showSnackbar('Erro ao atualizar Cliente')
     } else {
       this.props.handleCreateClient(client)
+        ? this.props.showSnackbar('Cliente criado com sucesso')
+        : this.props.showSnackbar('Erro ao criar Cliente')
     }
   }
 
@@ -43,12 +48,14 @@ function mapStateToProps ({user, clients}, {match}) {
       client: clients.get(id),
     }
   }
+  return {}
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...navBarActionCreators,
     ...clientsActionCreators,
+    ...snackbarActionCreators,
     ...{initialize},
   }, dispatch)
 }

@@ -22,8 +22,14 @@ class CompanyFormContainer extends Component {
     let newCompany = null
     if (this.props.id) {
       newCompany = await this.props.handleUpdateCompany(this.props.id, company)
+      newCompany
+        ? this.props.showSnackbar('Empresa atualizada com sucesso')
+        : this.props.showSnackbar('Erro ao atualizar Empresa')
     } else {
       newCompany = await this.props.handleCreateCompany(company)
+      newCompany
+        ? this.props.showSnackbar('Empresa criada com sucesso')
+        : this.props.showSnackbar('Erro ao criar Empresa')
     }
     if (newCompany) {this.props.history.push(`/companies/${newCompany.id}`)}
   }

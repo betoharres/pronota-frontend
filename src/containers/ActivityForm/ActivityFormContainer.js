@@ -27,10 +27,12 @@ class ActivityFormContainer extends Component {
   handleSubmitActivity (activity) {
     if (this.props.id) {
       this.props.handleUpdateActivity(this.props.id, activity)
-      this.props.showSnackbar('Atividade atualizada com sucesso')
+        ? this.props.showSnackbar('Atividade atualizada com sucesso')
+        : this.props.showSnackbar('Erro ao atualizar atividade')
     } else {
       this.props.handleCreateActivity(activity)
-      this.props.showSnackbar('Atividade criada com sucesso')
+        ? this.props.showSnackbar('Atividade criada com sucesso')
+        : this.props.showSnackbar('Erro ao criar atividade')
     }
   }
 
@@ -58,6 +60,7 @@ function mapStateToProps ({user, activities}, {match}) {
       activity: activities.get(id),
     }
   }
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivityFormContainer)
