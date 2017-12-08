@@ -69,10 +69,12 @@ class RPSFormContainer extends Component {
     )
     if (this.props.id) {
       this.props.handleUpdateRps(this.props.id, rps)
-      this.props.showSnackbar('RPS atualizado com sucesso')
+        ? this.props.showSnackbar('RPS atualizado com sucesso')
+        : this.props.showSnackbar('Erro ao atualizar RPS')
     } else {
       this.props.handleCreateRps(rps)
-      this.props.showSnackbar('RPS criado com sucesso')
+        ? this.props.showSnackbar('RPS criado com sucesso')
+        : this.props.showSnackbar('Erro ao criar RPS')
     }
   }
 

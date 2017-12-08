@@ -9,7 +9,7 @@ class ClientsContainer extends Component {
 
   async componentDidMount () {
     await this.props.fetchAndHandleMultipleClients()
-    this.props.setNavBarTitle('Atividades')
+    this.props.setNavBarTitle('Clientes')
   }
 
   handleRowClick (selectedRow) {
