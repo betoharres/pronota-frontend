@@ -5,6 +5,7 @@ import { initialize } from 'redux-form'
 import { CompanyForm } from '../../components'
 import * as companiesActionCreators from '../../redux/modules/companies'
 import * as navBarActionCreators from '../../redux/modules/navBar'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 class CompanyFormContainer extends Component {
 
@@ -57,6 +58,7 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...navBarActionCreators,
     ...companiesActionCreators,
+    ...snackbarActionCreators,
     ...{initialize},
   }, dispatch)
 }
