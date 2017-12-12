@@ -15,6 +15,7 @@ import * as clientsActionCreators from '../../redux/modules/clients'
 import * as activitiesActionCreators from '../../redux/modules/activities'
 import * as snackbarActionCreators from '../../redux/modules/snackbar'
 import * as modalActionCreators from '../../redux/modules/modal'
+import * as certificatesActionCreators from '../../redux/modules/certificates'
 import { parseToAutocomplete } from '../../utils'
 
 class RPSFormContainer extends Component {
@@ -49,9 +50,10 @@ class RPSFormContainer extends Component {
       this.props.setNavBarTitle('Novo RPS')
     }
     await Promise.all([
-      await this.props.fetchAndHandleMultipleClients(),
-      await this.props.fetchAndHandleMultipleActivities(),
-      await this.props.fetchAndHandleMultipleAffiliates()
+      this.props.fetchAndHandleMultipleClients(),
+      this.props.fetchAndHandleMultipleActivities(),
+      this.props.fetchAndHandleMultipleAffiliates(),
+      this.props.fetchAndHandleMultipleCertificates(),
     ])
     this.buildAutoCompleteCompanies()
   }
@@ -129,6 +131,7 @@ function mapStateToProps ({
 }, {match}) {
 
   certificates = certificates.delete('status')
+  console.log(certificates.toJS())
   const { id } = match.params
 
   if (id) {
@@ -159,6 +162,7 @@ function mapDispatchToProps (dispatch) {
     ...activitiesActionCreators,
     ...snackbarActionCreators,
     ...modalActionCreators,
+    ...certificatesActionCreators,
     ...{initialize}}, dispatch)
 }
 

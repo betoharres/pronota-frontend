@@ -69,7 +69,7 @@ class RPSForm extends Component {
 
     return (
       <div className='rpsContainer'>
-        <div class="rpsActionButtons">
+        <div className="rpsActionButtons">
           <RaisedButton icon={<SignIcon />} onClick={onSignClick}
             primary={hasCertificates && !(isSigned)} disabled={!(hasCertificates)} label='Assinar'/>
           <RaisedButton disabled={!(isSigned)} primary={isSigned}
