@@ -17,7 +17,6 @@ class RPSForm extends Component {
 
   static defaultProps = {
     isSigned: false,
-    hasCertificates: false,
   }
 
   renderDatePicker ({input, label, meta: {touched, error}, ...custom}) {
@@ -64,14 +63,14 @@ class RPSForm extends Component {
       {id: 6, descricao: 'Exigibilidade suspensa por procedimento administrativo'},
     ]
 
-    const { rps, onOpenPDF, onSignClick, hasCertificates } = this.props
+    const { rps, onOpenPDF, onSignClick } = this.props
     const isSigned = rps && rps.get('assinatura') ? true : false
 
     return (
       <div className='rpsContainer'>
         <div className="rpsActionButtons">
           <RaisedButton icon={<SignIcon />} onClick={onSignClick}
-            primary={hasCertificates && !(isSigned)} disabled={!(hasCertificates)} label='Assinar'/>
+            primary={!(isSigned)} disabled={isSigned} label='Assinar'/>
           <RaisedButton disabled={!(isSigned)} primary={isSigned}
             icon={<PDFIcon />} onClick={onOpenPDF} />
         </div>

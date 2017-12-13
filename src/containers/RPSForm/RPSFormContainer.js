@@ -50,10 +50,9 @@ class RPSFormContainer extends Component {
       this.props.setNavBarTitle('Novo RPS')
     }
     await Promise.all([
-      this.props.fetchAndHandleMultipleClients(),
-      this.props.fetchAndHandleMultipleActivities(),
-      this.props.fetchAndHandleMultipleAffiliates(),
-      this.props.fetchAndHandleMultipleCertificates(),
+      await this.props.fetchAndHandleMultipleClients(),
+      await this.props.fetchAndHandleMultipleActivities(),
+      await this.props.fetchAndHandleMultipleAffiliates(),
     ])
     this.buildAutoCompleteCompanies()
   }
@@ -131,14 +130,12 @@ function mapStateToProps ({
 }, {match}) {
 
   certificates = certificates.delete('status')
-  console.log(certificates.toJS())
   const { id } = match.params
 
   if (id) {
     return {
       id,
       rps: rps.get(id),
-      hasCertificates: certificates.size > 0,
       companies,
       clients,
       affiliates,
