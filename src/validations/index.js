@@ -24,3 +24,14 @@ export const alphaNumeric = value =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? 'Somente letras e numeros'
     : undefined
+
+// ref: https://github.com/tapajos/brazilian-rails/blob/master/brcpfcnpj/lib/brcpfcnpj/cpf_cnpj.rb
+export const cpf = value =>
+  value && !/^(\d{3}\.?\d{3}\.?\d{3})-?(\d{2})$/.test(value)
+    ? 'CPF invalido'
+    : undefined
+
+export const cnpj = value =>
+  value && !/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4})-?(\d{2})$/.test(value)
+    ? 'CNPJ invalido'
+    : undefined
