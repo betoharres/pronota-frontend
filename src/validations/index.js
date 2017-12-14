@@ -3,6 +3,9 @@ export const required = value => (value ? undefined : 'Obrigatorio')
 export const number = value =>
   value && isNaN(Number(value)) ? 'Deve ser numerico' : undefined
 
+export const exactLength = size => value =>
+  value && value.length !== size ? `Deve conter ${size} digitos` : undefined
+
 export const maxLength = max => value =>
   value && value.length > max ? `Deve ser no maximo ${max} caracteres ou menos` : undefined
 

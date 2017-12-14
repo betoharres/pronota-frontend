@@ -5,11 +5,20 @@ import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 
-import { alphaNumeric, required, number, maxLength, email, cpf, cnpj } from '../../validations'
+import { maxLength, alphaNumeric, required, number, exactLength, email, cpf, cnpj } from '../../validations'
 import { UF, cidades } from '../../datasources'
 import './styles.css'
 
 function CompanyForm (props) {
+
+  const cepLength = exactLength(8)
+  const foneMaxLength = maxLength(11)
+  const emailMaxLength = maxLength(80)
+  const complementoMaxLength = maxLength(60)
+  const logradouroMaxLength = maxLength(125)
+  const numeroMaxLength = maxLength(10)
+  const razaoSocialMaxLength = maxLength(115)
+  const inscMunicipalMaxLength = maxLength(15)
 
   return (
     <div className='divContainer'>
@@ -37,7 +46,8 @@ function CompanyForm (props) {
               <Field name='incentivadorCultural' label='Incentivador Cultural' component={CheckBoxForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='razaoSocial' validate={[alphaNumeric]} label='Razao Social' component={TextForm} />
+              <Field name='razaoSocial' validate={[alphaNumeric, razaoSocialMaxLength]}
+                label='Razao Social' component={TextForm} />
             </div>
             <div className='companyFormField'>
               <Field name='tipo' label='Tipo' validate={[required]} component={SelectForm}>
@@ -55,7 +65,8 @@ function CompanyForm (props) {
               <Field name='inscEstadual' label='Inscricao Estadual' component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='inscMunicipal' label='Inscricao Municipal' component={TextForm} />
+              <Field name='inscMunicipal' label='Inscricao Municipal'
+                validate={[inscMunicipalMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
               <Field name='ufId' label='UF' validate={[required]} component={AutoCompleteForm}
@@ -66,25 +77,27 @@ function CompanyForm (props) {
                 dataSource={cidades} dataSourceConfig={{text: 'nome', value: 'id'}} />
             </div>
             <div className='companyFormField'>
-              <Field name='cep' label='CEP' validate={[number]} component={TextForm} />
+              <Field name='cep' label='CEP' validate={[cepLength, number]} component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='logradouro' label='Logradouro' validate={[alphaNumeric]} component={TextForm} />
+              <Field name='logradouro' label='Logradouro'
+                validate={[alphaNumeric, logradouroMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='numero' label='Numero' validate={[number]} component={TextForm} />
+              <Field name='numero' label='Numero' validate={[number, numeroMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='complemento' label='Complemento' validate={[alphaNumeric]} component={TextForm} />
+              <Field name='complemento' label='Complemento'
+                validate={[alphaNumeric, complementoMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
               <Field name='bairro' label='Bairro' validate={[alphaNumeric]} component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='email' label='Email' validate={[email]} component={TextForm} />
+              <Field name='email' label='Email' validate={[email, emailMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='fone' label='Fone' validate={[number]} component={TextForm} />
+              <Field name='fone' label='Fone' validate={[number, foneMaxLength]} component={TextForm} />
             </div>
             <div>
               <RaisedButton type='submit' label={'Enviar'} fullWidth={true}
