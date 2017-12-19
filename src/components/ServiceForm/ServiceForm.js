@@ -4,7 +4,6 @@ import { Field } from 'redux-form/immutable'
 import {
   AutoCompleteForm,
   TextForm,
-  CheckBoxForm,
   SelectForm,
 } from '../../components/FormComponents'
 
@@ -55,62 +54,54 @@ class ServiceForm extends Component {
             component={TextForm}
             validate={[required, number]} />
         </div>
-        <div className='serviceField'>
-          <Field name='baseCalculo' label='Base Calculo' component={TextForm}
-            validate={[required, number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='aliquotaServicos' label='Aliquota do Servico'
-            component={TextForm} validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorDeducoes' label='Valor Deducoes' component={TextForm}
-            validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorPis' label='Valor PIS' component={TextForm}
-            validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorCofins' label='Valor Cofins' component={TextForm}
-            validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorInss' label='Valor INSS' component={TextForm}
-            validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorIr' label='Valor IR' component={TextForm}
-            validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorCsll' label='Valor CSLL' component={TextForm}
-            validate={[number]} />
-        </div>
-        <br/>
-        <div className='serviceField'>
-          <Field name='issRetido' label='ISS Retido' component={CheckBoxForm} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorIssRetido' label='Valor ISS Retido'
-            component={TextForm} validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorDescIncond' label='Valor Desconto Incondicionado'
-            component={TextForm} validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorDescCond' label='Valor Desconto Condicionado'
-             component={TextForm} validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='outrasRetencoes' label='Outras Retencoes'
-             component={TextForm} validate={[number]} />
-        </div>
-        <div className='serviceField'>
-          <Field name='valorLiquidoNfse' label='Valor Liquido NFSE'
-            component={TextForm} validate={[number]} />
-        </div>
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='aliquotaServicos' label='Aliquota do Servico' */}
+        {/*     component={TextForm} validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorDeducoes' label='Valor Deducoes' component={TextForm} */}
+        {/*     validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorPis' label='Valor PIS' component={TextForm} */}
+        {/*     validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorCofins' label='Valor Cofins' component={TextForm} */}
+        {/*     validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorInss' label='Valor INSS' component={TextForm} */}
+        {/*     validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorIr' label='Valor IR' component={TextForm} */}
+        {/*     validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorCsll' label='Valor CSLL' component={TextForm} */}
+        {/*     validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorIssRetido' label='Valor ISS Retido' */}
+        {/*     component={TextForm} validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorDescIncond' label='Valor Desconto Incondicionado' */}
+        {/*     component={TextForm} validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorDescCond' label='Valor Desconto Condicionado' */}
+        {/*      component={TextForm} validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='outrasRetencoes' label='Outras Retencoes' */}
+        {/*      component={TextForm} validate={[number]} /> */}
+        {/* </div> */}
+        {/* <div className='serviceField'> */}
+        {/*   <Field name='valorLiquidoNfse' label='Valor Liquido NFSE' */}
+        {/*     component={TextForm} validate={[number]} /> */}
+        {/* </div> */}
       </div>
     )
   }
