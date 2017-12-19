@@ -65,8 +65,6 @@ export default function AppDrawer ({
           <Subheader>Criar Empresa</Subheader>
           <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onClick={() => onRedirectTo('/companies/new')} />
-          <MenuItem leftIcon={<AddIcon />} primaryText='Nova Filial'
-            disabled={isDisabled} onClick={() => onRedirectTo('/affiliates/new')} />
         </Menu>
       </span>
     </Drawer>
