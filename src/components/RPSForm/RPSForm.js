@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Field, reduxForm, FormSection } from 'redux-form/immutable'
-import { AutoCompleteForm, TextForm, SelectForm } from '../../components/FormComponents'
+import { AutoCompleteForm, SelectForm } from '../../components/FormComponents'
 import Paper from 'material-ui/Paper'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -11,7 +11,7 @@ import PDFIcon from 'material-ui/svg-icons/image/picture-as-pdf'
 import './styles.css'
 
 import { ServiceForm } from '../../components'
-import { alphaNumeric, required, number, maxLength } from '../../validations'
+import { alphaNumeric, required } from '../../validations'
 
 class RPSForm extends Component {
 
@@ -41,8 +41,6 @@ class RPSForm extends Component {
     )
   }
 
-  maxLength5 = maxLength(5)
-
   render () {
 
     const regimeTributacao = [
@@ -70,92 +68,62 @@ class RPSForm extends Component {
       <div className='rpsContainer'>
         <div className="rpsActionButtons">
           <RaisedButton icon={<SignIcon />} onClick={onSignClick}
-            primary={!(isSigned)} disabled={isSigned} label='Assinar'/>
+            primary={!(isSigned)} disabled={!this.props.rps} label='Assinar'/>
           <RaisedButton disabled={!(isSigned)} primary={isSigned}
             icon={<PDFIcon />} onClick={onOpenPDF} />
         </div>
-        <Paper className='rpsPaperContainer'>
           <form onSubmit={this.props.handleSubmit}>
             <FormSection name='rps'>
-              <div className='rpsField'>
-                <Field
-                  name='prestadorAttributes'
-                  label='Prestador'
-                  validate={[required, alphaNumeric]}
-                  component={AutoCompleteForm}
-                  dataSource={this.props.autoCompleteCompanies}
-                  dataSourceConfig={{text: 'name', value: 'id'}} />
-              </div>
-              <div className='rpsField'>
-                <Field
-                  name='tomadorAttributes'
-                  label='Tomador'
-                  validate={[required, alphaNumeric]}
-                  component={AutoCompleteForm}
-                  dataSource={this.props.autoCompleteCompanies}
-                  dataSourceConfig={{text: 'name', value: 'id'}} />
-              </div>
-              <div className='rpsField'>
-                <Field
-                  name='serie'
-                  validate={[required, number, this.maxLength5]}
-                  component={TextForm}
-                  label="Serie" />
-              </div>
-              <div className='rpsField'>
-                <Field
-                  name='tipo'
-                  validate={[required]}
-                  component={SelectForm}
-                  label="Tipo">
-                  <MenuItem value={1} primaryText={'Recibo Provisório de Serviços'} />
-                  <MenuItem value={2} primaryText={'Nota Fiscal Conjugada (Mista)'} />
-                  <MenuItem value={3} primaryText={'Cupom'} />
-                </Field>
-              </div>
-              <br/>
-              <div className='rpsField'>
-                <Field
-                  name='emissao'
-                  validate={[required]}
-                  component={this.renderDatePicker}
-                  label="Data do Serviço" />
-              </div>
-              <div className='rpsField'>
-                <Field name='situacao'
-                  validate={[required]}
-                  component={SelectForm}
-                  label="Situacao">
-                    <MenuItem value={1} primaryText={'Normal'} />
-                    <MenuItem value={2} primaryText={'Cancelado'} />
-                </Field>
-              </div>
-              <div className='rpsField'>
-                <Field
-                  name='natOperId'
-                  component={AutoCompleteForm}
-                  validate={[required, alphaNumeric]}
-                  dataSourceConfig={{text: 'descricao', value: 'id'}}
-                  dataSource={naturezaOperacao} label='Natureza da Operacao' />
-              </div>
-              <div className='rpsField'>
-                <Field
-                  name='regimeId'
-                  component={AutoCompleteForm}
-                  validate={[alphaNumeric]}
-                  dataSource={regimeTributacao} label='Regime Tributacao'
-                  dataSourceConfig={{text: 'descricao', value: 'id'}} />
-              </div>
-              <FormSection name={'serviceAttributes'}>
-                <ServiceForm />
-              </FormSection>
-              <div>
-                <RaisedButton type='submit' label={'Enviar'} fullWidth={true}
-                  disabled={this.props.pristine || this.props.submitting} />
-              </div>
+              <Paper className='rpsPaperContainer'>
+                <div className='rpsField'>
+                  <Field
+                    name='tomadorAttributes'
+                    label='Tomador'
+                    validate={[required, alphaNumeric]}
+                    component={AutoCompleteForm}
+                    dataSource={this.props.autoCompleteCompanies}
+                    dataSourceConfig={{text: 'name', value: 'id'}} />
+                </div>
+                <br/>
+                <div className='rpsField'>
+                  <Field
+                    name='emissao'
+                    validate={[required]}
+                    component={this.renderDatePicker}
+                    label="Data do Serviço" />
+                </div>
+                <div className='rpsField'>
+                  <Field
+                    name='natOperId'
+                    component={SelectForm}
+                    validate={[required]}
+                    label='Natureza da Operação'>
+                    {naturezaOperacao.map((natOper, index) =>
+                      <MenuItem key={index} value={natOper.id} primaryText={natOper.descricao} />
+                    )}
+                  </Field>
+                </div>
+                <div className='rpsField'>
+                  <Field
+                    name='regimeId'
+                    component={SelectForm}
+                    validate={[alphaNumeric]}
+                    label='Regime Tributação'>
+                    {regimeTributacao.map((regime, index) =>
+                      <MenuItem key={index} value={regime.id} primaryText={regime.descricao} />
+                    )}
+                  </Field>
+                </div>
+                <FormSection name={'serviceAttributes'}>
+                  <ServiceForm />
+                </FormSection>
+                <div>
+                  <RaisedButton type='submit' label={'Enviar'} fullWidth={true}
+                    disabled={this.props.pristine || this.props.submitting} />
+                </div>
+              </Paper>
             </FormSection>
           </form>
-        </Paper>
       </div>
     )
   }

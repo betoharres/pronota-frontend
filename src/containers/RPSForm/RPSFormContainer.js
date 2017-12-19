@@ -15,7 +15,6 @@ import * as clientsActionCreators from '../../redux/modules/clients'
 import * as activitiesActionCreators from '../../redux/modules/activities'
 import * as snackbarActionCreators from '../../redux/modules/snackbar'
 import * as modalActionCreators from '../../redux/modules/modal'
-import * as certificatesActionCreators from '../../redux/modules/certificates'
 import { parseToAutocomplete } from '../../utils'
 
 class RPSFormContainer extends Component {
@@ -42,32 +41,29 @@ class RPSFormContainer extends Component {
   }
 
   async componentDidMount () {
-    if (this.props.id) {
-      this.props.setNavBarTitle('Editar RPS')
-      await this.props.fetchAndHandleRps(this.props.id)
-      if (this.props.rps) { this.props.initialize('RPSForm', {rps: this.props.rps}) }
-    } else {
-      this.props.setNavBarTitle('Novo RPS')
-    }
     await Promise.all([
       await this.props.fetchAndHandleMultipleClients(),
       await this.props.fetchAndHandleMultipleActivities(),
       await this.props.fetchAndHandleMultipleAffiliates(),
     ])
     this.buildAutoCompleteCompanies()
+
+    if (this.props.id) {
+      this.props.setNavBarTitle('Editar RPS')
+      const rps = await this.props.fetchAndHandleRps(this.props.id)
+      rps.prestadorAttributes = this.buildCompanyObject(this.props.currentCompanyId)
+      if (this.props.rps) { this.props.initialize('RPSForm', {rps}) }
+    } else {
+      this.props.setNavBarTitle('Novo RPS')
+    }
   }
 
   handleSubmitRPS (rps) {
-    const prestadorPath = ['rps', 'prestadorAttributes']
-    const tomadorPath = ['rps', 'tomadorAttributes']
-    rps = rps.mergeIn(
-      prestadorPath,
-      this.buildCompanyObject(rps.getIn(prestadorPath)),
-    )
-    rps = rps.mergeIn(
-      tomadorPath,
-      this.buildCompanyObject(rps.getIn(tomadorPath)),
-    )
+    const tomadorId = rps.getIn(['rps', 'tomadorAttributes'])
+    const tomadorObject = this.buildCompanyObject(tomadorId)
+    rps = rps.mergeIn(['rps', 'tomadorAttributes'], tomadorObject)
+    // rps = rps.mergeIn(['rps', 'serviceAttributes'], {ufId: 1})
+
     if (this.props.id) {
       this.props.handleUpdateRps(this.props.id, rps)
         ? this.props.showSnackbar('RPS atualizado com sucesso')
@@ -125,11 +121,8 @@ class RPSFormContainer extends Component {
   }
 }
 
-function mapStateToProps ({
-  user, rps, activities, companies, clients, affiliates, certificates
-}, {match}) {
+function mapStateToProps ({user, rps, activities, companies, clients, affiliates}, {match}) {
 
-  certificates = certificates.delete('status')
   const { id } = match.params
 
   if (id) {
@@ -139,12 +132,14 @@ function mapStateToProps ({
       companies,
       clients,
       affiliates,
+      currentCompanyId: user.get('currentCompanyId'),
     }
   } else {
     return {
       companies,
       clients,
       affiliates,
+      currentCompanyId: user.get('currentCompanyId'),
     }
   }
 }
@@ -159,7 +154,6 @@ function mapDispatchToProps (dispatch) {
     ...activitiesActionCreators,
     ...snackbarActionCreators,
     ...modalActionCreators,
-    ...certificatesActionCreators,
     ...{initialize}}, dispatch)
 }
 

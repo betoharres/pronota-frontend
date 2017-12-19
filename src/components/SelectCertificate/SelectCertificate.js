@@ -23,7 +23,6 @@ export default function SelectCertificate (props) {
             size={20} />
           : props.certificates.size === 0
             ? <div>
-                <p>Erro:</p>
                 <p>Voce precisa fazer o upload de no minimo 1 certificado.</p>
               </div>
             : <RadioButtonGroup
@@ -46,7 +45,7 @@ export default function SelectCertificate (props) {
           fullWidth={true}
           disabled={isDisabled}
           onChange={props.onUpdatePassword}
-          floatingLabelText='Senha' />
+          floatingLabelText='Senha do Certificado' />
         <RaisedButton
           fullWidth={true}
           secondary={true}

@@ -23,6 +23,7 @@ export const AutoCompleteForm =
 
   return (
     <AutoComplete
+      openOnFocus={true}
       fullWidth={true}
       maxSearchResults={6}
       floatingLabelText={props.label}

@@ -4,14 +4,16 @@ import { Field } from 'redux-form/immutable'
 import {
   AutoCompleteForm,
   TextForm,
-  CheckBoxForm
+  CheckBoxForm,
+  SelectForm,
 } from '../../components/FormComponents'
 
 import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
+import MenuItem from 'material-ui/MenuItem'
 
 import { parseToAutocomplete } from '../../utils'
-import { cidades, UF } from '../../datasources'
+import { cidades } from '../../datasources'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -27,13 +29,8 @@ class ServiceForm extends Component {
     return (
       <div>
         <div className='dividerService'>
-          <Subheader>Servico</Subheader>
+          <Subheader>Serviço</Subheader>
           <Divider />
-        </div>
-        <div className='serviceField'>
-          <Field name='ufId' label='UF' component={AutoCompleteForm}
-            dataSource={UF} dataSourceConfig={{text: 'sigla', value: 'id'}}
-            validate={[alphaNumeric, required]} />
         </div>
         <div className='serviceField'>
           <Field name='cidadeId' label='Cidade' component={AutoCompleteForm}
@@ -42,11 +39,14 @@ class ServiceForm extends Component {
         </div>
         <div className='serviceField'>
           <Field
-            validate={[required, alphaNumeric]}
             name='activityId'
-            component={AutoCompleteForm}
-            dataSourceConfig={{text: 'nome', value: 'id'}}
-            dataSource={this.props.autocompleteActivities} label='Atividade' />
+            component={SelectForm}
+            validate={[required]}
+            label='Atividade'>
+            {this.props.activities.valueSeq().map((activity, index) =>
+              <MenuItem key={index} value={activity.get('id')} primaryText={activity.get('nome')} />
+            )}
+          </Field>
         </div>
         <div className='serviceField'>
           <Field
