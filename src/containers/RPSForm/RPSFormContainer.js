@@ -58,20 +58,20 @@ class RPSFormContainer extends Component {
     }
   }
 
-  handleSubmitRPS (rps) {
+  async handleSubmitRPS (rps) {
     const tomadorId = rps.getIn(['rps', 'tomadorAttributes'])
     const tomadorObject = this.buildCompanyObject(tomadorId)
     rps = rps.mergeIn(['rps', 'tomadorAttributes'], tomadorObject)
     // rps = rps.mergeIn(['rps', 'serviceAttributes'], {ufId: 1})
 
     if (this.props.id) {
-      this.props.handleUpdateRps(this.props.id, rps)
+      await this.props.handleUpdateRps(this.props.id, rps)
         ? this.props.showSnackbar('RPS atualizado com sucesso')
-        : this.props.showSnackbar('Erro ao atualizar RPS')
+        : this.props.showSnackbar('Não foi possível atualizar RPS')
     } else {
-      this.props.handleCreateRps(rps)
+      await this.props.handleCreateRps(rps)
         ? this.props.showSnackbar('RPS criado com sucesso')
-        : this.props.showSnackbar('Erro ao criar RPS')
+        : this.props.showSnackbar('Não foi possível criar RPS')
     }
   }
 

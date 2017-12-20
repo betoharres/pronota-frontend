@@ -47,7 +47,7 @@ class CertificatesContainer extends Component {
     if (this.props.handleDestroyCertificate(id)) {
       this.props.showSnackbar('Certificado deletado com sucesso')
     } else {
-      this.props.showSnackbar('Nao foi possivel deletar certificado')
+      this.props.showSnackbar('Não foi possível deletar certificado')
     }
   }
 

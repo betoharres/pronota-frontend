@@ -41,7 +41,7 @@ export const SelectForm = props => (
   <SelectField
     fullWidth={true}
     floatingLabelText={props.label}
-    errorText={props.touched && props.error}
+    errorText={props.meta.touched && props.meta.error}
     onChange={(event, index, value) => props.input.onChange(value)}
     children={props.children}
     value={props.input.value} />

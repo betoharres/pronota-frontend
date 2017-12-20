@@ -35,6 +35,7 @@ class RPSForm extends Component {
         mode={'portrait'}
         fullWidth={true}
         value={date}
+        errorText={touched && error}
         onChange={(e, value) => {input.onChange(value)}}
         {...custom}
       />
@@ -107,7 +108,7 @@ class RPSForm extends Component {
                   <Field
                     name='regimeId'
                     component={SelectForm}
-                    validate={[alphaNumeric]}
+                    validate={[required, alphaNumeric]}
                     label='Regime Tributação'>
                     {regimeTributacao.map((regime, index) =>
                       <MenuItem key={index} value={regime.id} primaryText={regime.descricao} />
