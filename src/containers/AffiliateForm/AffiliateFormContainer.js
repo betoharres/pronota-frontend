@@ -32,8 +32,8 @@ class AffiliateFormContainer extends Component {
 
   render () {
     return (
-      <CompanyForm isCompany={false} resourceName='filial'
-          onSubmit={(affiliate) => this.handleSubmitAffiliate(affiliate)} />
+      <CompanyForm isCompany={true} hasSubdomain={false} resourceName='filial'
+        onSubmit={(affiliate) => this.handleSubmitAffiliate(affiliate)} />
     )
   }
 }
