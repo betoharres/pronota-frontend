@@ -62,6 +62,8 @@ class RPSFormContainer extends Component {
     const tomadorId = rps.getIn(['rps', 'tomadorAttributes'])
     const tomadorObject = this.buildCompanyObject(tomadorId)
     rps = rps.mergeIn(['rps', 'tomadorAttributes'], tomadorObject)
+    const prestador = this.buildCompanyObject(this.props.currentCompanyId)
+    rps = rps.mergeDeep({rps: {prestadorAttributes: prestador}})
     // rps = rps.mergeIn(['rps', 'serviceAttributes'], {ufId: 1})
 
     if (this.props.id) {
