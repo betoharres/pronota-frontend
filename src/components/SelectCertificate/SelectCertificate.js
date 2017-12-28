@@ -3,7 +3,15 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
+import Menu from 'material-ui/Menu'
+import MenuItem from 'material-ui/MenuItem'
+import Paper from 'material-ui/Paper'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+
+import './styles.css'
+
+import { redA200 } from 'material-ui/styles/colors'
+
 
 export default function SelectCertificate (props) {
 
@@ -25,19 +33,29 @@ export default function SelectCertificate (props) {
             ? <div>
                 <p>Voce precisa fazer o upload de no minimo 1 certificado.</p>
               </div>
-            : <RadioButtonGroup
-                name="selectCertificate"
-                onChange={props.onSelectCertificate}
-                defaultSelected={0}>
-                {props.certificates.valueSeq().map((certificate, index) => (
-                  <RadioButton
-                    key={index}
-                    label={`${certificate.get('id')} -
-                      ${certificate.get('filename')}`}
-                    value={certificate.get('id')} />
-                ))
-              }
-              </RadioButtonGroup>
+            : <div>
+                {props.signErrors
+                    ? <Paper className='errorContainer' style={{color: redA200}}>
+                        <p>A prefeitura rejeitou o RPS pelos seguintes motivos:</p>
+                        {props.signErrors && props.signErrors.base.map((error, index) => (
+                          <p key={index}>{error}</p>
+                        ))}
+                      </Paper>
+                  : null
+                }
+                <RadioButtonGroup
+                      name="selectCertificate"
+                      onChange={props.onSelectCertificate}
+                      defaultSelected={0}>
+                      {props.certificates.valueSeq().map((certificate, index) => (
+                        <RadioButton
+                          key={index}
+                          label={`${certificate.get('id')} - ${certificate.get('filename')}`}
+                          value={certificate.get('id')} />
+                  ))
+                }
+                </RadioButtonGroup>
+              </div>
       }
       <div className="certificatePass">
         <TextField

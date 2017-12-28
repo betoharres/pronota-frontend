@@ -126,10 +126,11 @@ export function signingRps (rpsId) {
 }
 
 export const SIGNING_RPS_SUCCESS = 'SIGNING_RPS_SUCCESS'
-export function signingRpsSuccess (signedRps) {
+export function signingRpsSuccess (rpsId, rps) {
   return {
     type: SIGNING_RPS_SUCCESS,
-    signedRps,
+    rpsId,
+    rps,
   }
 }
 
@@ -156,7 +157,6 @@ export function fetchPDF (rpsId, currentSubdomain) {
       const blob = new Blob([rpsPDF], { type: 'application/pdf' })
       const URL = window.URL || window.webkitURL
       const downloadURL = URL.createObjectURL(blob)
-      console.log(downloadURL)
       return downloadURL
     } catch (e) {
       dispatch(loadingMultipleRpsFailure(e))
@@ -249,7 +249,7 @@ export function signRps (rpsId, certificateId, password) {
     try {
       const signedRps =
         await callAPI('/sign_rps', currentSubdomain, 'POST', signBody)
-      dispatch(signingRpsSuccess(signedRps))
+      dispatch(signingRpsSuccess(rpsId, signedRps))
       return signedRps
     } catch (e) {
       dispatch(signedRpsFailure(e))
@@ -261,7 +261,7 @@ export function signRps (rpsId, certificateId, password) {
 const initialState = fromJS({
   status: {
     isLoading: false,
-    errors: '',
+    errors: null,
     lastUpdated: 0,
   }
 })
@@ -280,6 +280,7 @@ export default function rps (state = initialState, action) {
     case CREATING_RPS_FAILURE :
     case UPDATING_RPS_FAILURE :
     case DESTROYING_RPS_FAILURE :
+    case SIGNING_RPS_FAILURE :
       return state.mergeIn(['status', 'errors'], action.error)
 
     case LOADING_MULTIPLE_RPS_SUCCESS :
@@ -294,6 +295,7 @@ export default function rps (state = initialState, action) {
         }
       })
 
+    case SIGNING_RPS_SUCCESS :
     case LOADING_RPS_SUCCESS :
     case CREATING_RPS_SUCCESS :
     case UPDATING_RPS_SUCCESS :
