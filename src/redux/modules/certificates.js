@@ -1,5 +1,5 @@
 import { fromJS, Map } from 'immutable'
-import { LOGOUT_USER } from './user'
+import { LOGOUT_USER, SET_USER_CURRENT_SUBDOMAIN } from './user'
 import { callAPI } from '../../utils'
 
 export const LOADING_MULTIPLE_CERTIFICATES = 'LOADING_MULTIPLE_CERTIFICATES'
@@ -247,6 +247,7 @@ export default function certificates (state = initialState, action) {
       state = state.delete(action.certificateId.toString())
       return state.mergeDeep({status: {isLoading: false, errors: ''}})
 
+    case SET_USER_CURRENT_SUBDOMAIN :
     case LOGOUT_USER :
       return initialState
 
