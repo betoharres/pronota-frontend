@@ -3,11 +3,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { initialize } from 'redux-form'
 import { CompanyForm } from '../../components'
+import { formValueSelector } from 'redux-form'
 import * as clientsActionCreators from '../../redux/modules/clients'
 import * as navBarActionCreators from '../../redux/modules/navBar'
 import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 class ClientFormContainer extends Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      isCompany: props.isCompany,
+    }
+  }
 
   async componentDidMount () {
     if (this.props.id) {
@@ -32,10 +40,19 @@ class ClientFormContainer extends Component {
     }
   }
 
+  handleSetIsCompany (isCompany) {
+    this.setState({isCompany})
+  }
+
   render () {
+    console.log(this.state.isCompany)
     return (
-      <CompanyForm isCompany={false} resourceName='cliente'
-          onSubmit={(client) => this.handleSubmitClient(client)} />
+      <CompanyForm
+        resourceName='cliente'
+        hasSubdomain={false}
+        isCompany={this.state.isCompany}
+        onSetIsCompany={(isCompany) => this.handleSetIsCompany(isCompany)}
+        onSubmit={(client) => this.handleSubmitClient(client)} />
     )
   }
 }
@@ -45,10 +62,13 @@ function mapStateToProps ({user, clients}, {match}) {
   if (id) {
     return {
       id,
+      isCompany: clients.getIn([id, 'tipo']) === 'pessoa_juridica' ? true : false,
       client: clients.get(id),
     }
   }
-  return {}
+  return {
+    isCompany: true,
+  }
 }
 
 function mapDispatchToProps (dispatch) {

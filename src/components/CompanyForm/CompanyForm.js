@@ -4,10 +4,24 @@ import { TextForm, AutoCompleteForm, SelectForm, CheckBoxForm } from '../../comp
 import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
+import SelectField from 'material-ui/SelectField'
 
 import { maxLength, alphaNumeric, required, number, exactLength, email, cpf, cnpj } from '../../validations'
 import { UF, cidades } from '../../datasources'
 import './styles.css'
+
+export const SelectTipo = props => (
+  <SelectField
+    fullWidth={true}
+    floatingLabelText={props.label}
+    errorText={props.meta.touched && props.meta.error}
+    onChange={(event, index, value) => {
+      props.onSetIsCompany(value === 'pessoa_juridica' ? true : false)
+      return props.input.onChange(value)
+    }}
+    children={props.children}
+    value={props.input.value} />
+);
 
 function CompanyForm (props) {
 
@@ -29,45 +43,50 @@ function CompanyForm (props) {
               <Field name='name' validate={[required, alphaNumeric]}
                 label='Nome' component={TextForm} />
             </div>
-            {props.isCompany
+            {props.hasSubdomain
               ? <div className='companyFormField'>
-                <Field name='subdomain' validate={[required, alphaNumeric]}
-                  label='Dominio' component={TextForm} />
+                  <Field name='subdomain' validate={[required, alphaNumeric]}
+                    label='Dominio' component={TextForm} />
                 </div>
-              : null}
-            <div className='companyFormField'>
-              <Field name='nomeFantasia' validate={[alphaNumeric]}
-                label='Nome Fantasia' component={TextForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='simplesNacional' label='Simples Nacional' component={CheckBoxForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='incentivadorCultural' label='Incentivador Cultural' component={CheckBoxForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='razaoSocial' validate={[alphaNumeric, razaoSocialMaxLength]}
-                label='Razao Social' component={TextForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='tipo' label='Tipo' validate={[required]} component={SelectForm}>
-                <MenuItem value={'pessoa_juridica'} primaryText={'Pessoa Juridica'} />
-                <MenuItem value={'pessoa_fisica'} primaryText={'Pessoa Fisica'} />
-              </Field>
-            </div>
-            <div className='companyFormField'>
-              <Field name='cnpj' label='CNPJ' validate={[cnpj]} component={TextForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='cpf' label='CPF' validate={[cpf]} component={TextForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='inscEstadual' label='Inscricao Estadual' component={TextForm} />
-            </div>
-            <div className='companyFormField'>
-              <Field name='inscMunicipal' label='Inscricao Municipal'
-                validate={[inscMunicipalMaxLength]} component={TextForm} />
-            </div>
+              : <div className='companyFormField'>
+                  <Field name='tipo' label='Tipo' validate={[required]}
+                    onSetIsCompany={(value) => props.onSetIsCompany(value)} component={SelectTipo}>
+                    <MenuItem value={'pessoa_juridica'} primaryText={'Pessoa Juridica'} />
+                    <MenuItem value={'pessoa_fisica'} primaryText={'Pessoa Fisica'} />
+                  </Field>
+                </div>
+            }
+            {props.isCompany
+                ? <div>
+                    <div className='companyFormField'>
+                      <Field name='nomeFantasia' validate={[alphaNumeric]}
+                        label='Nome Fantasia' component={TextForm} />
+                    </div>
+                    <div className='companyFormField'>
+                      <Field name='simplesNacional' label='Simples Nacional' component={CheckBoxForm} />
+                    </div>
+                    <div className='companyFormField'>
+                      <Field name='incentivadorCultural' label='Incentivador Cultural' component={CheckBoxForm} />
+                    </div>
+                    <div className='companyFormField'>
+                      <Field name='razaoSocial' validate={[alphaNumeric, razaoSocialMaxLength]}
+                        label='Razao Social' component={TextForm} />
+                    </div>
+                    <div className='companyFormField'>
+                      <Field name='inscEstadual' label='Inscricao Estadual' component={TextForm} />
+                    </div>
+                    <div className='companyFormField'>
+                      <Field name='inscMunicipal' label='Inscricao Municipal'
+                        validate={[inscMunicipalMaxLength]} component={TextForm} />
+                    </div>
+                    <div className='companyFormField'>
+                      <Field name='cnpj' label='CNPJ' validate={[cnpj]} component={TextForm} />
+                    </div>
+                  </div>
+                : <div className='companyFormField'>
+                    <Field name='cpf' label='CPF' validate={[cpf]} component={TextForm} />
+                  </div>
+              }
             <div className='companyFormField'>
               <Field name='ufId' label='UF' validate={[required]} component={AutoCompleteForm}
                 dataSource={UF} dataSourceConfig={{text: 'sigla', value: 'id'}} />

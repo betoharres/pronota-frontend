@@ -10,12 +10,12 @@ import * as snackbarActionCreators from '../../redux/modules/snackbar'
 class CompanyFormContainer extends Component {
 
   async componentDidMount () {
-    this.props.setNavBarTitle('Nova Empresa')
     if (this.props.id) {
-      await this.props.fetchAndHandleCompany(this.props.id)
-      if (this.props.company) {
-        this.props.initialize('CompanyForm', {company: this.props.company})
-      }
+      const company = await this.props.fetchAndHandleCompany(this.props.id)
+      if (company) { this.props.initialize('CompanyForm', {company}) }
+      this.props.setNavBarTitle('Editar Empresa')
+    } else {
+      this.props.setNavBarTitle('Nova Empresa')
     }
   }
 
@@ -37,8 +37,11 @@ class CompanyFormContainer extends Component {
 
   render () {
     return (
-      <CompanyForm isCompany={true} resourceName='company'
-          onSubmit={(company) => this.handleSubmitCompany(company)} />
+      <CompanyForm
+        isCompany={true}
+        hasSubdomain={true}
+        resourceName='company'
+        onSubmit={(company) => this.handleSubmitCompany(company)} />
     )
   }
 }
