@@ -1,6 +1,6 @@
 import React from 'react'
 import { reduxForm, Field, FormSection } from 'redux-form/immutable'
-import { TextForm, AutoCompleteForm, SelectForm, CheckBoxForm } from '../../components/FormComponents'
+import { TextForm, AutoCompleteForm, CheckBoxForm } from '../../components/FormComponents'
 import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
