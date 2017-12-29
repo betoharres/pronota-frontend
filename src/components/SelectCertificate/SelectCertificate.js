@@ -3,8 +3,6 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
-import Menu from 'material-ui/Menu'
-import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui/Paper'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 

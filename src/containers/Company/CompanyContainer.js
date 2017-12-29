@@ -55,8 +55,11 @@ class CompanyContainer extends Component {
 
   render () {
     return (
-      <Company name={this.props.name}
+      <Company
+        name={this.props.name}
         roleName={this.props.roleName}
+        company={this.props.company}
+        noCompany={this.props.noCompany}
         destroyCompany={() => this.destroyCompany()}
         redirectTo={(path) => this.redirectTo(path)}
         isLoadingCompany={this.props.isLoadingCompany}
@@ -75,6 +78,7 @@ function mapStateToProps ({companies, user, rps}, {match}) {
     return {
       id,
       noCompany,
+      company,
       name: '',
       subdomain: '',
       roleName: '',
@@ -87,6 +91,7 @@ function mapStateToProps ({companies, user, rps}, {match}) {
       return {
         id,
         noCompany,
+        company,
         name: company.get('name'),
         subdomain: company.get('subdomain'),
         roleName: user.getIn(['role', 'info', 'name']),

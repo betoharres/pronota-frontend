@@ -3,30 +3,37 @@ import { Account } from '../../components'
 
 import { connect } from 'react-redux'
 import { setNavBarTitle } from '../../redux/modules/navBar'
+import { fetchAndHandleUserRole, handleDeleteUser } from '../../redux/modules/user'
+import { showSnackbar } from '../../redux/modules/snackbar'
 
 class AccountContainer extends Component {
 
-  componentDidMount () {
-    this.props.dispatch(setNavBarTitle('Minha Conta'))
+  async componentDidMount () {
+    await this.props.dispatch(setNavBarTitle('Minha Conta'))
+    await this.props.dispatch(fetchAndHandleUserRole())
   }
 
-  redirectToCompany = (companyId) => {
-    this.props.history.push(`/companies/${companyId}`)
+  async handleDeleteAccountClick () {
+    await this.props.dispatch(handleDeleteUser())
+      ? this.props.dispatch(showSnackbar('Conta deletada com sucesso'))
+      : this.props.dispatch(showSnackbar('Não foi possível deletar sua conta'))
   }
 
   render () {
     return (
-      <Account openModal={(e) => this.openModal(e)}
-        companies={this.props.companies}
+      <Account
+        user={this.props.user}
+        role={this.props.role}
+        onDeleteAccountClick={() => this.handleDeleteAccountClick()}
         redirectToCompany={(companyId) => this.redirectToCompany(companyId)} />
     )
   }
 }
 
-function mapStateToProps ({companies}) {
-  companies = companies.delete('status')
+function mapStateToProps ({user}) {
   return {
-    companies,
+    user: user.get('info'),
+    role: user.getIn(['role', 'info']),
   }
 }
 

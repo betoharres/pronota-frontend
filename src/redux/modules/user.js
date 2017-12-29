@@ -105,6 +105,28 @@ export function loadingUserRoleFailure (error) {
   }
 }
 
+export const LOADING_DELETE_USER = 'LOADING_DELETE_USER'
+export function loadingDeleteUser () {
+  return {
+    type: LOADING_DELETE_USER,
+  }
+}
+
+export const LOADING_DELETE_USER_SUCCESS = 'LOADING_DELETE_USER_SUCCESS'
+export function loadingDeleteUserSuccess () {
+  return {
+    type: LOADING_DELETE_USER_SUCCESS,
+  }
+}
+
+export const LOADING_DELETE_USER_FAILURE = 'LOADING_DELETE_USER_FAILURE'
+export function loadingDeleteUserFailure (error) {
+  return {
+    type: LOADING_DELETE_USER_FAILURE,
+    error,
+  }
+}
+
 const initialState = fromJS({
   currentSubdomain: null,
   currentCompanyName: '',
@@ -204,11 +226,30 @@ export function fetchAndHandleUserRole () {
   }
 }
 
+export function handleDeleteUser () {
+  return async function (dispatch, getState) {
+    dispatch(loadingDeleteUser())
+    try {
+      const userId = getState().user.get('id')
+      await callAPI(`/user/${userId}`, 'DELETE')
+      dispatch(clearUserCurrentSubdomain())
+      dispatch(logoutUser())
+      dispatch(loadingUserRoleSuccess())
+    } catch (e) {
+      dispatch(loadingDeleteUserFailure())
+    }
+  }
+}
+
 export default function user (state = initialState, action) {
   switch (action.type) {
 
     case LOGIN_USER :
       return state.mergeDeep({isAuthenticating: true, error: null})
+
+    case LOADING_DELETE_USER_FAILURE :
+      return state.mergeDeep({error: action.error})
+
 
     case LOGIN_USER_FAILURE :
       return state.mergeDeep({
@@ -293,6 +334,7 @@ export default function user (state = initialState, action) {
         }})
 
     case LOGOUT_USER :
+    case LOADING_DELETE_USER_SUCCESS :
       state = initialState
       return state.merge({isAuthenticating: false})
 

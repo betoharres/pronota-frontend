@@ -1,12 +1,12 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
+
 import './styles.css'
 
-export default function Company (props) {
+export default function Company ({company}) {
 
   return (
-    <Paper className='paperContainer'>
-    </Paper>
+    <div className='paperContainer'>
+    </div>
   )
 
 }

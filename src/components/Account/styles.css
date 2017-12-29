@@ -1,11 +1,29 @@
 .accountContainer {
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-.cardContainer {
-  margin: 20px;
+.contentAccountContainer {
+  margin: 30px;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.avatarContainer {
+  display: flex;
+  height: 40vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.userInfoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
