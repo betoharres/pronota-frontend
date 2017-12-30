@@ -273,6 +273,7 @@ export default function rps (state = initialState, action) {
     case LOADING_RPS :
     case CREATING_RPS :
     case UPDATING_RPS :
+    case SIGNING_RPS :
       return state.mergeIn(['status', 'isLoading'], true)
 
     case LOADING_MULTIPLE_RPS_FAILURE :

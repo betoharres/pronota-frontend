@@ -48,6 +48,7 @@ export default function SelectCertificate (props) {
                       {props.certificates.valueSeq().map((certificate, index) => (
                         <RadioButton
                           key={index}
+                          disabled={isDisabled}
                           label={`${certificate.get('id')} - ${certificate.get('filename')}`}
                           value={certificate.get('id')} />
                   ))
@@ -65,7 +66,7 @@ export default function SelectCertificate (props) {
         <RaisedButton
           fullWidth={true}
           secondary={true}
-          label='Assinar'
+          label={props.isSigning ? 'Assinando...' : 'Assinar'}
           disabled={isDisabled}
           onClick={props.onSignRps} />
       </div>
