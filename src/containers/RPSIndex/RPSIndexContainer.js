@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import * as rpsActionCreators from '../../redux/modules/rps'
 import * as userActionCreators from '../../redux/modules/user'
 import * as navBarActionCreators from '../../redux/modules/navBar'
+import * as snackbarActionCreators from '../../redux/modules/snackbar'
 
 class RPSIndexContainer extends Component {
 
@@ -23,8 +24,10 @@ class RPSIndexContainer extends Component {
     this.props.history.push(path)
   }
 
-  handleDestroyRps (id) {
-    this.props.handleDestroyRps(id)
+  async handleDestroyRps (id) {
+    await this.props.handleDestroyRps(id)
+      ? this.props.showSnackbar('RPS deletado com sucesso')
+      : this.props.showSnackbar('Não foi possível deletar RPS')
   }
 
 
@@ -51,6 +54,7 @@ function mapDispatchToProps (dispatch) {
     ...userActionCreators,
     ...navBarActionCreators,
     ...rpsActionCreators,
+    ...snackbarActionCreators,
   }, dispatch)
 }
 
