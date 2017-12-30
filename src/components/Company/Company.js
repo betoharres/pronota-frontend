@@ -28,6 +28,9 @@ export default function Company ({company, redirectTo}) {
         {company.get('incentivadorCultural')
           ? <MenuItem primaryText={'Incentivador Cultural'} />
           : null}
+        {company.get('razaoSocial')
+          ? <MenuItem primaryText={`Razão Social: ${company.get('razaoSocial')}`} />
+          : null}
         <MenuItem primaryText={`Logradouro: ${company.get('logradouro')}`} />
         <MenuItem primaryText={`Numero: ${company.get('numero')}`} />
         {company.get('complemento')
