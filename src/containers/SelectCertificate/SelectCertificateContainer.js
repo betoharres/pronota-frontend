@@ -4,7 +4,7 @@ import { SelectCertificate } from '../../components'
 import { fetchAndHandleMultipleCertificates } from '../../redux/modules/certificates'
 import { signRps } from '../../redux/modules/rps'
 import { showSnackbar } from '../../redux/modules/snackbar'
-import { closeModal } from '../../redux/modules/modal'
+import { openModal } from '../../redux/modules/modal'
 
 class SelectCertificateContainer extends Component {
 
@@ -24,8 +24,7 @@ class SelectCertificateContainer extends Component {
     const { rpsId } = this.props
     const signedRPS = await this.props.dispatch(signRps(rpsId, selectedCertificate, password))
     if (signedRPS) {
-      this.props.dispatch(showSnackbar('RPS assinado com sucesso'))
-      this.props.dispatch(closeModal())
+      this.props.dispatch(openModal(() => <span>RPS assinado com sucesso</span> ))
     } else {
       this.props.dispatch(showSnackbar('Não foi possível assinar o RPS. Tente novamente.'))
     }
