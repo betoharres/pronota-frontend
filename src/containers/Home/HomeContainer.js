@@ -8,7 +8,7 @@ class HomeContainer extends Component {
 
   componentDidMount () {
     if (this.props.notFound === true)
-      this.props.dispatch(openModal(() => <span>Página não encontrada</span>))
+      this.props.dispatch(openModal(() => <span>Página não encontrada ou não autenticado.</span>))
   }
 
   handleOpenLoginModal () {
