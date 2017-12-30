@@ -143,9 +143,7 @@ const initialState = fromJS({
     isLoading: false,
     error: '',
     lastUpdated: 0,
-    info: {
-      name: '',
-    },
+    info: {},
   },
 })
 
@@ -230,13 +228,12 @@ export function handleDeleteUser () {
   return async function (dispatch, getState) {
     dispatch(loadingDeleteUser())
     try {
-      const userId = getState().user.get('id')
-      await callAPI(`/user/${userId}`, 'DELETE')
+      await callAPI('/user', '', 'DELETE')
       dispatch(clearUserCurrentSubdomain())
       dispatch(logoutUser())
       dispatch(loadingUserRoleSuccess())
     } catch (e) {
-      dispatch(loadingDeleteUserFailure())
+      dispatch(loadingDeleteUserFailure(e))
     }
   }
 }

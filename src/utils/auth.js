@@ -6,7 +6,7 @@ const endpoints = {
   emailSignInPath:       "/auth/sign_in",
   emailRegistrationPath: "/auth",
   accountUpdatePath:     "/auth",
-  accountDeletePath:     "/auth",
+  accountDeletePath:     "/auth/cancel",
   passwordResetPath:     "/auth/password",
   passwordUpdatePath:    "/auth/password",
   tokenValidationPath:   "/auth/validate_token",

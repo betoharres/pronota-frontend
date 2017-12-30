@@ -34,6 +34,7 @@ function mapStateToProps ({user}) {
   return {
     user: user.get('info'),
     role: user.getIn(['role', 'info']),
+    isLoadingRole: user.getIn(['role', 'isLoading']),
   }
 }
 

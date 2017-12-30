@@ -15,7 +15,7 @@
 
 .avatarContainer {
   display: flex;
-  height: 40vh;
+  height: 350px;
   align-items: center;
   justify-content: center;
   flex-direction: column;

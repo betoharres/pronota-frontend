@@ -46,7 +46,7 @@ function CompanyForm (props) {
             {props.hasSubdomain
               ? <div className='companyFormField'>
                   <Field name='subdomain' validate={[required, alphaNumeric]}
-                    label='Dominio' component={TextForm} />
+                    label='Domínio' component={TextForm} />
                 </div>
               : <div className='companyFormField'>
                   <Field name='tipo' label='Tipo' validate={[required]}

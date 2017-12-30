@@ -1,6 +1,5 @@
 .paperContainer {
   margin: 30px;
-  /* padding: 20px; */
 }
 
 .welcomeContainer {
@@ -95,6 +94,33 @@
 
 .headerColumnText {
   color: white;
+}
+
+.upperPaperContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.companyContainer {
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.companyAvatar {
+  margin: 25px;
+}
+
+.companyName {
+  margin-bottom: 35px;
+  font-size: 35px;
+}
+
+.companyTitle {
+  margin-bottom: 35px;
 }
 
 @media screen and (max-width: 414px) {
