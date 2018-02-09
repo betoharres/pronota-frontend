@@ -24,7 +24,7 @@ export const email = value =>
     : undefined
 
 export const alphaNumeric = value =>
-  value && /[^a-zA-Z0-9 ]/i.test(value)
+  value && /[^a-zA-Z0-9]/i.test(value)
     ? 'Somente letras e numeros'
     : undefined
 

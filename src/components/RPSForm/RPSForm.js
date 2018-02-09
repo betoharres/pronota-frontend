@@ -11,7 +11,7 @@ import PDFIcon from 'material-ui/svg-icons/image/picture-as-pdf'
 import './styles.css'
 
 import { ServiceForm } from '../../components'
-import { alphaNumeric, required } from '../../validations'
+import { required } from '../../validations'
 
 class RPSForm extends Component {
 
@@ -80,7 +80,7 @@ class RPSForm extends Component {
                   <Field
                     name='tomadorAttributes'
                     label='Tomador'
-                    validate={[required, alphaNumeric]}
+                    validate={[required]}
                     component={AutoCompleteForm}
                     dataSource={this.props.autoCompleteCompanies}
                     dataSourceConfig={{text: 'name', value: 'id'}} />
@@ -108,7 +108,7 @@ class RPSForm extends Component {
                   <Field
                     name='regimeId'
                     component={SelectForm}
-                    validate={[required, alphaNumeric]}
+                    validate={[required]}
                     label='Regime Tributação'>
                     {regimeTributacao.map((regime, index) =>
                       <MenuItem key={index} value={regime.id} primaryText={regime.descricao} />

@@ -40,7 +40,7 @@ function CompanyForm (props) {
         <form onSubmit={props.handleSubmit}>
           <FormSection name={props.resourceName}>
             <div className='companyFormField'>
-              <Field name='name' validate={[required, alphaNumeric]}
+              <Field name='name' validate={[required]}
                 label='Nome' component={TextForm} />
             </div>
             {props.hasSubdomain
@@ -59,8 +59,7 @@ function CompanyForm (props) {
             {props.isCompany
                 ? <div>
                     <div className='companyFormField'>
-                      <Field name='nomeFantasia' validate={[alphaNumeric]}
-                        label='Nome Fantasia' component={TextForm} />
+                      <Field name='nomeFantasia' label='Nome Fantasia' component={TextForm} />
                     </div>
                     <div className='companyFormField'>
                       <Field name='simplesNacional' label='Simples Nacional' component={CheckBoxForm} />
@@ -69,7 +68,7 @@ function CompanyForm (props) {
                       <Field name='incentivadorCultural' label='Incentivador Cultural' component={CheckBoxForm} />
                     </div>
                     <div className='companyFormField'>
-                      <Field name='razaoSocial' validate={[alphaNumeric, razaoSocialMaxLength]}
+                      <Field name='razaoSocial' validate={[razaoSocialMaxLength]}
                         label='Razao Social' component={TextForm} />
                     </div>
                     <div className='companyFormField'>
@@ -100,17 +99,17 @@ function CompanyForm (props) {
             </div>
             <div className='companyFormField'>
               <Field name='logradouro' label='Logradouro'
-                validate={[alphaNumeric, logradouroMaxLength]} component={TextForm} />
+                validate={[logradouroMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
               <Field name='numero' label='Numero' validate={[number, numeroMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
               <Field name='complemento' label='Complemento'
-                validate={[alphaNumeric, complementoMaxLength]} component={TextForm} />
+                validate={[complementoMaxLength]} component={TextForm} />
             </div>
             <div className='companyFormField'>
-              <Field name='bairro' label='Bairro' validate={[alphaNumeric]} component={TextForm} />
+              <Field name='bairro' label='Bairro' component={TextForm} />
             </div>
             <div className='companyFormField'>
               <Field name='email' label='Email' validate={[email, emailMaxLength]} component={TextForm} />
