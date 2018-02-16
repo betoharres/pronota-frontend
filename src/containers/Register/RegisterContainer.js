@@ -13,9 +13,9 @@ class RegisterContainer extends Component {
 
   async handleUserRegistration (credentials) {
     if (await this.props.handleRegisterUser(credentials)) {
-      this.props.showSnackbar('Registrado com sucesso. Confira seu E-mail.')
+      this.props.showSnackbar('Registrado com sucesso. Verifique seu e-mail.')
     } else {
-      this.props.showSnackbar('Não foi possível registrar-se. Tente novamente.')
+      this.props.showSnackbar('Não foi possível registrar-se.')
     }
     this.props.closeModal()
   }
