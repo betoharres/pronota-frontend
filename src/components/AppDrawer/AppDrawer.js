@@ -12,6 +12,7 @@ import ReceiptIcon from 'material-ui/svg-icons/action/receipt'
 import WorkIcon from 'material-ui/svg-icons/action/work'
 import ClientsIcon from 'material-ui/svg-icons/communication/business'
 import CertificatesIcon from 'material-ui/svg-icons/hardware/security'
+import {List, ListItem} from 'material-ui/List'
 
 export default function AppDrawer ({
   isOpen,
@@ -36,36 +37,36 @@ export default function AppDrawer ({
           iconElementLeft={<span />}
           titleStyle={{fontWeight: 100}}
           title={navBarTitle} />
-        <Menu>
+        <List>
           <Subheader>Minhas Empresas</Subheader>
           <SelectField disabled={companies.size === 0}
             value={Number(currentCompanyId)}
             style={{marginLeft: 20, maxWidth: 220}}>
             {companies.size > 0
               ? companies.valueSeq().map((company) => (
-                <MenuItem key={company.get('id')}
+                <ListItem key={company.get('id')}
                   value={company.get('id')}
                   primaryText={company.get('name')}
                   onClick={() => selectCompany(company.get('id'))} />
                 ))
               : null}
           </SelectField>
-          <MenuItem leftIcon={<AccountIcon />} primaryText='Minha Conta'
+          <ListItem leftIcon={<AccountIcon />} primaryText='Minha Conta'
             onClick={() => onRedirectTo('/account')} />
-          <MenuItem leftIcon={<RoleIcon />} primaryText='Permissōes'
+          <ListItem leftIcon={<RoleIcon />} primaryText='Permissōes'
             disabled={isDisabled} onClick={() => onRedirectTo('/roles')} />
-          <MenuItem leftIcon={<ReceiptIcon />} primaryText='RPS'
+          <ListItem leftIcon={<ReceiptIcon />} primaryText='RPS'
             disabled={isDisabled} onClick={() => onRedirectTo('/rps')} />
-          <MenuItem leftIcon={<ClientsIcon />} primaryText='Clientes'
+          <ListItem leftIcon={<ClientsIcon />} primaryText='Clientes'
             disabled={isDisabled} onClick={() => onRedirectTo('/clients')} />
-          <MenuItem leftIcon={<WorkIcon />} primaryText='Atividades'
+          <ListItem leftIcon={<WorkIcon />} primaryText='Atividades'
             disabled={isDisabled} onClick={() => onRedirectTo('/activities')} />
-          <MenuItem leftIcon={<CertificatesIcon />} primaryText='Certificados'
+          <ListItem leftIcon={<CertificatesIcon />} primaryText='Certificados'
             disabled={isDisabled} onClick={() => onRedirectTo('/certificates')} />
           <Subheader>Criar Empresa</Subheader>
-          <MenuItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
+          <ListItem leftIcon={<AddIcon />} primaryText='Nova Empresa'
             onClick={() => onRedirectTo('/companies/new')} />
-        </Menu>
+        </List>
       </span>
     </Drawer>
   )
