@@ -10,6 +10,7 @@ const endpoints = {
   passwordResetPath:     "/auth/password",
   passwordUpdatePath:    "/auth/password",
   tokenValidationPath:   "/auth/validate_token",
+  validateUserEmail:     "/user_info/email_exists",
 }
 
 export function getCredentials (headers) {
@@ -105,6 +106,16 @@ export async function logout () {
   } catch (e) {
     return Promise.reject('Error requesting logout: ', e)
   }
+}
+
+export async function validateUserEmail (email) {
+  const response = await fetch(
+    `${API_PROTOCOL}://${API_DOMAIN}${endpoints.validateUserEmail}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({user_info: {email}})
+  })
+  return await parseResponse(response)
 }
 
 export function readCredentials () {

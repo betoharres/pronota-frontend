@@ -31,7 +31,7 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...{showSnackbar},
     ...{handleRegisterUser},
-    ...{closeModal}
+    ...{closeModal},
   }, dispatch)
 }
 

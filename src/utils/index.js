@@ -12,7 +12,8 @@ export {
   logout,
   register,
   validateCredentials,
-  saveQueryCredentials
+  saveQueryCredentials,
+  validateUserEmail,
 } from './auth'
 
 export { staleCompany, staleRoles, staleUserRole } from './time'
