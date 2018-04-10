@@ -9,6 +9,7 @@ export const TextForm = props => (
     hintText={props.label}
     type={props.type ? props.type : "text"}
     fullWidth={true}
+    onBlur={(value) => props.input.onBlur(value)}
     floatingLabelText={props.label}
     errorText={props.meta.touched && props.meta.error}
     onChange={(v) => props.input.onChange(v)}
