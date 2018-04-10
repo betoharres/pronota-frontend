@@ -52,6 +52,7 @@ export async function callAPI (
 }
 
 export function parseToSneakCase (immutableObj) {
+  immutableObj = immutableObj instanceof Object ? fromJS(immutableObj) : immutableObj
   const parsedObj = {}
   immutableObj.map((value, key) => {
     // recursive call ( won't catch Object values )
