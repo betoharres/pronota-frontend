@@ -311,7 +311,7 @@ export default function rps (state = initialState, action) {
 
     case DESTROYING_RPS_SUCCESS :
       state = state.delete(action.rpsId.toString())
-      return state.mergeDeep({status: {isLoading: false, errors: ''}})
+      return state.mergeDeep({status: {isLoading: false, errors: null}})
 
     case SET_USER_CURRENT_SUBDOMAIN :
     case LOGOUT_USER :

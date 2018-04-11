@@ -34,10 +34,13 @@ export default function SelectCertificate (props) {
             : <div>
                 {props.signErrors
                     ? <Paper className='errorContainer' style={{color: redA200}}>
-                        <p>A prefeitura rejeitou o RPS pelos seguintes motivos:</p>
-                        {props.signErrors && props.signErrors.base.map((error, index) => (
-                          <p key={index}>{error}</p>
+                        {props.signErrors.base && props.signErrors.base.map((error, index) => (
+                          <div>
+                            <p>A prefeitura rejeitou o RPS pelos seguintes motivos:</p>
+                            <p key={index}>{error}</p>
+                          </div>
                         ))}
+                        <span>{props.signErrors.error}</span>
                       </Paper>
                   : null
                 }
