@@ -142,6 +142,13 @@ export function signedRpsFailure (error) {
   }
 }
 
+export const CLEAR_RPS_ERRORS = 'CLEAR_RPS_ERRORS'
+export function clearRpsErrors () {
+  return {
+    type: CLEAR_RPS_ERRORS,
+  }
+}
+
 export function fetchPDF (rpsId, currentSubdomain) {
   return async function (dispatch, getState) {
     const currentSubdomain = getState().user.get('currentSubdomain')
@@ -312,6 +319,9 @@ export default function rps (state = initialState, action) {
     case DESTROYING_RPS_SUCCESS :
       state = state.delete(action.rpsId.toString())
       return state.mergeDeep({status: {isLoading: false, errors: null}})
+
+    case CLEAR_RPS_ERRORS :
+      return state.mergeDeep({status: {errors: null}})
 
     case SET_USER_CURRENT_SUBDOMAIN :
     case LOGOUT_USER :

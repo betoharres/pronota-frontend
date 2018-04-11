@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { SelectCertificate } from '../../components'
 import { fetchAndHandleMultipleCertificates } from '../../redux/modules/certificates'
-import { signRps } from '../../redux/modules/rps'
+import { signRps, clearRpsErrors } from '../../redux/modules/rps'
 import { showSnackbar } from '../../redux/modules/snackbar'
 import { openModal } from '../../redux/modules/modal'
 
@@ -16,6 +16,10 @@ class SelectCertificateContainer extends Component {
 
   async componentDidMount () {
     await this.props.dispatch(fetchAndHandleMultipleCertificates())
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(clearRpsErrors())
   }
 
   async handleSignRps () {
